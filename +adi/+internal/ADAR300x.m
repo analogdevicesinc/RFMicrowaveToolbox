@@ -82,10 +82,14 @@ classdef (Abstract) ADAR300x < adi.common.Attribute & ...
     end
     
     properties
-        PhasesH = [1, 1, 1, 1, 1, 1, 1, 1];
-        PhasesV = [8, 8, 8, 8, 8, 8, 8, 8];
-        PowersH = [0, 0, 0, 0, 0, 0, 0, 0];
-        PowersV = [0, 0, 0, 0, 0, 0, 0, 0];
+        PhasesBeam0H = [1, 1, 1, 1, 1, 1, 1, 1];
+        PhasesBeam1H = [1, 1, 1, 1, 1, 1, 1, 1];
+        PhasesBeam0V = [8, 8, 8, 8, 8, 8, 8, 8];
+        PhasesBeam1V = [8, 8, 8, 8, 8, 8, 8, 8];
+        PowersBeam0H = [0, 0, 0, 0, 0, 0, 0, 0];
+        PowersBeam1H = [0, 0, 0, 0, 0, 0, 0, 0];
+        PowersBeam0V = [0, 0, 0, 0, 0, 0, 0, 0];
+        PowersBeam1V = [0, 0, 0, 0, 0, 0, 0, 0];
 %         PropertyType = 'raw';
         UpdateIntfCtrl = 'pin';
     end
@@ -123,10 +127,14 @@ classdef (Abstract) ADAR300x < adi.common.Attribute & ...
     
     properties (Hidden)
         beam_devs = {};
-        PhasesHChannelNames = {};
-        PhasesVChannelNames = {};
-        PowersHChannelNames = {};
-        PowersVChannelNames = {};
+        PhasesBeam0HChannelNames = {};
+        PhasesBeam0VChannelNames = {};
+        PowersBeam0HChannelNames = {};
+        PowersBeam0VChannelNames = {};
+        PhasesBeam1HChannelNames = {};
+        PhasesBeam1VChannelNames = {};
+        PowersBeam1HChannelNames = {};
+        PowersBeam1VChannelNames = {};
     end
     
     properties(Nontunable, Hidden, Constant)
@@ -165,10 +173,13 @@ classdef (Abstract) ADAR300x < adi.common.Attribute & ...
         end
         
         function updateDefaultDims(obj)
-            obj.PhasesH = zeros(size(obj.ArrayMapInternal));
-            obj.PhasesV = zeros(size(obj.ArrayMapInternal));
-            obj.PowersH = zeros(size(obj.ArrayMapInternal));
-            obj.PowersV = zeros(size(obj.ArrayMapInternal));
+            [...
+                obj.PhasesBeam0H, obj.PhasesBeam1H,...
+                obj.PhasesBeam0V, obj.PhasesBeam1V,...
+                obj.PowersBeam0H, obj.PowersBeam1H,...
+                obj.PowersBeam0V, obj.PowersBeam1V,...
+                ] ...
+                = deal(zeros(size(obj.ArrayMapInternal)));
             obj.AmpBiasMuteELV = zeros(size(obj.ArrayMapInternal));
             obj.AmpBiasOperationalELH = zeros(size(obj.ArrayMapInternal));
             obj.AmpBiasOperationalELV = zeros(size(obj.ArrayMapInternal));
@@ -216,37 +227,69 @@ classdef (Abstract) ADAR300x < adi.common.Attribute & ...
             obj.UpdateIntfCtrl = values;
         end
         
-        % Check PhasesH
-        function set.PhasesH(obj, values)
+        % Check PhasesBeam0H
+        function set.PhasesBeam0H(obj, values)
             if obj.ConnectedToDevice
                 obj.setAllRelatedChannelAttrs('raw',values,...
-                    obj.PhasesHChannelNames,true,obj.iioDevices);
+                    obj.PhasesBeam0HChannelNames,true,obj.iioDevices);
             end
-            obj.PhasesH = values;
+            obj.PhasesBeam0H = values;
         end
-        % Check PhasesV
-        function set.PhasesV(obj, values)
+        % Check PhasesBeam1H
+        function set.PhasesBeam1H(obj, values)
             if obj.ConnectedToDevice
                 obj.setAllRelatedChannelAttrs('raw',values,...
-                    obj.PhasesVChannelNames,true,obj.iioDevices);
+                    obj.PhasesBeam1HChannelNames,true,obj.iioDevices);
             end
-            obj.PhasesV = values;
+            obj.PhasesBeam1H = values;
         end
-        % Check PowersH
-        function set.PowersH(obj, values)
+        % Check PhasesBeam0V
+        function set.PhasesBeam0V(obj, values)
             if obj.ConnectedToDevice
                 obj.setAllRelatedChannelAttrs('raw',values,...
-                    obj.PowersHChannelNames,true,obj.iioDevices);
+                    obj.PhasesBeam0VChannelNames,true,obj.iioDevices);
             end
-            obj.PowersH = values;
+            obj.PhasesBeam0V = values;
         end
-        % Check PowersV
-        function set.PowersV(obj, values)
+        % Check PhasesBeam1V
+        function set.PhasesBeam1V(obj, values)
             if obj.ConnectedToDevice
                 obj.setAllRelatedChannelAttrs('raw',values,...
-                    obj.PowersVChannelNames,true,obj.iioDevices);
+                    obj.PhasesBeam1VChannelNames,true,obj.iioDevices);
             end
-            obj.PowersV = values;
+            obj.PhasesBeam1V = values;
+        end
+        % Check PowersBeam0H
+        function set.PowersBeam0H(obj, values)
+            if obj.ConnectedToDevice
+                obj.setAllRelatedChannelAttrs('raw',values,...
+                    obj.PowersBeam0HChannelNames,true,obj.iioDevices);
+            end
+            obj.PowersBeam0H = values;
+        end
+        % Check PowersBeam1H
+        function set.PowersBeam1H(obj, values)
+            if obj.ConnectedToDevice
+                obj.setAllRelatedChannelAttrs('raw',values,...
+                    obj.PowersBeam1HChannelNames,true,obj.iioDevices);
+            end
+            obj.PowersBeam1H = values;
+        end
+        % Check PowersBeam0V
+        function set.PowersBeam0V(obj, values)
+            if obj.ConnectedToDevice
+                obj.setAllRelatedChannelAttrs('raw',values,...
+                    obj.PowersBeam0VChannelNames,true,obj.iioDevices);
+            end
+            obj.PowersBeam0V = values;
+        end
+        % Check PowersBeam1V
+        function set.PowersBeam1V(obj, values)
+            if obj.ConnectedToDevice
+                obj.setAllRelatedChannelAttrs('raw',values,...
+                    obj.PowersBeam1VChannelNames,true,obj.iioDevices);
+            end
+            obj.PowersBeam1V = values;
         end
         % Check AmpBiasMuteELV
         function set.AmpBiasMuteELV(obj, value)
@@ -355,8 +398,9 @@ classdef (Abstract) ADAR300x < adi.common.Attribute & ...
             numCols = size(obj.ArrayMapInternal,2);
             
             values = zeros(numRows,numCols);
-            
-            numAttrs = length(channels);
+%             numAttrs = length(channels);
+%             numAttrs = length(channels)/length(devices);
+            numAttrs = 4;
             for r = 1:numRows
                 for c = 1:numCols
                     indx = obj.ArrayMapInternal(r,c);
@@ -367,7 +411,10 @@ classdef (Abstract) ADAR300x < adi.common.Attribute & ...
                     if isempty(devices{deviceIndx})
                         continue;
                     end
-                    
+                    if isempty(channels{attrIndx})
+                        continue
+                    end
+                                        
                     values(r,c) = ...
                         obj.getAttributeLongLong(channels{attrIndx},attr,...
                             output,devices{deviceIndx});
@@ -429,6 +476,7 @@ classdef (Abstract) ADAR300x < adi.common.Attribute & ...
                 sprintf('must of size [%dx%d]',numRows,numCols));
             
             numAttrs = length(attrs);
+%             numAttrs = length(channels)/length(devices);
             for r = 1:numRows
                 for c = 1:numCols
                     indx = obj.ArrayMapInternal(r,c);
@@ -460,8 +508,10 @@ classdef (Abstract) ADAR300x < adi.common.Attribute & ...
             numCols = size(obj.ArrayMapInternal,2);
             assert(isequal(size(values),[numRows,numCols]),...
                 sprintf('Input must of size [%dx%d]',numRows,numCols));
-            
-            numAttrs = length(channels);
+                        
+%             numAttrs = length(channels);
+%             numAttrs = length(channels)/length(devices);
+            numAttrs = 4;
             for r = 1:numRows
                 for c = 1:numCols
                     indx = obj.ArrayMapInternal(r,c);
@@ -475,6 +525,12 @@ classdef (Abstract) ADAR300x < adi.common.Attribute & ...
                         end
                         continue;
                     end
+                    if isempty(channels{attrIndx})
+                        if values(r,c)>0
+                            error('Something wrong');
+                        end
+                        continue
+                    end
                     
                     obj.setAttributeLongLong(channels{attrIndx},attr,...
                         values(r,c),output,tolerance,devices{deviceIndx});
@@ -485,15 +541,18 @@ classdef (Abstract) ADAR300x < adi.common.Attribute & ...
 
         
         function channel_names = get_channel_names_for_prop(obj,phydevs,rxs)
+            channel_names = cell(1,length(phydevs)*16);
+            indx = 1;
             for pindx = 1:length(phydevs)
                 
                 %DEBUG
                 if isempty(phydevs{pindx})
+                    indx = indx + 4;
                     continue;
                 end
                 
                 chanCount = obj.iio_device_get_channels_count(phydevs{pindx});
-                channel_names = {};
+%                 indxI = 1;
                 for c = 1:chanCount
                     chanPtr = obj.iio_device_get_channel(phydevs{pindx},c-1);
                     status = cPtrCheck(obj,chanPtr);
@@ -507,7 +566,10 @@ classdef (Abstract) ADAR300x < adi.common.Attribute & ...
                         if strcmpi(attr,'label')
                             [~, label] = iio_channel_attr_read(obj,chanPtr,attr,64);
                             if ~isempty(regexp(label,rxs, 'once'))
-                                channel_names = [channel_names(:)', {id}];
+%                                 channel_names = [channel_names(:)', {id}];
+                                channel_names{indx} = id;
+                                indx = indx + 1;
+                                continue;
                             end
                         end
                     end
@@ -542,10 +604,14 @@ classdef (Abstract) ADAR300x < adi.common.Attribute & ...
             end
             
             % Get all phase related channels
-            obj.PhasesHChannelNames = obj.get_channel_names_for_prop(obj.iioDevices, "BEAM\d_H_EL\d_DELAY");
-            obj.PhasesVChannelNames = obj.get_channel_names_for_prop(obj.iioDevices, "BEAM\d_V_EL\d_DELAY");
-            obj.PowersHChannelNames = obj.get_channel_names_for_prop(obj.iioDevices, "BEAM\d_H_EL\d_ATTENUATION");
-            obj.PowersVChannelNames = obj.get_channel_names_for_prop(obj.iioDevices, "BEAM\d_V_EL\d_ATTENUATION");
+            obj.PhasesBeam0HChannelNames = obj.get_channel_names_for_prop(obj.iioDevices, "BEAM0_H_EL\d_DELAY");
+            obj.PhasesBeam1HChannelNames = obj.get_channel_names_for_prop(obj.iioDevices, "BEAM1_H_EL\d_DELAY");
+            obj.PhasesBeam0VChannelNames = obj.get_channel_names_for_prop(obj.iioDevices, "BEAM0_V_EL\d_DELAY");
+            obj.PhasesBeam1VChannelNames = obj.get_channel_names_for_prop(obj.iioDevices, "BEAM1_V_EL\d_DELAY");
+            obj.PowersBeam0HChannelNames = obj.get_channel_names_for_prop(obj.iioDevices, "BEAM0_H_EL\d_ATTENUATION");
+            obj.PowersBeam1HChannelNames = obj.get_channel_names_for_prop(obj.iioDevices, "BEAM1_H_EL\d_ATTENUATION");
+            obj.PowersBeam0VChannelNames = obj.get_channel_names_for_prop(obj.iioDevices, "BEAM0_V_EL\d_ATTENUATION");
+            obj.PowersBeam1VChannelNames = obj.get_channel_names_for_prop(obj.iioDevices, "BEAM1_V_EL\d_ATTENUATION");
 
             % Set props
             obj.setAllRelatedDevAttrs(obj.AmpBiasMuteELVAttrs,obj.AmpBiasMuteELV,obj.iioDevices);

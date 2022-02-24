@@ -16,10 +16,14 @@ classdef ADAR3002Tests < HardwareTests
            'AmpENSleepELV'
            };
        cprops = {...
-           'PhasesH',...
-           'PhasesV',...
-           'PowersH',...
-           'PowersV',...
+           'PhasesBeam0H',...
+           'PhasesBeam0V',...
+           'PowersBeam0H',...
+           'PowersBeam0V',...
+           'PhasesBeam1H',...
+           'PhasesBeam1V',...
+           'PowersBeam1H',...
+           'PowersBeam1V',...
            };
     end
     properties
@@ -68,7 +72,9 @@ classdef ADAR3002Tests < HardwareTests
             assert(isequal(size(values),[numRows,numCols]),...
                 sprintf('must of size [%dx%d]',numRows,numCols));
             
-            numAttrs = length(channels);
+%             numAttrs = length(channels);
+%             numAttrs = length(channels)/length(devices);
+            numAttrs = 4;
             for r = 1:numRows
                 for c = 1:numCols
                     indx = obj.ArrayMapInternal(r,c);
@@ -79,7 +85,11 @@ classdef ADAR3002Tests < HardwareTests
                     if isempty(devices{deviceIndx})
                         values(r,c) = 0;
                         continue;
-                    end                    
+                    end
+                    if isempty(channels{attrIndx})
+                        values(r,c) = 0;
+                        continue;
+                    end   
                 end
             end           
         end
@@ -99,10 +109,10 @@ classdef ADAR3002Tests < HardwareTests
             bf = adi.ADAR3002('uri',testCase.uri);
             bf();
             values = randi([0,3],1,4);
-            bf.PhasesH = values;
+            bf.PhasesBeam0H = values;
             % Check
             rvalues = getAllRelatedChannelAttrs(bf,...
-                'raw',bf.PhasesHChannelNames,true,bf.iioDevices);
+                'raw',bf.PhasesBeam0HChannelNames,true,bf.iioDevices);
             bf.release();
             testCase.verifyEqual(rvalues,values);
         end
@@ -115,10 +125,10 @@ classdef ADAR3002Tests < HardwareTests
 %                 'deviceNames',{'adar3002_csb_0_0'});
             bf();
             values = randi([0,3],2,4);
-            bf.PhasesH = values;
+            bf.PhasesBeam0H = values;
             % Check
             rvalues = getAllRelatedChannelAttrs(bf,...
-                'raw',bf.PhasesHChannelNames,true,bf.iioDevices);
+                'raw',bf.PhasesBeam0HChannelNames,true,bf.iioDevices);
             bf.release();
             testCase.verifyEqual(rvalues,values);
         end
@@ -138,6 +148,7 @@ classdef ADAR3002Tests < HardwareTests
             cn = get(bf,[cprops,'ChannelNames']);
             rvalues = getAllRelatedChannelAttrs(bf,...
                 'raw',cn,true,bf.iioDevices);
+            
             bf.release();
             testCase.verifyEqual(rvalues,values);
         end
