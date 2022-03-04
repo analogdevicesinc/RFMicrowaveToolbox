@@ -1,4 +1,5 @@
-classdef LongsPeak < adi.internal.ADAR300x
+classdef LongsPeak < adi.internal.ADAR300x & ...
+        adi.internal.ADMV4420
     %LongsPeak: Ka-Band Beamformer Development Kit
     %   This is at 16x16 antenna per tile system. Therefore we have the
     %   following enumerations:
@@ -67,7 +68,6 @@ classdef LongsPeak < adi.internal.ADAR300x
             end
             % Set defaults
             obj.updateDefaultDims();
-
         end
         % Destructor
         function delete(obj)
@@ -81,6 +81,13 @@ classdef LongsPeak < adi.internal.ADAR300x
         end
         
         
+    end
+
+    methods (Hidden, Access = protected)
+        function setupInit(obj)
+            setupInit@adi.internal.ADAR300x(obj);
+            setupInit@adi.internal.ADMV4420(obj);
+        end
     end
 end
 
