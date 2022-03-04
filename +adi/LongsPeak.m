@@ -58,6 +58,11 @@ classdef LongsPeak < adi.internal.ADAR300x & ...
             end
             coder.allowpcode('plain');
             obj = obj@adi.internal.ADAR300x(varargin{:});
+
+            % Call ADMV4420 constructor
+            DownCnvDeviceNames = {'admv4420_CSB1','admv4420_CSB2'};
+            obj = obj@adi.internal.ADMV4420('DownCnvDeviceNames',DownCnvDeviceNames);
+
             obj.ArrayMapInternal = map;
             obj.deviceNames = {};
             for k=0:3
@@ -79,8 +84,6 @@ classdef LongsPeak < adi.internal.ADAR300x & ...
         function value = Get.ArrayMap(obj)
             value = obj.ArrayMapInternal;
         end
-        
-        
     end
 
     methods (Hidden, Access = protected)
