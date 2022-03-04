@@ -204,20 +204,20 @@ classdef ADAR3002Tests < HardwareTests
             bf = adi.LongsPeak('uri',testCase.uri);
             bf();
 
-            values = round((1+1./randi([2 6], [1 2]))*1e10);
+            values = randi([1635 2115], [1 2])*1e7;
             bf.LOFreqHz = values;
             % Check
             rvalues = zeros(1,2);
             for k=1:2
-                if ~isempty(bf.downCnvDevices{k})
+                if ~isempty(bf.DownCnvDevices{k})
                     rvalues(k) = bf.getDeviceAttributeLongLong('lo_freq_hz',...
-                        bf.downCnvDevices{k});
+                        bf.DownCnvDevices{k});
                 end
             end
             bf.release();
 
-            for di = 1:length(bf.downCnvDevices)
-               if ~isempty(bf.downCnvDevices{di})
+            for di = 1:length(bf.DownCnvDevices)
+               if ~isempty(bf.DownCnvDevices{di})
                    testCase.verifyEqual(rvalues(di),values(di));
                end
             end
@@ -233,8 +233,8 @@ classdef ADAR3002Tests < HardwareTests
             % Check
             rvalues = zeros(1,2);
             for k=1:2
-                if ~isempty(bf.downCnvDevices{k})
-                    tmp = getDeviceAttributeRAW(bf,'mux_sel',128,bf.downCnvDevices{k});
+                if ~isempty(bf.DownCnvDevices{k})
+                    tmp = getDeviceAttributeRAW(bf,'mux_sel',128,bf.DownCnvDevices{k});
                     if strcmp('LOW',tmp)
                         rvalues(:,k) = 0;
                     elseif strcmp('LOCK_DTCT',tmp)
@@ -250,104 +250,232 @@ classdef ADAR3002Tests < HardwareTests
             end
             bf.release();
 
-            for di = 1:length(bf.downCnvDevices)
-               if ~isempty(bf.downCnvDevices{di})
+            for di = 1:length(bf.DownCnvDevices)
+               if ~isempty(bf.DownCnvDevices{di})
                    testCase.verifyEqual(rvalues(di),values(di));
                end
             end
         end
 
         function testADAR3002LongsPeakDownCnvNCounterFracVal(testCase)
-            % Test Down Converter LO Frequency
+            % Test Down Converter N-Counter Frac Val
             bf = adi.LongsPeak('uri',testCase.uri);
             bf();
 
-            values = randi([0 5], [1 2]);
+            values = randi([0 16777215], [1 2]);
             bf.NCounterFracVal = values;
             % Check
             rvalues = zeros(1,2);
             for k=1:2
-                if ~isempty(bf.downCnvDevices{k})
+                if ~isempty(bf.DownCnvDevices{k})
                     rvalues(k) = bf.getDeviceAttributeLongLong('n_counter_frac_val',...
-                        bf.downCnvDevices{k});
+                        bf.DownCnvDevices{k});
                 end
             end
             bf.release();
 
-            for di = 1:length(bf.downCnvDevices)
-               if ~isempty(bf.downCnvDevices{di})
+            for di = 1:length(bf.DownCnvDevices)
+               if ~isempty(bf.DownCnvDevices{di})
                    testCase.verifyEqual(rvalues(di),values(di));
                end
             end
         end
         
         function testADAR3002LongsPeakDownCnvNCounterIntVal(testCase)
-            % Test Down Converter LO Frequency
+            % Test Down Converter N-Counter Int Val
             bf = adi.LongsPeak('uri',testCase.uri);
             bf();
 
-            values = randi([0 5], [1 2]);
+            values = randi([75 65535], [1 2]);
             bf.NCounterIntVal = values;
             % Check
             rvalues = zeros(1,2);
             for k=1:2
-                if ~isempty(bf.downCnvDevices{k})
+                if ~isempty(bf.DownCnvDevices{k})
                     rvalues(k) = bf.getDeviceAttributeLongLong('n_counter_int_val',...
-                        bf.downCnvDevices{k});
+                        bf.DownCnvDevices{k});
                 end
             end
             bf.release();
 
-            for di = 1:length(bf.downCnvDevices)
-               if ~isempty(bf.downCnvDevices{di})
+            for di = 1:length(bf.DownCnvDevices)
+               if ~isempty(bf.DownCnvDevices{di})
                    testCase.verifyEqual(rvalues(di),values(di));
                end
             end
         end
 
         function testADAR3002LongsPeakDownCnvNCounterModVal(testCase)
-            % Test Down Converter LO Frequency
+            % Test Down Converter N-Counter Mod Val
             bf = adi.LongsPeak('uri',testCase.uri);
             bf();
 
-            values = randi([0 5], [1 2]);
+            values = randi([1 16777215], [1 2]);
             bf.NCounterModVal = values;
             % Check
             rvalues = zeros(1,2);
             for k=1:2
-                if ~isempty(bf.downCnvDevices{k})
+                if ~isempty(bf.DownCnvDevices{k})
                     rvalues(k) = bf.getDeviceAttributeLongLong('n_counter_mod_val',...
-                        bf.downCnvDevices{k});
+                        bf.DownCnvDevices{k});
                 end
             end
             bf.release();
 
-            for di = 1:length(bf.downCnvDevices)
-               if ~isempty(bf.downCnvDevices{di})
+            for di = 1:length(bf.DownCnvDevices)
+               if ~isempty(bf.DownCnvDevices{di})
                    testCase.verifyEqual(rvalues(di),values(di));
                end
             end
         end
 
         function testADAR3002LongsPeakDownCnvPFDFreqHz(testCase)
-            % Test Down Converter LO Frequency
+            % Test Down Converter PFD Frequency
             bf = adi.LongsPeak('uri',testCase.uri);
             bf();
 
-            values = randi([2 6], [1 2])*1e7;
+            values = randi([1 5], [1 2])*1e7;
             bf.PFDFreqHz = values;
             % Check
             rvalues = zeros(1,2);
             for k=1:2
-                if ~isempty(bf.downCnvDevices{k})
+                if ~isempty(bf.DownCnvDevices{k})
                     rvalues(k) = bf.getDeviceAttributeLongLong('pfd_freq_hz',...
-                        bf.downCnvDevices{k});
+                        bf.DownCnvDevices{k});
                 end
             end
             bf.release();
 
-            for di = 1:length(bf.downCnvDevices)
-               if ~isempty(bf.downCnvDevices{di})
+            for di = 1:length(bf.DownCnvDevices)
+               if ~isempty(bf.DownCnvDevices{di})
+                   testCase.verifyEqual(rvalues(di),values(di));
+               end
+            end
+        end
+
+        function testADAR3002LongsPeakDownCnvRefDivBy2(testCase)
+            % Test Down Converter Ref Divide by 2
+            bf = adi.LongsPeak('uri',testCase.uri);
+            bf();
+
+            values = randi([0 1], [1 2]);
+            bf.RefDivBy2 = values;
+            % Check
+            rvalues = zeros(1,2);
+            for k=1:2
+                if ~isempty(bf.DownCnvDevices{k})
+                    tmp = getDeviceAttributeRAW(bf,'ref_divide_by_2',128,bf.DownCnvDevices{k});
+                    if strcmp('disabled',tmp)
+                        rvalues(:,k) = 0;
+                    elseif strcmp('enabled',tmp)
+                        rvalues(:,k) = 1;
+                    end
+                end
+            end
+            bf.release();
+
+            for di = 1:length(bf.DownCnvDevices)
+               if ~isempty(bf.DownCnvDevices{di})
+                   testCase.verifyEqual(rvalues(di),values(di));
+               end
+            end
+        end
+
+        function testADAR3002LongsPeakDownCnvRefDivider(testCase)
+            % Test Down Converter Ref Divider
+            bf = adi.LongsPeak('uri',testCase.uri);
+            bf();
+
+            values = randi([1 1023], [1 2]);
+            bf.RefDivider = values;
+            % Check
+            rvalues = zeros(1,2);
+            for k=1:2
+                if ~isempty(bf.DownCnvDevices{k})
+                    rvalues(k) = bf.getDeviceAttributeLongLong('ref_divider',...
+                        bf.DownCnvDevices{k});
+                end
+            end
+            bf.release();
+
+            for di = 1:length(bf.DownCnvDevices)
+               if ~isempty(bf.DownCnvDevices{di})
+                   testCase.verifyEqual(rvalues(di),values(di));
+               end
+            end
+        end
+
+        function testADAR3002LongsPeakDownCnvRefDoubler(testCase)
+            % Test Down Converter Ref Doubler
+            bf = adi.LongsPeak('uri',testCase.uri);
+            bf();
+
+            values = randi([0 1], [1 2]);
+            bf.RefDoubler = values;
+            % Check
+            rvalues = zeros(1,2);
+            for k=1:2
+                if ~isempty(bf.DownCnvDevices{k})
+                    tmp = getDeviceAttributeRAW(bf,'ref_doubler',128,bf.DownCnvDevices{k});
+                    if strcmp('disabled',tmp)
+                        rvalues(:,k) = 0;
+                    elseif strcmp('enabled',tmp)
+                        rvalues(:,k) = 1;
+                    end
+                end
+            end
+            bf.release();
+
+            for di = 1:length(bf.DownCnvDevices)
+               if ~isempty(bf.DownCnvDevices{di})
+                   testCase.verifyEqual(rvalues(di),values(di));
+               end
+            end
+        end
+
+        function testADAR3002LongsPeakDownCnvRefFreqHz(testCase)
+            % Test Down Converter Ref Frequency
+            bf = adi.LongsPeak('uri',testCase.uri);
+            bf();
+
+            values = randi([1 5], [1 2])*1e7;
+            bf.RefFreqHz = values;
+            % Check
+            rvalues = zeros(1,2);
+            for k=1:2
+                if ~isempty(bf.DownCnvDevices{k})
+                    rvalues(k) = bf.getDeviceAttributeLongLong('ref_freq_hz',...
+                        bf.DownCnvDevices{k});
+                end
+            end
+            bf.release();
+
+            for di = 1:length(bf.DownCnvDevices)
+               if ~isempty(bf.DownCnvDevices{di})
+                   testCase.verifyEqual(rvalues(di),values(di));
+               end
+            end
+        end
+
+        function testADAR3002LongsPeakDownCnvVCOFreqHz(testCase)
+            % Test Down Converter VCO Frequency
+            bf = adi.LongsPeak('uri',testCase.uri);
+            bf();
+
+            values = randi([8375 10575], [1 2])*1e6;
+            bf.VCOFreqHz = values;
+            % Check
+            rvalues = zeros(1,2);
+            for k=1:2
+                if ~isempty(bf.DownCnvDevices{k})
+                    rvalues(k) = bf.getDeviceAttributeLongLong('vco_freq_hz',...
+                        bf.DownCnvDevices{k});
+                end
+            end
+            bf.release();
+
+            for di = 1:length(bf.DownCnvDevices)
+               if ~isempty(bf.DownCnvDevices{di})
                    testCase.verifyEqual(rvalues(di),values(di));
                end
             end
