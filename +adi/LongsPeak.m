@@ -1,4 +1,5 @@
-classdef LongsPeak < adi.internal.ADAR300x
+classdef LongsPeak < adi.internal.ADAR300x & ...
+        adi.internal.ADMV4420
     %LongsPeak: Ka-Band Beamformer Development Kit
     %   This is at 16x16 antenna per tile system. Therefore we have the
     %   following enumerations:
@@ -57,6 +58,11 @@ classdef LongsPeak < adi.internal.ADAR300x
             end
             coder.allowpcode('plain');
             obj = obj@adi.internal.ADAR300x(varargin{:});
+
+            % Call ADMV4420 constructor
+            DownCnvDeviceNames = {'admv4420_CSB1','admv4420_CSB2'};
+            obj = obj@adi.internal.ADMV4420('DownCnvDeviceNames',DownCnvDeviceNames);
+
             obj.ArrayMapInternal = map;
             obj.deviceNames = {};
             for k=0:3
@@ -67,7 +73,6 @@ classdef LongsPeak < adi.internal.ADAR300x
             end
             % Set defaults
             obj.updateDefaultDims();
-
         end
         % Destructor
         function delete(obj)
@@ -79,8 +84,13 @@ classdef LongsPeak < adi.internal.ADAR300x
         function value = Get.ArrayMap(obj)
             value = obj.ArrayMapInternal;
         end
-        
-        
+    end
+
+    methods (Hidden, Access = protected)
+        function setupInit(obj)
+            setupInit@adi.internal.ADAR300x(obj);
+            setupInit@adi.internal.ADMV4420(obj);
+        end
     end
 end
 
