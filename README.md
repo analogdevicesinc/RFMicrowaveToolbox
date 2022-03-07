@@ -4,10 +4,10 @@ Toolbox created by ADI to be used with MATLAB and Simulink with ADI RF and Micro
 
 License : [![License](https://img.shields.io/badge/license-LGPL2-blue.svg)](https://github.com/analogdevicesinc/RFMicrowaveToolbox/blob/master/LICENSE)
 Latest Release : [![GitHub release](https://img.shields.io/github/release/analogdevicesinc/RFMicrowaveToolbox.svg)](https://github.com/analogdevicesinc/RFMicrowaveToolbox/releases/latest)
-Downloads :  [![Github All Releases](https://img.shields.io/github/downloads/analogdevicesinc/RF and MicrowaveToolbox/total.svg)](https://github.com/analogdevicesinc/RFMicrowaveToolbox/releases/latest)
+Downloads :  [![Github All Releases](https://img.shields.io/github/downloads/analogdevicesinc/RFMicrowaveToolbox/total.svg)](https://github.com/analogdevicesinc/RFMicrowaveToolbox/releases/latest)
 
 As with many open source packages, we use [GitHub](https://github.com/analogdevicesinc/RFMicrowaveToolbox) to do develop and maintain the source, and [Jenkins](https://jenkins.com/) for continuous integration.
-  - If you want to just use RF and MicrowaveToolbox, we suggest using the [latest release](https://github.com/analogdevicesinc/RF and MicrowaveToolbox/releases/latest).
+  - If you want to just use RF and MicrowaveToolbox, we suggest using the [latest release](https://github.com/analogdevicesinc/RFMicrowaveToolbox/releases/latest).
   - If you think you have found a bug in the release, or need a feature which isn't in the release, try the latest **untested** builds from the master branch.
 
 | MATLAB Release |  Installer Package  |
@@ -23,7 +23,7 @@ We provide support across two releases of MATLAB. This does not mean older relea
 
 ## Support and Documentation
 
-All support questions should be posted in our [EngineerZone](https://ez.analog.com/sw-interface-tools) forums. Documentation is included within the toolbox but additional documentation is avaible on the [ADI Wiki](https://wiki.analog.com/resources/tools-software/RF and Microwave-toolbox).
+All support questions should be posted in our [EngineerZone](https://ez.analog.com/sw-interface-tools) forums. Documentation is included within the toolbox but additional documentation is avaible on the [ADI Wiki](https://wiki.analog.com/resources/tools-software/rfm-toolbox).
 
 ## Building & Installing
 
