@@ -480,6 +480,54 @@ classdef ADAR3002Tests < HardwareTests
                end
             end
         end
+
+        function testADAR3002LongsPeakADL5240Gain(testCase)
+            % Test Down Converter VCO Frequency
+            bf = adi.LongsPeak('uri',testCase.uri);
+            bf();
+
+            values = randi([-63 -1], [1 2])*0.5;
+            bf.ADL5240Gain = values;
+            % Check
+            rvalues = zeros(1,2);
+            for k=1:2
+                if ~isempty(bf.ADL5240Devices{k})
+                    rvalues(k) = bf.getAttributeDouble('voltage0',...
+                        'hardwaregain',true,bf.ADL5240Devices{k});
+                end
+            end
+            bf.release();
+
+            for di = 1:length(bf.ADL5240Devices)
+               if ~isempty(bf.ADL5240Devices{di})
+                   testCase.verifyEqual(rvalues(di),values(di));
+               end
+            end
+        end
+
+        function testADAR3002LongsPeakADRF5720Gain(testCase)
+            % Test Down Converter VCO Frequency
+            bf = adi.LongsPeak('uri',testCase.uri);
+            bf();
+
+            values = randi([-126 -2], [1 2])*0.25;
+            bf.ADRF5720Gain = values;
+            % Check
+            rvalues = zeros(1,2);
+            for k=1:2
+                if ~isempty(bf.ADRF5720Devices{k})
+                    rvalues(k) = bf.getAttributeDouble('voltage0',...
+                        'hardwaregain',true,bf.ADRF5720Devices{k});
+                end
+            end
+            bf.release();
+
+            for di = 1:length(bf.ADRF5720Devices)
+               if ~isempty(bf.ADRF5720Devices{di})
+                   testCase.verifyEqual(rvalues(di),values(di));
+               end
+            end
+        end
     end
     
 end

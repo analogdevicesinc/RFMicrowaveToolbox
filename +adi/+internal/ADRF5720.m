@@ -34,7 +34,7 @@ classdef (Abstract) ADRF5720 < adi.common.Attribute & ...
             obj.ADRF5720Gain = values;
             if obj.ConnectedToDevice
                 for ii = 1:length(obj.ADRF5720DeviceNames)
-                    setDeviceAttributeLongLong(obj,'voltage0','hardwaregain',values(:,ii),true,0,obj.ADRF5720Devices{ii});
+                    setAttributeDouble(obj,'voltage0','hardwaregain',values(:,ii),true,0,obj.ADRF5720Devices{ii});
                 end
             end
         end
@@ -62,7 +62,7 @@ classdef (Abstract) ADRF5720 < adi.common.Attribute & ...
 
             if obj.ConnectedToDevice
                 for ii = 1:length(obj.ADRF5720DeviceNames)
-                    setAttributeDouble(obj,'hardwaregain',obj.ADRF5720Gain(:,ii),obj.ADRF5720Devices{ii});                    
+                    setAttributeDouble(obj,'voltage0','hardwaregain',obj.ADRF5720Gain(:,ii),true,0,obj.ADRF5720Devices{ii});
                 end
             end
         end

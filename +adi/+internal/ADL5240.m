@@ -34,7 +34,7 @@ classdef (Abstract) ADL5240 < adi.common.Attribute & ...
             obj.ADL5240Gain = values;
             if obj.ConnectedToDevice
                 for ii = 1:length(obj.ADL5240DeviceNames)
-                    setDeviceAttributeLongLong(obj,'voltage0','hardwaregain',values(:,ii),true,0,obj.ADL5240Devices{ii});
+                    setAttributeDouble(obj,'voltage0','hardwaregain',values(:,ii),true,0,obj.ADL5240Devices{ii});
                 end
             end
         end
@@ -62,7 +62,7 @@ classdef (Abstract) ADL5240 < adi.common.Attribute & ...
 
             if obj.ConnectedToDevice
                 for ii = 1:length(obj.ADL5240DeviceNames)
-                    setAttributeDouble(obj,'hardwaregain',obj.ADL5240Gain(:,ii),obj.ADL5240Devices{ii});                    
+                    setAttributeDouble(obj,'voltage0','hardwaregain',obj.ADL5240Gain(:,ii),true,0,obj.ADL5240Devices{ii});
                 end
             end
         end
