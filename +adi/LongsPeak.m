@@ -66,11 +66,11 @@ classdef LongsPeak < adi.internal.ADAR300x & ...
             obj = obj@adi.internal.ADMV4420('DownCnvDeviceNames',DownCnvDeviceNames);
             
             % Call ADRF5720 constructor
-            ADRF5720DeviceNames = {'adrf5720_1','adrf5720_2'};
+            ADRF5720DeviceNames = {'adrf5720_LE1','adrf5720_LE2'};
             obj = obj@adi.internal.ADRF5720('ADRF5720DeviceNames',ADRF5720DeviceNames);
 
             % Call ADL5240 constructor
-            ADL5240DeviceNames = {'adl5240_1','adl5240_2'};
+            ADL5240DeviceNames = {'adl5240_LE1','adl5240_LE2'};
             obj = obj@adi.internal.ADL5240('ADL5240DeviceNames',ADL5240DeviceNames);
 
             obj.ArrayMapInternal = map;
