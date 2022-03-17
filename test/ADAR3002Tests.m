@@ -25,10 +25,22 @@ classdef ADAR3002Tests < HardwareTests
            'PowersBeam1H',...
            'PowersBeam1V',...
            };
+       beam_props = {...
+           {'BeamFIFORD',{'beam0_fifo_rd','beam1_fifo_rd','beam2_fifo_rd','beam3_fifo_rd'}},...
+           {'BeamFIFOWR',{'beam0_fifo_wr','beam1_fifo_wr','beam2_fifo_wr','beam3_fifo_wr'}},...
+           {'BeamRAMIndex',{'beam0_ram_index','beam1_ram_index','beam2_ram_index','beam3_ram_index'}},...
+           {'BeamRAMStart',{'beam0_ram_start','beam1_ram_start','beam2_ram_start','beam3_ram_start'}},...
+           {'BeamRAMStop',{'beam0_ram_stop','beam1_ram_stop','beam2_ram_stop','beam3_ram_stop'}},...
+           };
+       
+       beam_props_str = {...
+           {'BeamMode',{'beam0_mode','beam1_mode','beam2_mode','beam3_mode'}},...
+           {'BeamLoadMode',{'beam0_load_mode','beam1_load_mode','beam2_load_mode','beam3_load_mode'}},...
+           };
     end
     properties
         %         uri = 'ip:10.72.162.61';
-        uri = 'ip:10.66.75.19';% uri = 'ip:192.168.86.48';
+        uri = 'ip:192.168.86.48';
         author = 'ADI';
     end
     
@@ -94,6 +106,26 @@ classdef ADAR3002Tests < HardwareTests
             end           
         end
 
+        function values = clearUnavailableBeams(attrs,values,devices)
+            assert(isequal([length(devices),length(attrs)],size(values)),...
+                sprintf('must of size [%dx%d]',length(devices),...
+                length(attrs)));
+
+            for deviceIndx=1:length(devices)
+                %DEBUG
+                if isempty(devices{deviceIndx})
+                    if isa(values,'cell')
+                        for k = 1:length(values(deviceIndx,:))
+                            values{deviceIndx,k} = [];
+                        end
+                    else
+                        values(deviceIndx,:) = 0;
+                    end
+                    continue;
+                end
+            end            
+        end
+        
     end
     
     methods (Test)
@@ -527,6 +559,45 @@ classdef ADAR3002Tests < HardwareTests
                    testCase.verifyEqual(rvalues(di),values(di));
                end
             end
+        end
+        
+        function testADAR3002Beams(testCase,beam_props)
+            % Beam configurations
+            bf = adi.LongsPeak('uri',testCase.uri);
+            bf();
+            values = randi([1,4],64,4);
+            attrs = [0,0,0,0]; % Data not important
+            values = testCase.clearUnavailableBeams(attrs,values,...
+                bf.iioDevices);
+            set(bf,beam_props{1},values);
+            % Check
+            attrs = beam_props{2};
+            rvalues = bf.getAllSingleDevAttrs(attrs,bf.iioDevices);
+            bf.release();
+            testCase.verifyEqual(rvalues,values);
+        end
+        
+        function testADAR3002BeamsStr(testCase,beam_props_str)
+            % Beam configurations
+            bf = adi.LongsPeak('uri',testCase.uri);
+            bf();
+            ivalues = randi([1,4],64,4);
+            values = cell(64,4);
+            options = {'direct','memory','fifo','instant_direct','reset','mute'};
+            for k=1:4
+                for g=1:64
+                    values{g,k} = options{ivalues(g,k)};
+                end
+            end
+            attrs = [0,0,0,0]; % Data not important
+            values = testCase.clearUnavailableBeams(attrs,values,...
+                bf.iioDevices);
+            set(bf,beam_props_str{1},values);
+            % Check
+            attrs = beam_props_str{2};
+            rvalues = bf.getAllSingleDevAttrs(attrs,bf.iioDevices,'str');
+            bf.release();
+            testCase.verifyEqual(rvalues,values);
         end
     end
     
