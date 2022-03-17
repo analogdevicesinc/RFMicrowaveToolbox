@@ -14,6 +14,7 @@ stage("Build Toolbox") {
         withEnv(['PACKAGE='+branchName]) {
             checkout scm
             sh 'git submodule update --init'
+            sh 'python3 CI/scripts/rename_common.py'
             sh 'make -C ./CI/scripts gen_tlbx'
             archiveArtifacts artifacts: '*.mltbx'
             stash includes: '**', name: 'builtSources', useDefaultExcludes: false
