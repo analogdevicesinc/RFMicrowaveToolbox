@@ -16,6 +16,16 @@ classdef (Abstract) ADAR300x < adi.common.Attribute & ...
         AmpENResetELV = [0, 0, 0, 0];
         AmpENSleepELH = [0, 0, 0, 0];
         AmpENSleepELV = [0, 0, 0, 0];
+        
+        BeamFIFORD = [0,0,0,0];
+        BeamFIFOWR = [0,0,0,0];
+        BeamRAMIndex = [0,0,0,0];
+        BeamRAMStart = [0,0,0,0];
+        BeamRAMStop = [0,0,0,0];
+        BeamRAMUpdate = [0,0,0,0];
+
+        BeamMode = {'direct','direct','direct','direct'};
+        BeamLoadMode = {'direct','direct','direct','direct'};
     end
     
     properties(Hidden, Constant)
@@ -387,6 +397,62 @@ classdef (Abstract) ADAR300x < adi.common.Attribute & ...
                     obj.AmpENSleepELV,obj.iioDevices);
             end
         end
+        % Check BeamMode
+        function set.BeamMode(obj, values)
+            attrs = {'beam0_mode','beam1_mode','beam2_mode',...
+                'beam3_mode'};
+            if obj.ConnectedToDevice
+                obj.setAllSingleDevAttrs(attrs,values,obj.iioDevices,'str');
+            end
+        end
+        % Check BeamLoadMode
+        function set.BeamLoadMode(obj, values)
+            attrs = {'beam0_load_mode','beam1_load_mode','beam2_load_mode',...
+                'beam3_load_mode'};
+            if obj.ConnectedToDevice
+                obj.setAllSingleDevAttrs(attrs,values,obj.iioDevices,'str');
+            end
+        end
+        % Check BeamFIFORD
+        function set.BeamFIFORD(obj, values)
+            attrs = {'beam0_fifo_rd','beam1_fifo_rd','beam2_fifo_rd',...
+                'beam3_fifo_rd'};
+            if obj.ConnectedToDevice
+                obj.setAllSingleDevAttrs(attrs,values,obj.iioDevices);
+            end
+        end
+        % Check BeamFIFOWR
+        function set.BeamFIFOWR(obj, values)
+            attrs = {'beam0_fifo_wr','beam1_fifo_wr','beam2_fifo_wr',...
+                'beam3_fifo_wr'};
+            if obj.ConnectedToDevice
+                obj.setAllSingleDevAttrs(attrs,values,obj.iioDevices);
+            end
+        end
+        % Check BeamRAMIndex
+        function set.BeamRAMIndex(obj, values)
+            attrs = {'beam0_ram_index','beam1_ram_index','beam2_ram_index',...
+                'beam3_ram_index'};
+            if obj.ConnectedToDevice
+                obj.setAllSingleDevAttrs(attrs,values,obj.iioDevices);
+            end
+        end
+        % Check BeamRAMStart
+        function set.BeamRAMStart(obj, values)
+            attrs = {'beam0_ram_start','beam1_ram_start','beam2_ram_start',...
+                'beam3_ram_start'};
+            if obj.ConnectedToDevice
+                obj.setAllSingleDevAttrs(attrs,values,obj.iioDevices);
+            end
+        end
+        % Check BeamRAMStop
+        function set.BeamRAMStop(obj, values)
+            attrs = {'beam0_ram_stop','beam1_ram_stop','beam2_ram_stop',...
+                'beam3_ram_stop'};
+            if obj.ConnectedToDevice
+                obj.setAllSingleDevAttrs(attrs,values,obj.iioDevices);
+            end
+        end
     end
     
     %% API Functions
@@ -445,7 +511,36 @@ classdef (Abstract) ADAR300x < adi.common.Attribute & ...
                             devices{deviceIndx});
                 end
             end           
-        end        
+        end
+        function values = getAllSingleDevAttrs(obj,attrs,devices,atype)
+            if nargin < 4
+                atype = 'int';
+            end
+            switch atype
+                case 'int'
+                    values = zeros(length(devices),length(attrs));
+                case 'str'
+                    values = cell(length(devices),length(attrs));                    
+            end
+            for deviceIndx=1:length(devices)
+                %DEBUG
+                if isempty(devices{deviceIndx})
+                    continue;
+                end
+                for attrsIndx = 1:length(attrs)
+                    switch atype
+                        case 'int'
+                            values(deviceIndx,attrsIndx) = ...
+                                obj.getDeviceAttributeLongLong(attrs{attrsIndx},...
+                                devices{deviceIndx});
+                        case 'str'
+                            values{deviceIndx,attrsIndx} = ...
+                                obj.getDeviceAttributeRAW(attrs{attrsIndx},...
+                                1024,devices{deviceIndx});
+                    end
+                end
+            end
+        end
     end
     
     methods (Hidden, Access = protected)
@@ -466,6 +561,31 @@ classdef (Abstract) ADAR300x < adi.common.Attribute & ...
         function [data,valid] = stepImpl(~)
             data = 0;
             valid = false;
+        end
+        function setAllSingleDevAttrs(obj,attrs,values,devices,atype)
+            assert(isequal([length(devices),length(attrs)],size(values)),...
+                sprintf('must of size [%dx%d]',length(devices),...
+                length(attrs)));
+            if nargin < 5
+                atype = 'int';
+            end
+
+            for deviceIndx=1:length(devices)
+                %DEBUG
+                if isempty(devices{deviceIndx})
+                    continue;
+                end
+                for attrsIndx = 1:length(attrs)
+                    switch atype
+                        case 'int'
+                            obj.setDeviceAttributeLongLong(attrs{attrsIndx},...
+                                values(deviceIndx,attrsIndx),devices{deviceIndx});
+                        case 'str'
+                            obj.setDeviceAttributeRAW(attrs{attrsIndx},...
+                                values{deviceIndx,attrsIndx},devices{deviceIndx});
+                    end
+                end
+            end
         end
         function setAllRelatedDevAttrs(obj,attrs,values,devices)
             
