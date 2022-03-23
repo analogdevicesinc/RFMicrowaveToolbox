@@ -10,7 +10,8 @@ classdef XUD1aControl < adi.common.Attribute
     
     properties(Hidden)
         XUD1aCtrlDeviceNames = {'one-bit-adc-dac'};
-        XUD1aCtrlDevices = {};
+        XUD1aCtrlDevLabel = 'xud_control';
+        XUD1aCtrlDevices
     end
         
     methods
@@ -84,16 +85,24 @@ classdef XUD1aControl < adi.common.Attribute
     methods (Hidden, Access = protected)
         function setupInit(obj)
             numDevs = obj.iio_context_get_devices_count(obj.iioCtx);
-            obj.SRayCtrlDevices = cell(1,length(obj.XUD1aCtrlDeviceNames));
             for dn = 1:length(obj.XUD1aCtrlDeviceNames)
                 for k = 1:numDevs
                     devPtr = obj.iio_context_get_device(obj.iioCtx, k-1);
                     name = obj.iio_device_get_name(devPtr);
                     if strcmpi(obj.XUD1aCtrlDeviceNames{dn},name)
-                        obj.SRayCtrlDevices{dn} = devPtr;
+                        attr = obj.iio_device_get_attr(devPtr,0);
+                        if strcmpi(attr,'label')
+                            val = obj.getDeviceAttributeRAW(attr,128,devPtr);
+                            if strcmpi(val, obj.XUD1aCtrlDevLabel)
+                                obj.XUD1aCtrlDevices = devPtr;
+                                break;
+                            else
+                                continue;
+                            end
+                        end
                     end
                 end
-                if isempty(obj.SRayCtrlDevices{dn})
+                if isempty(obj.SRayCtrlDevices)
                    error('%s not found',obj.XUD1aCtrlDeviceNames{dn});
                 end
             end

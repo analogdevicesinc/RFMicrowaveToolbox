@@ -43,9 +43,9 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         LNABiasOutEnable = true
         LNABiasOn = -4.80012
         BeamMemEnable = true
-        BiasDACEnable = true
+        % BiasDACEnable = true
         BiasDACMode = {'On'}
-        BiasMemEnable = true
+        % BiasMemEnable = true
         CommonMemEnable = true
         CommonRxBeamState = 0
         CommonTxBeamState = 0
@@ -72,24 +72,24 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         TxVMEnable = false
         
         % Channel Attributes
-        DetectorEnable = true(1, 4)
-        DetectorPower = 255*ones(1, 4)
+        % DetectorEnable = true(1, 4)
+        % DetectorPower = 255*ones(1, 4)
         PABiasOff = -4.80012*ones(1, 4)
         PABiasOn = -4.80012*ones(1, 4)
         RxAttn = true(1, 4)
         RxBeamState = zeros(1, 4)
         RxPowerDown = false(1, 4)
-        RxGain = ones(1, 4)
+        % RxGain = ones(1, 4)
         RxPhase = zeros(1, 4)
         TxAttn = true(1, 4)
         TxBeamState = zeros(1, 4)
         TxPowerDown = false(1, 4)
-        TxGain = ones(1, 4)
+        % TxGain = ones(1, 4)
         TxPhase = zeros(1, 4)
-        RxBiasState = zeros(1, 4)
+        % RxBiasState = zeros(1, 4)
         RxSequencerStart = false(1, 4)
         RxSequencerStop = false(1, 4)
-        TxBiasState = zeros(1, 4)
+        % TxBiasState = zeros(1, 4)
         TxSequencerStart = false(1, 4)
         TxSequencerStop = false(1, 4)
         Temp = 0
@@ -218,7 +218,6 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         end        
     end
     
-    %{
     methods
         function result = get.Mode(obj)
             result = cell(size(obj.deviceNames));
@@ -366,16 +365,16 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             setAllChipsDeviceAttributeRAW(obj, 'beam_mem_enable', num2str(values), true);
         end
         
-        function result = get.BiasDACEnable(obj)
-            result = true(size(obj.deviceNames));
-            if ~isempty(obj.iioDevices)
-                result = ~getAllChipsDeviceAttributeRAW(obj,'bias_enable', true);
-            end
-        end
-        
-        function set.BiasDACEnable(obj, values)            
-            setAllChipsDeviceAttributeRAW(obj, 'bias_enable', num2str(values), true);
-        end
+%         function result = get.BiasDACEnable(obj)
+%             result = true(size(obj.deviceNames));
+%             if ~isempty(obj.iioDevices)
+%                 result = ~getAllChipsDeviceAttributeRAW(obj,'bias_enable', true);
+%             end
+%         end
+%         
+%         function set.BiasDACEnable(obj, values)            
+%             setAllChipsDeviceAttributeRAW(obj, 'bias_enable', num2str(values), true);
+%         end
         
         function result = get.BiasDACMode(obj)
             result = cell(size(obj.deviceNames));
@@ -407,16 +406,16 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             setAllChipsDeviceAttributeRAW(obj, 'bias_ctrl', ivalues, true);
         end
         
-        function result = get.BiasMemEnable(obj)
-            result = true(size(obj.deviceNames));
-            if ~isempty(obj.iioDevices)
-                result = getAllChipsDeviceAttributeRAW(obj,'bias_mem_enable', true);
-            end
-        end
-        
-        function set.BiasMemEnable(obj, values)            
-            setAllChipsDeviceAttributeRAW(obj, 'bias_mem_enable', num2str(values), true);
-        end
+%         function result = get.BiasMemEnable(obj)
+%             result = true(size(obj.deviceNames));
+%             if ~isempty(obj.iioDevices)
+%                 result = getAllChipsDeviceAttributeRAW(obj,'bias_mem_enable', true);
+%             end
+%         end
+%         
+%         function set.BiasMemEnable(obj, values)            
+%             setAllChipsDeviceAttributeRAW(obj, 'bias_mem_enable', num2str(values), true);
+%         end
         
         function result = get.CommonMemEnable(obj)
             result = true(size(obj.deviceNames));
@@ -793,7 +792,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             obj.LatchTxSettings();
         end
     end
-    %}
+    
     methods
         function LatchRxSettings(obj)
             setAllChipsDeviceAttributeRAW(obj, 'rx_load_spi', num2str(true(size(obj.deviceNames))), true);
@@ -806,25 +805,25 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
     
     % Get/Set Methods for Channel Attributes
     methods
-        function result = get.DetectorEnable(obj)
-            result = true(size(obj.ArrayMapInternal));
-            if ~isempty(obj.iioDevices)
-                result = getAllChipsChannelAttribute(obj, 'detector_en', true, 'logical');
-            end
-        end
+%         function result = get.DetectorEnable(obj)
+%             result = true(size(obj.ArrayMapInternal));
+%             if ~isempty(obj.iioDevices)
+%                 result = getAllChipsChannelAttribute(obj, 'detector_en', true, 'logical');
+%             end
+%         end
+%         
+%         function set.DetectorEnable(obj, values)
+%             setAllChipsChannelAttribute(obj, values, 'detector_en', true, 'logical');
+%         end
         
-        function set.DetectorEnable(obj, values)
-            setAllChipsChannelAttribute(obj, values, 'detector_en', true, 'logical');
-        end
-        
-        function result = get.DetectorPower(obj)
-            result = zeros(size(obj.ArrayMapInternal));
-            if ~isempty(obj.iioDevices)
-                obj.DetectorEnable = true(size(obj.ArrayMapInternal));
-                result = getAllChipsChannelAttribute(obj, 'raw', true, 'raw');
-                obj.DetectorEnable = false(size(obj.ArrayMapInternal));
-            end
-        end
+%         function result = get.DetectorPower(obj)
+%             result = zeros(size(obj.ArrayMapInternal));
+%             if ~isempty(obj.iioDevices)
+%                 obj.DetectorEnable = true(size(obj.ArrayMapInternal));
+%                 result = getAllChipsChannelAttribute(obj, 'raw', true, 'raw');
+%                 obj.DetectorEnable = false(size(obj.ArrayMapInternal));
+%             end
+%         end
         
         function result = get.PABiasOff(obj)
             result = 255*ones(size(obj.ArrayMapInternal));
@@ -888,19 +887,19 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             setAllChipsChannelAttribute(obj, ~values, 'powerdown', false, 'logical');
         end
         
-        function result = get.RxGain(obj)
-            result = zeros(size(obj.ArrayMapInternal));
-            if ~isempty(obj.iioDevices)
-                result = -1000*getAllChipsChannelAttribute(obj, 'hardwaregain', false, 'double');
-            end
-        end
-        
-        function set.RxGain(obj, values)
-            validateattributes( values, { 'double', 'single', 'uint32'}, ...
-                { 'real', 'nonnegative', 'finite', 'nonnan', 'nonempty','integer','>=',0,'<=',127}, ...
-                '', 'RxGain');
-            setAllChipsChannelAttribute(obj, values, 'hardwaregain', false, 'double');
-        end
+%         function result = get.RxGain(obj)
+%             result = zeros(size(obj.ArrayMapInternal));
+%             if ~isempty(obj.iioDevices)
+%                 result = -1000*getAllChipsChannelAttribute(obj, 'hardwaregain', false, 'double');
+%             end
+%         end
+%         
+%         function set.RxGain(obj, values)
+%             validateattributes( values, { 'double', 'single', 'uint32'}, ...
+%                 { 'real', 'nonnegative', 'finite', 'nonnan', 'nonempty','integer','>=',0,'<=',127}, ...
+%                 '', 'RxGain');
+%             setAllChipsChannelAttribute(obj, values, 'hardwaregain', false, 'double');
+%         end
         
         function result = get.RxPhase(obj)
             result = zeros(size(obj.ArrayMapInternal));
@@ -954,19 +953,19 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             setAllChipsChannelAttribute(obj, ~values, 'powerdown', true, 'logical');
         end
         
-        function result = get.TxGain(obj)
-            result = zeros(size(obj.ArrayMapInternal));
-            if ~isempty(obj.iioDevices)
-                result = -1000*getAllChipsChannelAttribute(obj, 'hardwaregain', true, 'double');
-            end
-        end
-        
-        function set.TxGain(obj, values)
-            validateattributes( values, { 'double', 'single', 'uint32'}, ...
-                { 'real', 'nonnegative', 'finite', 'nonnan', 'nonempty','integer','>=',0,'<=',127}, ...
-                '', 'TxGain');
-            setAllChipsChannelAttribute(obj, values, 'hardwaregain', true, 'double');
-        end
+%         function result = get.TxGain(obj)
+%             result = zeros(size(obj.ArrayMapInternal));
+%             if ~isempty(obj.iioDevices)
+%                 result = -1000*getAllChipsChannelAttribute(obj, 'hardwaregain', true, 'double');
+%             end
+%         end
+%         
+%         function set.TxGain(obj, values)
+%             validateattributes( values, { 'double', 'single', 'uint32'}, ...
+%                 { 'real', 'nonnegative', 'finite', 'nonnan', 'nonempty','integer','>=',0,'<=',127}, ...
+%                 '', 'TxGain');
+%             setAllChipsChannelAttribute(obj, values, 'hardwaregain', true, 'double');
+%         end
         
         function result = get.TxPhase(obj)
             result = zeros(size(obj.ArrayMapInternal));
@@ -984,16 +983,16 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             setAllChipsChannelAttribute(obj, values, 'phase', true, 'double', 4);
         end
         
-        function result = get.RxBiasState(obj)
-            result = zeros(size(obj.ArrayMapInternal));
-            if ~isempty(obj.iioDevices)
-                result = getAllChipsChannelAttribute(obj, 'bias_set_load', false, 'logical');
-            end
-        end
-        
-        function set.RxBiasState(obj, values)
-            setAllChipsChannelAttribute(obj, values, 'bias_set_load', false, 'logical');
-        end
+%         function result = get.RxBiasState(obj)
+%             result = zeros(size(obj.ArrayMapInternal));
+%             if ~isempty(obj.iioDevices)
+%                 result = getAllChipsChannelAttribute(obj, 'bias_set_load', false, 'logical');
+%             end
+%         end
+%         
+%         function set.RxBiasState(obj, values)
+%             setAllChipsChannelAttribute(obj, values, 'bias_set_load', false, 'logical');
+%         end
         
         function result = get.RxSequencerStart(obj)
             result = zeros(size(obj.ArrayMapInternal));
@@ -1017,16 +1016,16 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             setAllChipsChannelAttribute(obj, values, 'sequence_end', false, 'logical');
         end
         
-        function result = get.TxBiasState(obj)
-            result = zeros(size(obj.ArrayMapInternal));
-            if ~isempty(obj.iioDevices)
-                result = ~getAllChipsChannelAttribute(obj, 'bias_set_load', true, 'logical');
-            end
-        end
-        
-        function set.TxBiasState(obj, values)
-            setAllChipsChannelAttribute(obj, values, 'bias_set_load', true, 'logical');
-        end
+%         function result = get.TxBiasState(obj)
+%             result = zeros(size(obj.ArrayMapInternal));
+%             if ~isempty(obj.iioDevices)
+%                 result = ~getAllChipsChannelAttribute(obj, 'bias_set_load', true, 'logical');
+%             end
+%         end
+%         
+%         function set.TxBiasState(obj, values)
+%             setAllChipsChannelAttribute(obj, values, 'bias_set_load', true, 'logical');
+%         end
         
         function result = get.TxSequencerStart(obj)
             result = zeros(size(obj.ArrayMapInternal));

@@ -7,7 +7,8 @@ classdef StingrayControl < adi.common.Attribute
     
     properties(Hidden)
         SRayCtrlDeviceNames = {'one-bit-adc-dac'};
-        SRayCtrlDevices = {};
+        SRayCtrlDevLabel = 'stingray_control';
+        SRayCtrlDevices
     end
         
     methods
@@ -48,16 +49,24 @@ classdef StingrayControl < adi.common.Attribute
     methods (Hidden, Access = protected)
         function setupInit(obj)
             numDevs = obj.iio_context_get_devices_count(obj.iioCtx);
-            obj.SRayCtrlDevices = cell(1,length(obj.SRayCtrlDeviceNames));
             for dn = 1:length(obj.SRayCtrlDeviceNames)
                 for k = 1:numDevs
                     devPtr = obj.iio_context_get_device(obj.iioCtx, k-1);
                     name = obj.iio_device_get_name(devPtr);
                     if strcmpi(obj.SRayCtrlDeviceNames{dn},name)
-                        obj.SRayCtrlDevices{dn} = devPtr;
+                        attr = obj.iio_device_get_attr(devPtr,0);
+                        if strcmpi(attr,'label')
+                            val = obj.getDeviceAttributeRAW(attr,128,devPtr);
+                            if strcmpi(val, obj.SRayCtrlDevLabel)
+                                obj.SRayCtrlDevices = devPtr;
+                                break;
+                            else
+                                continue;
+                            end
+                        end
                     end
                 end
-                if isempty(obj.SRayCtrlDevices{dn})
+                if isempty(obj.SRayCtrlDevices)
                    error('%s not found',obj.SRayCtrlDeviceNames{dn});
                 end
             end

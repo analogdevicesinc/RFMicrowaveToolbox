@@ -36,7 +36,7 @@ classdef AXICoreTDD < adi.common.Attribute
     
     properties(Hidden)
         AXICoreTDDDevPtrNames = {'axi-core-tdd'};
-        AXICoreTDDDevPtr = {};
+        AXICoreTDDDevPtr
     end
         
     % Get/Set Methods for Device Attributes
@@ -386,16 +386,15 @@ classdef AXICoreTDD < adi.common.Attribute
     methods (Hidden, Access = protected)
         function setupInit(obj)
             numDevs = obj.iio_context_get_devices_count(obj.iioCtx);
-            obj.SRayCtrlDevices = cell(1,length(obj.AXICoreTDDDevPtrNames));
             for dn = 1:length(obj.AXICoreTDDDevPtrNames)
                 for k = 1:numDevs
                     devPtr = obj.iio_context_get_device(obj.iioCtx, k-1);
                     name = obj.iio_device_get_name(devPtr);
                     if strcmpi(obj.AXICoreTDDDevPtrNames{dn},name)
-                        obj.SRayCtrlDevices{dn} = devPtr;
+                        obj.AXICoreTDDDevPtr = devPtr;
                     end
                 end
-                if isempty(obj.SRayCtrlDevices{dn})
+                if isempty(obj.AXICoreTDDDevPtr)
                    error('%s not found',obj.AXICoreTDDDevPtrNames{dn});
                 end
             end
