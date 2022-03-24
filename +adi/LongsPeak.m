@@ -37,6 +37,7 @@ classdef LongsPeak < adi.internal.ADAR300x & ...
             'adar3002_csb_0_6',...
             'adar3002_csb_0_8',...
             'adar3002_csb_0_9'};
+        iioGPIODevice;
     end
     
     methods
@@ -98,6 +99,7 @@ classdef LongsPeak < adi.internal.ADAR300x & ...
 
     methods (Hidden, Access = protected)
         function setupInit(obj)
+            obj.iioGPIODevice = getDev(obj, 'one-bit-adc-dac');
             setupInit@adi.internal.ADAR300x(obj);
             setupInit@adi.internal.ADMV4420(obj);
             setupInit@adi.internal.ADRF5720(obj);
