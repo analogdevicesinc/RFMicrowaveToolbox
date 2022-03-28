@@ -72,27 +72,43 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         TxVMEnable = false
         
         % Channel Properties
-        % DetectorEnable = true(4, 1)
-        % DetectorPower = 255*ones(4, 1)
-        PABiasOff = -4.80012*ones(4, 1)
-        PABiasOn = -4.80012*ones(4, 1)
-        RxAttn = true(4, 1)
-        RxBeamState = zeros(4, 1)
-        RxPowerDown = false(4, 1)
-        % RxGain = ones(4, 1)
-        RxPhase = zeros(4, 1)
-        TxAttn = true(4, 1)
-        TxBeamState = zeros(4, 1)
-        TxPowerDown = false(4, 1)
-        % TxGain = ones(4, 1)
-        TxPhase = zeros(4, 1)
-        % RxBiasState = zeros(4, 1)
-        RxSequencerStart = false(4, 1)
-        RxSequencerStop = false(4, 1)
-        % TxBiasState = zeros(4, 1)
-        TxSequencerStart = false(4, 1)
-        TxSequencerStop = false(4, 1)
+        % DetectorEnable = true(1, 4)
+        % DetectorPower = 255*ones(1, 4)
+        PABiasOff = -4.80012*ones(1, 4)
+        PABiasOn = -4.80012*ones(1, 4)
+        RxAttn = true(1, 4)
+        RxBeamState = zeros(1, 4)
+        RxPowerDown = false(1, 4)
+        % RxGain = ones(1, 4)
+        RxPhase = zeros(1, 4)
+        TxAttn = true(1, 4)
+        TxBeamState = zeros(1, 4)
+        TxPowerDown = false(1, 4)
+        % TxGain = ones(1, 4)
+        TxPhase = zeros(1, 4)
+        % RxBiasState = zeros(1, 4)
+        RxSequencerStart = false(1, 4)
+        RxSequencerStop = false(1, 4)
+        % TxBiasState = zeros(1, 4)
+        TxSequencerStart = false(1, 4)
+        TxSequencerStop = false(1, 4)
         Temp = 0
+    end
+    
+    properties
+        Frequency = 10e9
+        ElementSpacing = 0.015
+    end
+    
+    properties (Hidden, Access = private)
+        RxAzimuth = 0
+        RxAzimuthPhi = 0
+        RxElevation = 0
+        RxElevationPhi = 0
+        TxAzimuth = 0
+        TxAzimuthPhi = 0
+        TxElevation = 0
+        TxElevationPhi = 0
     end
     
     methods
@@ -130,7 +146,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                 'RxBeamState', 'RxPowerDown', ... % 'RxGain'
                 'RxPhase', 'TxAttn', 'TxBeamState', ...
                 'TxPowerDown', ... % 'TxGain'
-                'TxPhase', ...% RxBiasState = zeros(4, 1)
+                'TxPhase', ...% RxBiasState = zeros(1, 4)
                 'RxSequencerStart', 'RxSequencerStop', ...% 'TxBiasState', 
                 'TxSequencerStart', 'TxSequencerStop'
             };
@@ -141,7 +157,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             end
             % Channel Properties
             for ii = 1:numel(ChannelProps)
-                obj.(ChannelProps{ii}) = repmat(obj.(ChannelProps{ii}), [1, size(obj.ArrayMapInternal, 1)]);
+                obj.(ChannelProps{ii}) = repmat(obj.(ChannelProps{ii}), [size(obj.ArrayMapInternal, 1), 1]);
             end
         end
         
@@ -179,14 +195,14 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             end
             if strcmpi(AttrClass, 'logical')
                 validateattributes(values, {'logical'},...
-                    {'size', size(obj.ArrayMapInternal.')});
+                    {'size', size(obj.ArrayMapInternal)});
             elseif strcmpi(AttrClass, 'raw') || ...
                     strcmpi(AttrClass, 'int32') || strcmpi(AttrClass, 'int64')
                 validateattributes(values, {'numeric', 'uint32'},...
-                    {'size', size(obj.ArrayMapInternal.')});
+                    {'size', size(obj.ArrayMapInternal)});
             elseif strcmpi(AttrClass, 'double')
                 validateattributes(values, {'numeric', 'double'},...
-                    {'size', size(obj.ArrayMapInternal.')});
+                    {'size', size(obj.ArrayMapInternal)});
             end
             
             if obj.ConnectedToDevice
@@ -195,16 +211,16 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                         channel = sprintf('voltage%d', ch-1);
                         if strcmpi(AttrClass, 'logical')
                             obj.setAttributeBool(channel, attr, ...
-                                values(ch, dev), isOutput, obj.iioDevices{dev});
+                                values(dev, ch), isOutput, obj.iioDevices{dev});
                         elseif strcmpi(AttrClass, 'raw')
                             obj.setAttributeRAW(channel, attr, ...
-                                values(ch, dev), isOutput, obj.iioDevices{dev});
+                                values(dev, ch), isOutput, obj.iioDevices{dev});
                         elseif strcmpi(AttrClass, 'int32') || strcmpi(AttrClass, 'int64')
                             obj.setAttributeLongLong(channel, attr, ...
-                                values(ch, dev), isOutput, Tol, obj.iioDevices{dev});
+                                values(dev, ch), isOutput, Tol, obj.iioDevices{dev});
                         elseif strcmpi(AttrClass, 'double')
                             obj.setAttributeDouble(channel, attr, ...
-                                values(ch, dev), isOutput, Tol, obj.iioDevices{dev});
+                                values(dev, ch), isOutput, Tol, obj.iioDevices{dev});
                         end
                     end
                 end
@@ -251,6 +267,79 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                 end
             end
         end        
+    end
+    
+    methods
+        function SteerRx(obj, Azimuth, Elevation, varargin)
+            % SteerRx Steer the Rx array in a particular direction. This method assumes that the entire array is one analog beam.
+            if (nargin == 3)
+                Offset = zeros(size(obj.ArrayMapInternal));
+            else
+                Offset = varargin{1};
+            end
+            obj.Steer("Rx", Azimuth, Elevation, Offset);
+        end
+        
+        function SteerTx(obj, Azimuth, Elevation, varargin)
+            % SteerTx Steer the Tx array in a particular direction. This method assumes that the entire array is one analog beam.
+            if (nargin == 3)
+                Offset = zeros(size(obj.ArrayMapInternal));
+            else
+                Offset = varargin{1};
+            end
+            obj.Steer("Tx", Azimuth, Elevation, Offset)
+        end
+    end
+    
+    methods (Access = private)
+        function Steer(obj, RxOrTx, Azimuth, Elevation, Offset)
+            [AzimuthPhi, ElevationPhi] = obj.CalculatePhi(Azimuth, Elevation);
+            
+            % Update the class variables
+            if strcmpi(RxOrTx, 'Rx')
+                obj.RxAzimuth = Azimuth;
+                obj.RxElevation = Elevation;
+                obj.RxAzimuthPhi = AzimuthPhi;
+                obj.RxElevationPhi = ElevationPhi;
+            else
+                obj.TxAzimuth = Azimuth;
+                obj.TxElevation = Elevation;
+                obj.TxAzimuthPhi = AzimuthPhi;
+                obj.TxElevationPhi = ElevationPhi;
+            end
+            
+            % Steer the elements in the array and Latch in the new phases
+            Array = 1:numel(obj.ArrayMapInternal);
+            Array = reshape(Array, size(obj.ArrayMapInternal.')).';
+
+            r = zeros(size(Array));
+            c = zeros(size(Array));
+            for ii = 1:size(obj.ArrayMapInternal, 1)
+                for jj = 1:size(obj.ArrayMapInternal, 2)
+                    [r(ii, jj), c(ii, jj)] = find(Array == obj.ArrayMapInternal(ii, jj));
+                end
+            end
+            ColumnPhase = (c-1)*AzimuthPhi;
+            RowPhase = (r-1)*ElevationPhi;
+            if strcmpi(RxOrTx, 'Rx')
+                obj.RxPhase = ColumnPhase + RowPhase + Offset(obj.ArrayMapInternal);
+                obj.LatchRxSettings();
+            else
+                obj.TxPhase = ColumnPhase + RowPhase + Offset(obj.ArrayMapInternal);
+                obj.LatchTxSettings();
+            end
+        end
+        
+        function [AzPhi, ElPhi] = CalculatePhi(obj, Azimuth, Elevation)
+            % CalculatePhi Calculate the Φ angles to steer the array in a particular direction.             
+            % Convert the input angles to radians
+            AzR = Azimuth * pi / 180;
+            ElR = Elevation * pi / 180;
+
+            % Calculate the phase increment (Φ) for each element in the array in both directions (in degrees)
+            AzPhi = 2 * obj.Frequency * obj.ElementSpacing * sin(AzR) * 180 / 3e8;
+            ElPhi = 2 * obj.Frequency * obj.ElementSpacing * sin(ElR) * 180 / 3e8;
+        end
     end
     
     methods        
