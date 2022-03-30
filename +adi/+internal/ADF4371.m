@@ -3,7 +3,7 @@ classdef ADF4371 < adi.common.Attribute & adi.common.Rx
         MUXOutEnable
         % MUXOutMode
         Name
-        Frequency
+        ADF4371Frequency
         Phase
         PowerDown
         ADF4371Temp
