@@ -3,9 +3,8 @@ classdef (Abstract) AD5760 < adi.common.Attribute & ...
         adi.common.DebugAttribute & ...
         matlabshared.libiio.base
     properties
-        %PowerDown Power Down
-        %   specified as one of the following:
-        %   '6kohm_to_gnd'
+        %PowerDown 
+        %   Power Down specified as a boolean
         PowerDown = true
         %PowerDownMode Power Down Mode
         %   specified as one of the following:
@@ -16,7 +15,7 @@ classdef (Abstract) AD5760 < adi.common.Attribute & ...
     
     properties
         %DACOut in mV
-        % Controls DAC output level in milli-Volts
+        %   Controls DAC output level in milli-Volts
         DACOut = 0
     end
     
