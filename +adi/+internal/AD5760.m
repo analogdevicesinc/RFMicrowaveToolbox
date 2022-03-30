@@ -3,11 +3,26 @@ classdef (Abstract) AD5760 < adi.common.Attribute & ...
         adi.common.DebugAttribute & ...
         matlabshared.libiio.base
     properties
-        PowerDown = 1
-        % PowerDownMode 
-        % 0 - 6kohm_to_gnd
-        % 1 - three_state
-        PowerDownMode = 0        
+        %PowerDown Power Down
+        %   specified as one of the following:
+        %   '6kohm_to_gnd'
+        PowerDown = true
+        %PowerDownMode Power Down Mode
+        %   specified as one of the following:
+        %   '6kohm_to_gnd'
+        %   'three_state'
+        PowerDownMode = {'6kohm_to_gnd'}
+    end
+    
+    properties
+        %DACOut in mV
+        % Controls DAC output level in milli-Volts
+        DACOut = 0
+    end
+    
+    properties(Hidden, Constant)
+        Offset = -32768
+        Scale = 0.152590218
     end
     
     properties(Hidden)
@@ -24,7 +39,12 @@ classdef (Abstract) AD5760 < adi.common.Attribute & ...
                 obj.AD5760DeviceNames = varargin{2};
             
                 obj.PowerDown = repmat(obj.PowerDown, [1, numel(obj.AD5760DeviceNames)]);
-                obj.PowerDownMode = repmat(obj.PowerDownMode, [1, numel(obj.AD5760DeviceNames)]);
+                tmpVal = cell(1, numel(obj.AD5760DeviceNames));
+                tmpVal(:) = obj.PowerDownMode;
+                obj.PowerDownMode = tmpVal;
+                tmpVal = int32((obj.DACOut-obj.Offset)/obj.Scale);
+                tmpVal = double(tmpVal*obj.Scale+obj.Offset);
+                obj.DACOut = repmat(tmpVal, [1, numel(obj.AD5760DeviceNames)]);
             end
         end
         
@@ -33,29 +53,35 @@ classdef (Abstract) AD5760 < adi.common.Attribute & ...
         end
         
         function set.PowerDown(obj, values)
-            validateattributes( values, { 'double','single' }, ...
-                    { 'real', 'nonnegative','finite', 'nonnan', 'nonempty','integer','>=',0,'<=',1}, ...
-                    '', 'PowerDown');
+            validateattributes( values, { 'logical' }, ...
+                    { 'vector', 'nonnan', 'nonempty'}, '', 'PowerDown');
             obj.PowerDown = values;
             if obj.ConnectedToDevice
-                for ii = 1:length(obj.DownCnvDeviceNames)
+                for ii = 1:length(obj.AD5760DeviceNames)
                     setDeviceAttributeRAW(obj,'powerdown',values(:,ii),obj.DownCnvDevices{ii});
                 end
             end
         end
         
         function set.PowerDownMode(obj, values)
-            validateattributes( values, { 'double','single' }, ...
-                    { 'real', 'nonnegative','finite', 'nonnan', 'nonempty','integer','>=',0,'<=',1}, ...
-                    '', 'PowerDownMode');
+            validateattributes( values, { 'cell', 'char' }, ...
+                {'nonempty'}, '', 'PowerDownMode');
             obj.PowerDownMode = values;
             if obj.ConnectedToDevice
-                for ii = 1:length(obj.DownCnvDeviceNames)                    
-                    if (values(:,ii) == 0)
-                        setDeviceAttributeRAW(obj,'powerdown_mode','6kohm_to_gnd',obj.DownCnvDevices{ii});
-                    elseif (values(:,ii) == 1)
-                        setDeviceAttributeRAW(obj,'powerdown_mode','three_state',obj.DownCnvDevices{ii});
-                    end
+                for ii = 1:length(obj.AD5760DeviceNames)                    
+                    setDeviceAttributeRAW(obj,'powerdown_mode',values{ii},obj.DownCnvDevices{ii});                    
+                end
+            end
+        end
+        
+        function set.DACOut(obj, values)
+            validateattributes( values, { 'double','single' }, ...
+                    { 'real', 'finite', 'nonnan', 'nonempty'},'', 'DACOut');
+            obj.DACOut = values;
+            if obj.ConnectedToDevice
+                for ii = 1:length(obj.AD5760DeviceNames)
+                    tmpVal = int32(values(:,ii)-obj.Offset)/obj.Scale;
+                    setDeviceAttributeRAW(obj,'raw',tmpVal,obj.DownCnvDevices{ii});
                 end
             end
         end
@@ -84,7 +110,8 @@ classdef (Abstract) AD5760 < adi.common.Attribute & ...
             if obj.ConnectedToDevice
                 for ii = 1:length(obj.AD5760DeviceNames)
                     setAttributeDouble(obj,'voltage0','powerdown',obj.PowerDown(:,ii),true,0,obj.AD5760Devices{ii});
-                    setAttributeDouble(obj,'voltage0','powerdown_mode',obj.PowerDownMode(:,ii),true,0,obj.AD5760Devices{ii});
+                    setAttributeDouble(obj,'voltage0','powerdown_mode',obj.PowerDownMode{ii},true,0,obj.AD5760Devices{ii});
+                    setAttributeDouble(obj,'voltage0','raw',obj.DACOut(:,ii),true,0,obj.AD5760Devices{ii});
                 end
             end
         end
