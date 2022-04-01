@@ -43,9 +43,9 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         LNABiasOutEnable = true
         LNABiasOn = -4.80012
         BeamMemEnable = true
-        % BiasDACEnable = true
+        BiasDACEnable = true
         BiasDACMode = {'On'}
-        % BiasMemEnable = true
+        BiasMemEnable = true
         CommonMemEnable = true
         CommonRxBeamState = 0
         CommonTxBeamState = 0
@@ -72,19 +72,19 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         TxVMEnable = false
         
         % Channel Properties
-        % DetectorEnable = true(1, 4)
-        % DetectorPower = 255*ones(1, 4)
+        DetectorEnable = true(1, 4)
+        DetectorPower = 255*ones(1, 4)
         PABiasOff = -4.80012*ones(1, 4)
         PABiasOn = -4.80012*ones(1, 4)
         RxAttn = true(1, 4)
         RxBeamState = zeros(1, 4)
         RxPowerDown = false(1, 4)
-        % RxGain = ones(1, 4)
+        RxGain = ones(1, 4)
         RxPhase = zeros(1, 4)
         TxAttn = true(1, 4)
         TxBeamState = zeros(1, 4)
         TxPowerDown = false(1, 4)
-        % TxGain = ones(1, 4)
+        TxGain = ones(1, 4)
         TxPhase = zeros(1, 4)
         % RxBiasState = zeros(1, 4)
         RxSequencerStart = false(1, 4)
@@ -129,8 +129,8 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         
         function updateDefaultProps(obj)
             DeviceProps = {'Mode', 'LNABiasOutEnable', 'LNABiasOn', ...
-                'BeamMemEnable', ...% 'BiasDACEnable'
-                'BiasDACMode', ...% 'BiasMemEnable'
+                'BeamMemEnable', 'BiasDACEnable', ...
+                'BiasDACMode', 'BiasMemEnable', ...
                 'CommonMemEnable', 'CommonRxBeamState', 'CommonTxBeamState', ...
                 'ExternalTRPin', 'ExternalTRPolarity', 'LNABiasOff', ...
                 'PolState', 'PolSwitchEnable', 'RxLNABiasCurrent', ...
@@ -141,11 +141,11 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                 'TxVGAEnable', 'TxVGABiasCurrentVM', 'TxVMEnable'
             };
             ChannelProps = {
-                % 'DetectorEnable', 'DetectorPower', 
+                'DetectorEnable', ...% 'DetectorPower', 
                 'PABiasOff', 'PABiasOn', 'RxAttn', ...
-                'RxBeamState', 'RxPowerDown', ... % 'RxGain'
+                'RxBeamState', 'RxPowerDown', 'RxGain', ...
                 'RxPhase', 'TxAttn', 'TxBeamState', ...
-                'TxPowerDown', ... % 'TxGain'
+                'TxPowerDown', 'TxGain', ...
                 'TxPhase', ...% RxBiasState = zeros(1, 4)
                 'RxSequencerStart', 'RxSequencerStop', ...% 'TxBiasState', 
                 'TxSequencerStart', 'TxSequencerStop'
@@ -322,10 +322,10 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             ColumnPhase = (c-1)*AzimuthPhi;
             RowPhase = (r-1)*ElevationPhi;
             if strcmpi(RxOrTx, 'Rx')
-                obj.RxPhase = ColumnPhase + RowPhase + Offset(obj.ArrayMapInternal);
+                obj.RxPhase = wrapTo360(ColumnPhase + RowPhase + Offset(obj.ArrayMapInternal));
                 obj.LatchRxSettings();
             else
-                obj.TxPhase = ColumnPhase + RowPhase + Offset(obj.ArrayMapInternal);
+                obj.TxPhase = wrapTo360(ColumnPhase + RowPhase + Offset(obj.ArrayMapInternal));
                 obj.LatchTxSettings();
             end
         end
@@ -435,17 +435,11 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             setAllChipsDeviceAttributeRAW(obj, 'beam_mem_enable', num2str(values), true);
             obj.BeamMemEnable = values;
         end
-        
-%         function result = get.BiasDACEnable(obj)
-%             result = true(size(obj.deviceNames));
-%             if ~isempty(obj.iioDevices)
-%                 result = ~getAllChipsDeviceAttributeRAW(obj,'bias_enable', true);
-%             end
-%         end
-%         
-%         function set.BiasDACEnable(obj, values)            
-%             setAllChipsDeviceAttributeRAW(obj, 'bias_enable', num2str(values), true);
-%         end
+
+        function set.BiasDACEnable(obj, values)            
+            setAllChipsDeviceAttributeRAW(obj, 'bias_enable', num2str(values), true);
+            obj.BiasDACEnable = values;
+        end
         
         function set.BiasDACMode(obj, values)
             ivalues = char(ones(size(values)) * '0');
@@ -462,17 +456,11 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             setAllChipsDeviceAttributeRAW(obj, 'bias_ctrl', ivalues, true);
             obj.BiasDACMode = values;
         end
-        
-%         function result = get.BiasMemEnable(obj)
-%             result = true(size(obj.deviceNames));
-%             if ~isempty(obj.iioDevices)
-%                 result = getAllChipsDeviceAttributeRAW(obj,'bias_mem_enable', true);
-%             end
-%         end
-%         
-%         function set.BiasMemEnable(obj, values)            
-%             setAllChipsDeviceAttributeRAW(obj, 'bias_mem_enable', num2str(values), true);
-%         end
+
+        function set.BiasMemEnable(obj, values)            
+            setAllChipsDeviceAttributeRAW(obj, 'bias_mem_enable', num2str(values), true);
+            obj.BiasMemEnable = values;
+        end
         
         function set.CommonMemEnable(obj, values)
             setAllChipsDeviceAttributeRAW(obj, 'common_mem_enable', num2str(values), true);
@@ -709,25 +697,19 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
     
     % Get/Set Methods for Channel Attributes
     methods
-%         function result = get.DetectorEnable(obj)
-%             result = true(size(obj.ArrayMapInternal));
-%             if ~isempty(obj.iioDevices)
-%                 result = getAllChipsChannelAttribute(obj, 'detector_en', true, 'logical');
-%             end
-%         end
-%         
-%         function set.DetectorEnable(obj, values)
-%             setAllChipsChannelAttribute(obj, values, 'detector_en', true, 'logical');
-%         end
+        function set.DetectorEnable(obj, values)
+            setAllChipsChannelAttribute(obj, values, 'detector_en', true, 'logical');
+            obj.DetectorEnable = values;
+        end
         
-%         function result = get.DetectorPower(obj)
-%             result = zeros(size(obj.ArrayMapInternal));
-%             if ~isempty(obj.iioDevices)
-%                 obj.DetectorEnable = true(size(obj.ArrayMapInternal));
-%                 result = getAllChipsChannelAttribute(obj, 'raw', true, 'raw');
-%                 obj.DetectorEnable = false(size(obj.ArrayMapInternal));
-%             end
-%         end
+        function result = get.DetectorPower(obj)
+            result = zeros(size(obj.ArrayMapInternal));
+            if ~isempty(obj.iioDevices)
+                obj.DetectorEnable = true(size(obj.ArrayMapInternal));
+                result = getAllChipsChannelAttribute(obj, 'raw', true, 'raw');
+                obj.DetectorEnable = false(size(obj.ArrayMapInternal));
+            end
+        end
         
         function set.PABiasOff(obj, values)
             dac_codes = int64(values / obj.BIAS_CODE_TO_VOLTAGE_SCALE);
@@ -758,20 +740,14 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             setAllChipsChannelAttribute(obj, ~values, 'powerdown', false, 'logical');
             obj.RxPowerDown = values;
         end
-        
-%         function result = get.RxGain(obj)
-%             result = zeros(size(obj.ArrayMapInternal));
-%             if ~isempty(obj.iioDevices)
-%                 result = -1000*getAllChipsChannelAttribute(obj, 'hardwaregain', false, 'double');
-%             end
-%         end
-%         
-%         function set.RxGain(obj, values)
-%             validateattributes( values, { 'double', 'single', 'uint32'}, ...
-%                 { 'real', 'nonnegative', 'finite', 'nonnan', 'nonempty','integer','>=',0,'<=',127}, ...
-%                 '', 'RxGain');
-%             setAllChipsChannelAttribute(obj, values, 'hardwaregain', false, 'double');
-%         end
+
+        function set.RxGain(obj, values)
+            validateattributes( values, { 'double', 'single', 'uint32'}, ...
+                { 'real', 'nonnegative', 'finite', 'nonnan', 'nonempty','integer','>=',0,'<=',127}, ...
+                '', 'RxGain');
+            setAllChipsChannelAttribute(obj, values, 'hardwaregain', false, 'double');
+            obj.RxGain = values;
+        end
         
         function set.RxPhase(obj, values)
             %{
@@ -801,19 +777,13 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             obj.TxPowerDown = values;
         end
         
-%         function result = get.TxGain(obj)
-%             result = zeros(size(obj.ArrayMapInternal));
-%             if ~isempty(obj.iioDevices)
-%                 result = -1000*getAllChipsChannelAttribute(obj, 'hardwaregain', true, 'double');
-%             end
-%         end
-%         
-%         function set.TxGain(obj, values)
-%             validateattributes( values, { 'double', 'single', 'uint32'}, ...
-%                 { 'real', 'nonnegative', 'finite', 'nonnan', 'nonempty','integer','>=',0,'<=',127}, ...
-%                 '', 'TxGain');
-%             setAllChipsChannelAttribute(obj, values, 'hardwaregain', true, 'double');
-%         end
+        function set.TxGain(obj, values)
+            validateattributes( values, { 'double', 'single', 'uint32'}, ...
+                { 'real', 'nonnegative', 'finite', 'nonnan', 'nonempty','integer','>=',0,'<=',127}, ...
+                '', 'TxGain');
+            setAllChipsChannelAttribute(obj, values, 'hardwaregain', true, 'double');
+            obj.TxGain = values;
+        end
         
         function set.TxPhase(obj, values)
             %{
@@ -915,6 +885,91 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                    error('%s not found',obj.deviceNames{dn});
                 end
             end
+
+            % Write device attributes
+            setAllChipsDeviceAttributeRAW(obj, 'rx_en', num2str(obj.RxEnable), true);
+            setAllChipsDeviceAttributeRAW(obj, 'tx_en', num2str(obj.TxEnable), true);
+            setAllChipsDeviceAttributeRAW(obj, 'lna_bias_out_enable', num2str(obj.LNABiasOutEnable), true);
+            setAllChipsDeviceAttributeRAW(obj, 'lna_bias_on', convertStringsToChars(string(int32(obj.LNABiasOn / obj.BIAS_CODE_TO_VOLTAGE_SCALE))), false);
+            values = obj.StateTxOrRx;
+            ivalues = char(ones(size(values)) * '0');
+            for ii = 1:numel(values)
+                if ~(strcmpi(values(ii), 'Tx') || strcmpi(values(ii), 'Rx'))
+                    error('Expected ''Tx'' or ''Rx'' for property, StateTxOrRx');
+                end
+                if strcmpi(values(ii), 'Tx')
+                    ivalues(ii) = '1';
+                else
+                    ivalues(ii) = '0';
+                end
+            end
+            setAllChipsDeviceAttributeRAW(obj, 'tr_spi', ivalues, true);
+            setAllChipsDeviceAttributeRAW(obj, 'beam_mem_enable', num2str(obj.BeamMemEnable), true);
+            ivalues = char(ones(size(obj.BiasDACMode)) * '0');
+            for ii = 1:numel(obj.BiasDACMode)
+                if ~(strcmpi(obj.BiasDACMode(ii), 'Toggle') || strcmpi(obj.BiasDACMode(ii), 'On'))
+                    error('Expected ''Toggle'' or ''On'' for property, BiasDACMode');
+                end
+                if strcmpi(obj.BiasDACMode(ii), 'Toggle')
+                    ivalues(ii) = '1';
+                else
+                    ivalues(ii) = '0';
+                end
+            end
+            setAllChipsDeviceAttributeRAW(obj, 'bias_ctrl', ivalues, true);
+            setAllChipsDeviceAttributeRAW(obj, 'common_mem_enable', num2str(obj.CommonMemEnable), true);
+            setAllChipsDeviceAttributeRAW(obj, 'static_rx_beam_pos_load', convertStringsToChars(string(int32(obj.CommonRxBeamState))), false);
+            setAllChipsDeviceAttributeRAW(obj, 'static_tx_beam_pos_load', convertStringsToChars(string(int32(obj.CommonTxBeamState))), false);
+            ivalues = char(ones(size(obj.ExternalTRPin)) * '0');
+            for ii = 1:numel(obj.ExternalTRPin)
+                if ~(strcmpi(obj.ExternalTRPin(ii), 'Pos') || strcmpi(obj.ExternalTRPin(ii), 'Neg'))
+                    error('Expected ''Pos'' or ''Neg'' for property, ExternalTRPin');
+                end
+                if strcmpi(obj.ExternalTRPin(ii), 'Neg')
+                    ivalues(ii) = '1';
+                else
+                    ivalues(ii) = '0';
+                end
+            end
+            setAllChipsDeviceAttributeRAW(obj, 'sw_drv_tr_mode_sel', ivalues, true);
+            setAllChipsDeviceAttributeRAW(obj, 'sw_drv_tr_state', num2str(obj.ExternalTRPolarity), true);
+            setAllChipsDeviceAttributeRAW(obj, 'lna_bias_off', convertStringsToChars(string(int32(obj.LNABiasOff / obj.BIAS_CODE_TO_VOLTAGE_SCALE))), false);
+            setAllChipsDeviceAttributeRAW(obj, 'pol', num2str(obj.PolState), true);
+            setAllChipsDeviceAttributeRAW(obj, 'sw_drv_en_pol', num2str(obj.PolSwitchEnable), true);
+            setAllChipsDeviceAttributeRAW(obj, 'bias_current_rx_lna', convertStringsToChars(string(int32(obj.RxLNABiasCurrent))), false);
+            setAllChipsDeviceAttributeRAW(obj, 'rx_lna_enable', num2str(obj.RxLNAEnable), true);
+            setAllChipsDeviceAttributeRAW(obj, 'rx_to_tx_delay_1', convertStringsToChars(string(int32(obj.RxToTxDelay1))), false);
+            setAllChipsDeviceAttributeRAW(obj, 'rx_to_tx_delay_2', convertStringsToChars(string(int32(obj.RxToTxDelay2))), false);
+            setAllChipsDeviceAttributeRAW(obj, 'rx_vga_enable', num2str(obj.RxVGAEnable), true);
+            setAllChipsDeviceAttributeRAW(obj, 'bias_current_rx', convertStringsToChars(string(int32(obj.RxVGABiasCurrentVM))), false);
+            setAllChipsDeviceAttributeRAW(obj, 'rx_vm_enable', num2str(obj.RxVMEnable), true);
+            setAllChipsDeviceAttributeRAW(obj, 'sequencer_enable', num2str(obj.SequencerEnable), true);
+            setAllChipsDeviceAttributeRAW(obj, 'sw_drv_en_tr', num2str(obj.TRSwitchEnable), true);
+            setAllChipsDeviceAttributeRAW(obj, 'bias_current_tx_drv', convertStringsToChars(string(int32(obj.TxPABiasCurrent))), false);
+            setAllChipsDeviceAttributeRAW(obj, 'tx_drv_enable', num2str(obj.TxPAEnable), true);
+            setAllChipsDeviceAttributeRAW(obj, 'tx_to_rx_delay_1', convertStringsToChars(string(int32(obj.TxToRxDelay1))), false);
+            setAllChipsDeviceAttributeRAW(obj, 'tx_to_rx_delay_2', convertStringsToChars(string(int32(obj.TxToRxDelay2))), false);
+            setAllChipsDeviceAttributeRAW(obj, 'tx_vga_enable', num2str(obj.TxVGAEnable), true);
+            setAllChipsDeviceAttributeRAW(obj, 'bias_current_tx', convertStringsToChars(string(int32(obj.TxVGABiasCurrentVM))), false);
+            setAllChipsDeviceAttributeRAW(obj, 'tx_vm_enable', num2str(obj.TxVMEnable), true);
+
+            % Write channel attributes
+            setAllChipsChannelAttribute(obj, int64(obj.PABiasOff / obj.BIAS_CODE_TO_VOLTAGE_SCALE), 'pa_bias_off', true, 'int64');
+            setAllChipsChannelAttribute(obj, int64(obj.PABiasOn / obj.BIAS_CODE_TO_VOLTAGE_SCALE), 'pa_bias_on', true, 'int32');
+            setAllChipsChannelAttribute(obj, obj.RxAttn, 'attenuation', false, 'logical');
+            setAllChipsChannelAttribute(obj, obj.RxBeamState, 'beam_pos_load', false, 'int32');
+            setAllChipsChannelAttribute(obj, ~obj.RxPowerDown, 'powerdown', false, 'logical');
+            % setAllChipsChannelAttribute(obj, obj.RxGain, 'hardwaregain', false, 'double');
+            setAllChipsChannelAttribute(obj, obj.RxPhase, 'phase', false, 'double', 4);
+            setAllChipsChannelAttribute(obj, obj.TxAttn, 'attenuation', true, 'logical');
+            setAllChipsChannelAttribute(obj, obj.TxBeamState, 'beam_pos_load', true, 'int32');
+            setAllChipsChannelAttribute(obj, ~obj.TxPowerDown, 'powerdown', true, 'logical');
+            % setAllChipsChannelAttribute(obj, obj.TxGain, 'hardwaregain', true, 'double');
+            setAllChipsChannelAttribute(obj, obj.TxPhase, 'phase', true, 'double', 4);
+            setAllChipsChannelAttribute(obj, obj.RxSequencerStart, 'sequence_start', false, 'logical');
+            setAllChipsChannelAttribute(obj, obj.RxSequencerStop, 'sequence_end', false, 'logical');
+            setAllChipsChannelAttribute(obj, obj.TxSequencerStart, 'sequence_start', true, 'logical');
+            setAllChipsChannelAttribute(obj, obj.TxSequencerStop, 'sequence_end', true, 'logical');
         end
         
         function setupImpl(obj)

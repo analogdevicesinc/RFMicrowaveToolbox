@@ -24,13 +24,6 @@ classdef ADF4371 < adi.common.Attribute & adi.common.Rx
         function set.MUXOutEnable(obj, value)
             obj.setDeviceAttributeRAW('muxout_enable', num2str(value), obj.ADF4371DevicePtr);
         end
-        
-        function result = get.Name(obj)
-            result = false;
-            if ~isempty(obj.ADF4371DevicePtr)
-                result = obj.getAttributeRAW('name', 'raw', true, obj.ADF4371DevicePtr);
-            end
-        end
     end
     
     methods (Hidden, Access = protected)
