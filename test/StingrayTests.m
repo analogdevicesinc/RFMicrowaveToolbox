@@ -1,4 +1,4 @@
-classdef StingrayTests < HardwareTests
+classdef StingrayTests2 < HardwareTests
     properties
         uri = 'ip:10.72.162.61';
         author = 'ADI';
@@ -10,6 +10,8 @@ classdef StingrayTests < HardwareTests
             % Setup Stingray
             testCase.sray = adi.Stingray;
             testCase.sray.uri = testCase.uri;
+%             values(:) = {'Disabled'};
+%             testCase.sray.Mode = values;
             testCase.sray();
         end        
     end
@@ -317,27 +319,27 @@ classdef StingrayTests < HardwareTests
         end
         %}
         function testPABiasOff(testCase)
-            values = randi([60 100], size(testCase.sray.ArrayMap.'))*...
+            values = randi([60 100], size(testCase.sray.ArrayMap))*...
                 testCase.sray.BIAS_CODE_TO_VOLTAGE_SCALE;
             testCase.sray.PABiasOff = values;
             rvalues = testCase.sray.PABiasOff;
             testCase.verifyEqual(rvalues,values);
-            testCase.sray.PABiasOff = 100*ones(size(testCase.sray.ArrayMap.'))*...
+            testCase.sray.PABiasOff = 100*ones(size(testCase.sray.ArrayMap))*...
                 testCase.sray.BIAS_CODE_TO_VOLTAGE_SCALE;
         end
         
         function testPABiasOn(testCase)
-            values = randi([60 100], size(testCase.sray.ArrayMap.'))*...
+            values = randi([60 100], size(testCase.sray.ArrayMap))*...
                 testCase.sray.BIAS_CODE_TO_VOLTAGE_SCALE;
             testCase.sray.PABiasOn = values;
             rvalues = testCase.sray.PABiasOn;
             testCase.verifyEqual(rvalues,values);
-            testCase.sray.PABiasOn = 100*ones(size(testCase.sray.ArrayMap.'))*...
+            testCase.sray.PABiasOn = 100*ones(size(testCase.sray.ArrayMap))*...
                 testCase.sray.BIAS_CODE_TO_VOLTAGE_SCALE;
         end
         
         function testRxAttn(testCase)
-            values = logical(randi([0 1], size(testCase.sray.ArrayMap.')));
+            values = logical(randi([0 1], size(testCase.sray.ArrayMap)));
             testCase.sray.RxAttn = values;
             rvalues = testCase.sray.RxAttn;
             testCase.verifyEqual(rvalues,values);
@@ -345,18 +347,19 @@ classdef StingrayTests < HardwareTests
         
         function testRxBeamState(testCase)
             tmp_size = size(testCase.sray.ArrayMap);
-            values = repmat(randi([0 120], 1, tmp_size(1)), tmp_size(2), 1);
+            values = repmat(randi([0 120], 1, tmp_size(1)), tmp_size(2), 1).';
             testCase.sray.RxBeamState = values;
             rvalues = testCase.sray.RxBeamState;
             testCase.verifyEqual(rvalues,values);
         end
         
         function testRxPowerDown(testCase)
-            values = logical(randi([0 1], size(testCase.sray.ArrayMap.')));
+            tmp_size = size(testCase.sray.ArrayMap);
+            values = repmat(logical(randi([0 1], 1, tmp_size(1))), tmp_size(2), 1).';
             testCase.sray.RxPowerDown = values;
             rvalues = testCase.sray.RxPowerDown;
             testCase.verifyEqual(rvalues,values);
-            testCase.sray.RxPowerDown = false(size(testCase.sray.ArrayMap.'));
+            testCase.sray.RxPowerDown = false(size(testCase.sray.ArrayMap));
         end
         %{
         function testRxGain(testCase)
@@ -367,14 +370,14 @@ classdef StingrayTests < HardwareTests
         end
         %}
         function testRxPhase(testCase)
-            values = randi([0 127], size(testCase.sray.ArrayMap.'));
+            values = randi([0 127], size(testCase.sray.ArrayMap));
             testCase.sray.RxPhase = values;
             rvalues = testCase.sray.RxPhase;
             testCase.verifyEqual(rvalues,values, "AbsTol", 4);
         end
         
         function testTxAttn(testCase)
-            values = logical(randi([0 1], size(testCase.sray.ArrayMap.')));
+            values = logical(randi([0 1], size(testCase.sray.ArrayMap)));
             testCase.sray.TxAttn = values;
             rvalues = testCase.sray.TxAttn;
             testCase.verifyEqual(rvalues,values);
@@ -382,18 +385,19 @@ classdef StingrayTests < HardwareTests
         
         function testTxBeamState(testCase)
             tmp_size = size(testCase.sray.ArrayMap);
-            values = repmat(randi([0 120], 1, tmp_size(1)), tmp_size(2), 1);
+            values = repmat(randi([0 120], 1, tmp_size(1)), tmp_size(2), 1).';
             testCase.sray.TxBeamState = values;
             rvalues = testCase.sray.TxBeamState;
             testCase.verifyEqual(rvalues,values);
         end
         
         function testTxPowerDown(testCase)
-            values = logical(randi([0 1], size(testCase.sray.ArrayMap.')));
+            tmp_size = size(testCase.sray.ArrayMap);
+            values = repmat(logical(randi([0 1], 1, tmp_size(1))), tmp_size(2), 1).';
             testCase.sray.TxPowerDown = values;
             rvalues = testCase.sray.TxPowerDown;
             testCase.verifyEqual(rvalues,values);
-            testCase.sray.TxPowerDown = false(size(testCase.sray.ArrayMap.'));
+            testCase.sray.TxPowerDown = false(size(testCase.sray.ArrayMap));
         end
         %{
         function testTxGain(testCase)
@@ -404,7 +408,7 @@ classdef StingrayTests < HardwareTests
         end
         %}
         function testTxPhase(testCase)
-            values = randi([0 127], size(testCase.sray.ArrayMap.'));
+            values = randi([0 127], size(testCase.sray.ArrayMap));
             testCase.sray.TxPhase = values;
             rvalues = testCase.sray.TxPhase;
             testCase.verifyEqual(rvalues,values, "AbsTol", 4);
@@ -420,20 +424,20 @@ classdef StingrayTests < HardwareTests
         %}
         function testRxSequencerStart(testCase)
             tmp_size = size(testCase.sray.ArrayMap);
-            values = repmat(logical(randi([0 1], 1, tmp_size(1))), tmp_size(2), 1);
+            values = repmat(logical(randi([0 1], 1, tmp_size(1))), tmp_size(2), 1).';
             testCase.sray.RxSequencerStart = values;
             rvalues = testCase.sray.RxSequencerStart;
             testCase.verifyEqual(rvalues,values);
-            testCase.sray.RxSequencerStart = false(size(testCase.sray.ArrayMap.'));
+            testCase.sray.RxSequencerStart = false(size(testCase.sray.ArrayMap));
         end
         
         function testRxSequencerStop(testCase)
             tmp_size = size(testCase.sray.ArrayMap);
-            values = repmat(logical(randi([0 1], 1, tmp_size(1))), tmp_size(2), 1);
+            values = repmat(logical(randi([0 1], 1, tmp_size(1))), tmp_size(2), 1).';
             testCase.sray.RxSequencerStop = values;
             rvalues = testCase.sray.RxSequencerStop;
             testCase.verifyEqual(rvalues,values);
-            testCase.sray.RxSequencerStop = false(size(testCase.sray.ArrayMap.'));
+            testCase.sray.RxSequencerStop = false(size(testCase.sray.ArrayMap));
         end
         %{
         function testTxBiasState(testCase)
@@ -446,20 +450,20 @@ classdef StingrayTests < HardwareTests
         %}
         function testTxSequencerStart(testCase)
             tmp_size = size(testCase.sray.ArrayMap);
-            values = repmat(logical(randi([0 1], 1, tmp_size(1))), tmp_size(2), 1);
+            values = repmat(logical(randi([0 1], 1, tmp_size(1))), tmp_size(2), 1).';
             testCase.sray.TxSequencerStart = values;
             rvalues = testCase.sray.TxSequencerStart;
             testCase.verifyEqual(rvalues,values);
-            testCase.sray.TxSequencerStart = false(size(testCase.sray.ArrayMap.'));
+            testCase.sray.TxSequencerStart = false(size(testCase.sray.ArrayMap));
         end
         
         function testTxSequencerStop(testCase)
             tmp_size = size(testCase.sray.ArrayMap);
-            values = repmat(logical(randi([0 1], 1, tmp_size(1))), tmp_size(2), 1);
+            values = repmat(logical(randi([0 1], 1, tmp_size(1))), tmp_size(2), 1).';
             testCase.sray.TxSequencerStop = values;
             rvalues = testCase.sray.TxSequencerStop;
             testCase.verifyEqual(rvalues,values);
-            testCase.sray.TxSequencerStop = false(size(testCase.sray.ArrayMap.'));
+            testCase.sray.TxSequencerStop = false(size(testCase.sray.ArrayMap));
         end
     end
 end
