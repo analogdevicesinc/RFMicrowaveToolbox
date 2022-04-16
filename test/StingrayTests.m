@@ -1,4 +1,4 @@
-classdef StingrayTests2 < HardwareTests
+classdef StingrayTests < HardwareTests
     properties
         uri = 'ip:10.72.162.61';
         author = 'ADI';
