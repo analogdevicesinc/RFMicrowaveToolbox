@@ -35,47 +35,69 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
     end
     
     properties
-        % Device Properties
+        %Mode ADAR1000 Mode
+        %   Options are 'Rx', 'Tx', or 'disabled'
         Mode = {'Rx'}
+        %StateTxOrRx ADAR1000 State
+        %   Options are 'Rx', or 'Tx'
+        %   Tx/Rx Control is through SPI
         StateTxOrRx = {'Rx'}
+        %RxEnable ADAR1000 Enable Rx
         RxEnable = true
+        %TxEnable ADAR1000 Enable Tx
         TxEnable = false
-        LNABiasOutEnable = false %updated
-        LNABiasOn = -0.8 %updated
-        BeamMemEnable = false %updated
+        %LNABiasOutEnable ADAR1000 LNA Bias Out Enable
+        LNABiasOutEnable = false
+        %LNABiasOn ADAR1000 LNA Bias On
+        LNABiasOn = -0.8
+        %BeamMemEnable ADAR1000 Beam Mem Enable
+        BeamMemEnable = false
+        %BiasDACEnable ADAR1000 Bias DAC Enable
         BiasDACEnable = true
+        %BiasDACMode ADAR1000 Bias DAC Mode
         BiasDACMode = {'On'}
-        BiasMemEnable = false %updated
-        CommonMemEnable = false %updated
+        %BiasMemEnable ADAR1000 Bias MEM Enable
+        BiasMemEnable = false
+        %CommonMemEnable ADAR1000 Common MEM Enable
+        CommonMemEnable = false
+        %CommonRxBeamState ADAR1000 Common Rx Beam State
         CommonRxBeamState = 0
+        %CommonTxBeamState ADAR1000 Common Tx Beam State
         CommonTxBeamState = 0
+        %ExternalTRPin ADAR1000 External TR Pin
         ExternalTRPin = {'Pos'}
-        ExternalTRPolarity = true %updated
-        LNABiasOff = -2 %updated
+        %ExternalTRPolarity ADAR1000 External TR Polarity
+        ExternalTRPolarity = true
+        %LNABiasOff ADAR1000 LNA Bias Off
+        LNABiasOff = -2
+        %PolState ADAR1000 PolState
         PolState = false
+        %PolSwitchEnable ADAR1000 Pol Switch Enable
         PolSwitchEnable = false
-        RxLNABiasCurrent = 8 %updated
-        RxLNAEnable = true %updated
+        %RxLNABiasCurrent ADAR1000 Rx LNA Bias Current
+        RxLNABiasCurrent = 8
+        %RxLNAEnable ADAR1000 Rx LNA Enable
+        RxLNAEnable = true
         RxToTxDelay1 = 0
         RxToTxDelay2 = 0
-        RxVGAEnable = true %updated
-        RxVGABiasCurrentVM = 85 %updated
-        RxVMEnable = true %updated
+        RxVGAEnable = true
+        RxVGABiasCurrentVM = 85
+        RxVMEnable = true
         SequencerEnable = false
-        TRSwitchEnable = true %updated
-        TxPABiasCurrent = 6 %updated
+        TRSwitchEnable = true
+        TxPABiasCurrent = 6
         TxPAEnable = false
         TxToRxDelay1 = 0
         TxToRxDelay2 = 0
-        TxVGAEnable = true %updated
-        TxVGABiasCurrentVM = 45 %updated
-        TxVMEnable = true %updated
+        TxVGAEnable = true
+        TxVGABiasCurrentVM = 45
+        TxVMEnable = true
         
-        % Channel Properties
+        %% Channel Properties
         DetectorEnable = true(1, 4)
         DetectorPower = 255*ones(1, 4)
-        PABiasOff = -2.484*ones(1, 4) %updated
-        PABiasOn = -2.484*ones(1, 4) %updated
+        PABiasOff = -2.484*ones(1, 4)
+        PABiasOn = -2.484*ones(1, 4)
         RxAttn = true(1, 4)
         RxBeamState = zeros(1, 4)
         RxPowerDown = false(1, 4)
@@ -885,11 +907,11 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                    error('%s not found',obj.deviceNames{dn});
                 end
             end
-% return
+
             % Write device attributes
             setAllChipsDeviceAttributeRAW(obj, 'rx_en', num2str(obj.RxEnable), true);
             setAllChipsDeviceAttributeRAW(obj, 'tx_en', num2str(obj.TxEnable), true);
-             setAllChipsDeviceAttributeRAW(obj, 'lna_bias_out_enable', num2str(obj.LNABiasOutEnable), true);
+            setAllChipsDeviceAttributeRAW(obj, 'lna_bias_out_enable', num2str(obj.LNABiasOutEnable), true);
             setAllChipsDeviceAttributeRAW(obj, 'lna_bias_on', convertStringsToChars(string(int32(obj.LNABiasOn / obj.BIAS_CODE_TO_VOLTAGE_SCALE))), false);
             values = obj.StateTxOrRx;
             ivalues = char(ones(size(values)) * '0');
@@ -903,8 +925,8 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                     ivalues(ii) = '0';
                 end
             end
-            setAllChipsDeviceAttributeRAW(obj, 'tr_spi', ivalues, true); 
-            setAllChipsDeviceAttributeRAW(obj, 'beam_mem_enable', num2str(obj.BeamMemEnable), true); 
+            setAllChipsDeviceAttributeRAW(obj, 'tr_spi', ivalues, true);
+            setAllChipsDeviceAttributeRAW(obj, 'beam_mem_enable', num2str(obj.BeamMemEnable), true);
             ivalues = char(ones(size(obj.BiasDACMode)) * '0');
             for ii = 1:numel(obj.BiasDACMode)
                 if ~(strcmpi(obj.BiasDACMode(ii), 'Toggle') || strcmpi(obj.BiasDACMode(ii), 'On'))
@@ -917,7 +939,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                 end
             end
             setAllChipsDeviceAttributeRAW(obj, 'bias_ctrl', ivalues, true);
-            setAllChipsDeviceAttributeRAW(obj, 'common_mem_enable', num2str(obj.CommonMemEnable), true); 
+            setAllChipsDeviceAttributeRAW(obj, 'common_mem_enable', num2str(obj.CommonMemEnable), true);
             setAllChipsDeviceAttributeRAW(obj, 'static_rx_beam_pos_load', convertStringsToChars(string(int32(obj.CommonRxBeamState))), false);
             setAllChipsDeviceAttributeRAW(obj, 'static_tx_beam_pos_load', convertStringsToChars(string(int32(obj.CommonTxBeamState))), false);
             ivalues = char(ones(size(obj.ExternalTRPin)) * '0');
@@ -931,11 +953,11 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                     ivalues(ii) = '0';
                 end
             end
-            setAllChipsDeviceAttributeRAW(obj, 'sw_drv_tr_mode_sel', ivalues, true); 
+            setAllChipsDeviceAttributeRAW(obj, 'sw_drv_tr_mode_sel', ivalues, true);
             setAllChipsDeviceAttributeRAW(obj, 'sw_drv_tr_state', num2str(obj.ExternalTRPolarity), true);
             setAllChipsDeviceAttributeRAW(obj, 'lna_bias_off', convertStringsToChars(string(int32(obj.LNABiasOff / obj.BIAS_CODE_TO_VOLTAGE_SCALE))), false);
-            setAllChipsDeviceAttributeRAW(obj, 'pol', num2str(obj.PolState), true); 
-            setAllChipsDeviceAttributeRAW(obj, 'sw_drv_en_pol', num2str(obj.PolSwitchEnable), true); 
+            setAllChipsDeviceAttributeRAW(obj, 'pol', num2str(obj.PolState), true);
+            setAllChipsDeviceAttributeRAW(obj, 'sw_drv_en_pol', num2str(obj.PolSwitchEnable), true);
             setAllChipsDeviceAttributeRAW(obj, 'bias_current_rx_lna', convertStringsToChars(string(int32(obj.RxLNABiasCurrent))), false);
             setAllChipsDeviceAttributeRAW(obj, 'rx_lna_enable', num2str(obj.RxLNAEnable), true);
             setAllChipsDeviceAttributeRAW(obj, 'rx_to_tx_delay_1', convertStringsToChars(string(int32(obj.RxToTxDelay1))), false);
