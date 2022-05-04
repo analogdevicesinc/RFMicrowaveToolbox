@@ -3,9 +3,9 @@ classdef Stingray < adi.internal.ADAR100x & ...
         adi.internal.XUD1aControl & ...
         adi.internal.ADF4371 & ...
         adi.internal.AXICoreTDD
-    % adi.Stingray Stingray beamformer development platform
-    %   The adi.Stingray System object is a signal source that can receive
-    %   complex data from the Stingray X/Ku Band Beamforming Developer Platform.
+    % adi.Stingray Analog Devices Inc. Stingray beamformer development platform
+    %   The adi.Stingray system object is an API to control the
+    %   Stingray X/Ku Band Beamforming Developer Platform.
     %
     %   rx = adi.Stingray;
     %   rx = adi.Stingray('uri','ip:192.168.2.1');
