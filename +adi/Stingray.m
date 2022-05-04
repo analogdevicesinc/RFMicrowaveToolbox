@@ -17,6 +17,7 @@ classdef Stingray < adi.internal.ADAR100x & ...
     end
     
     properties(Dependent)
+        %ArrayMap Map of physical array to ADAR1000 channel array
         ArrayMap
     end
     

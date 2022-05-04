@@ -1,7 +1,10 @@
 classdef StingrayControl < adi.common.Attribute
     properties
+        %PowerUpDown StingrayControl(one-bit-adc-dac): Power Control
         PowerUpDown = false
+        %Ctrl5V StingrayControl(one-bit-adc-dac): Control 5V
         Ctrl5V = false
+        %PAOn StingrayControl(one-bit-adc-dac): PA On/Off
         PAOn = false
     end
     

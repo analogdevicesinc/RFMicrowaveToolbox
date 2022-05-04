@@ -35,101 +35,142 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
     end
     
     properties
-        %Mode ADAR1000 Mode
+        %Mode Mode
         %   Options are 'Rx', 'Tx', or 'disabled'
         Mode = {'Rx'}
-        %StateTxOrRx ADAR1000 State
+        %StateTxOrRx Set state to Rx or Tx via tr_spi bit
         %   Options are 'Rx', or 'Tx'
-        %   Tx/Rx Control is through SPI
         StateTxOrRx = {'Rx'}
-        %RxEnable ADAR1000 Enable Rx
+        %RxEnable Enable Rx channel subcircuits when under SPI control
         RxEnable = true
-        %TxEnable ADAR1000 Enable Tx
+        %TxEnable Enable Tx channel subcircuits when under SPI control
         TxEnable = false
-        %LNABiasOutEnable ADAR1000 LNA Bias Out Enable
+        %LNABiasOutEnable Enables output of LNA bias DAC
         LNABiasOutEnable = false
-        %LNABiasOn ADAR1000 LNA Bias On
+        %LNABiasOn External Bias for External LNAs
         LNABiasOn = -0.8
-        %BeamMemEnable ADAR1000 Beam Mem Enable
+        %BeamMemEnable Beam Memory Enable
         BeamMemEnable = false
-        %BiasDACEnable ADAR1000 Bias DAC Enable
+        %BiasDACEnable Enables PA and LNA bias DACs
         BiasDACEnable = true
-        %BiasDACMode ADAR1000 Bias DAC Mode
+        %BiasDACMode External Am plifier Bias Control
         BiasDACMode = {'On'}
-        %BiasMemEnable ADAR1000 Bias MEM Enable
+        %BiasMemEnable Bias Memory Enable
         BiasMemEnable = false
-        %CommonMemEnable ADAR1000 Common MEM Enable
+        %CommonMemEnable Common Memory Enable
         CommonMemEnable = false
-        %CommonRxBeamState ADAR1000 Common Rx Beam State
+        %CommonRxBeamState Static Rx Beam Position Load
         CommonRxBeamState = 0
-        %CommonTxBeamState ADAR1000 Common Tx Beam State
+        %CommonTxBeamState Static Tx Beam Position Load
         CommonTxBeamState = 0
-        %ExternalTRPin ADAR1000 External TR Pin
+        %ExternalTRPin Tx/Rx Output Driver Select
         ExternalTRPin = {'Pos'}
-        %ExternalTRPolarity ADAR1000 External TR Polarity
+        %ExternalTRPolarity Controls Sense of Tx/Rx Switch Driver Output
         ExternalTRPolarity = true
-        %LNABiasOff ADAR1000 LNA Bias Off
+        %LNABiasOff External Bias for External LNAs
         LNABiasOff = -2
-        %PolState ADAR1000 PolState
+        %PolState Control for External Polarity Switch Drivers
         PolState = false
-        %PolSwitchEnable ADAR1000 Pol Switch Enable
+        %PolSwitchEnable Enables Switch Driver for External Polarization Switch
         PolSwitchEnable = false
-        %RxLNABiasCurrent ADAR1000 Rx LNA Bias Current
+        %RxLNABiasCurrent LNA Bias Current Setting
         RxLNABiasCurrent = 8
-        %RxLNAEnable ADAR1000 Rx LNA Enable
+        %RxLNAEnable Rx LNA Enable
         RxLNAEnable = true
+        %RxToTxDelay1 LNA Bias off to TR Switch Delay
         RxToTxDelay1 = 0
+        %RxToTxDelay2 TR Switch to PA Bias on Delay
         RxToTxDelay2 = 0
+        %RxVGAEnable Enables the Rx Channel VGAs
         RxVGAEnable = true
+        %RxVGABiasCurrentVM Rx Bias Current
         RxVGABiasCurrentVM = 85
+        %RxVMEnable Enables the Rx Channel Vector Modulators
         RxVMEnable = true
+        %SequencerEnable Sequencer Enable
         SequencerEnable = false
+        %TRSwitchEnable Enables Switch Driver for External Tx/Rx Switch
         TRSwitchEnable = true
+        %TxPABiasCurrent Tx Driver Bias Current Setting
         TxPABiasCurrent = 6
+        %TxPAEnable Enables the Tx Channel Drivers
         TxPAEnable = false
+        %TxToRxDelay1 PA Bias off to TR Switch Delay
         TxToRxDelay1 = 0
+        %TxToRxDelay2 TR Switch to LNA Bias on Delay
         TxToRxDelay2 = 0
+        %TxVGAEnable Enables the Tx Channel VGAs
         TxVGAEnable = true
+        %TxVGABiasCurrentVM Tx Bias Current
         TxVGABiasCurrentVM = 45
+        %TxVMEnable Enables the Tx Channel Vector Modulators
         TxVMEnable = true
         
-        %% Channel Properties
+        %DetectorEnable Detector Enable
         DetectorEnable = true(1, 4)
+        %DetectorPower Detector Power
         DetectorPower = 255*ones(1, 4)
+        %PABiasOff External Bias for External PA 
         PABiasOff = -2.484*ones(1, 4)
+        %PABiasOn External Bias for External PA  
         PABiasOn = -2.484*ones(1, 4)
+        %RxAttn Rx Attenuation
         RxAttn = true(1, 4)
+        %RxBeamState Load Rx Position
         RxBeamState = zeros(1, 4)
+        %RxPowerDown Rx Powerdown
         RxPowerDown = false(1, 4)
+        %RxGain Rx Gain
         RxGain = ones(1, 4)
+        %RxPhase Rx Phase
         RxPhase = zeros(1, 4)
+        %TxAttn Tx Attenuation
         TxAttn = true(1, 4)
+        %TxBeamState Load Tx Position
         TxBeamState = zeros(1, 4)
+        %TxPowerDown Tx Powerdown
         TxPowerDown = false(1, 4)
+        %TxGain Tx Gain
         TxGain = ones(1, 4)
+        %TxPhase Tx Phase
         TxPhase = zeros(1, 4)
         % RxBiasState = zeros(1, 4)
+        %RxSequencerStart Rx Sequencer Start
         RxSequencerStart = false(1, 4)
+        %RxSequencerStop Rx Sequencer Stop
         RxSequencerStop = false(1, 4)
         % TxBiasState = zeros(1, 4)
+        %TxSequencerStart Tx Sequencer Start
         TxSequencerStart = false(1, 4)
+        %TxSequencerStop Tx Sequencer Stop
         TxSequencerStop = false(1, 4)
+        %Temp ADAR1000 Temperature
         Temp = 0
     end
     
     properties
+        %Frequency ADAR1000 Frequency
         Frequency = 10e9
+        %ElementSpacing ADAR1000 Element Spacing
         ElementSpacing = 0.015
     end
     
     properties (Hidden, Access = private)
+        %RxAzimuth Rx Azimuth
         RxAzimuth = 0
+        %RxAzimuthPhi Rx Azimuth Phi
         RxAzimuthPhi = 0
+        %RxElevation Rx Elevation
         RxElevation = 0
+        %RxElevationPhi Rx Elevation Phi
         RxElevationPhi = 0
+        %TxAzimuth Tx Azimuth
         TxAzimuth = 0
+        %TxAzimuthPhi Tx Azimuth Phi
         TxAzimuthPhi = 0
+        %TxElevation Tx Elevation
         TxElevation = 0
+        %TxElevationPhi Tx Elevation Phi
         TxElevationPhi = 0
     end
     

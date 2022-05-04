@@ -1,36 +1,46 @@
 classdef AXICoreTDD < adi.common.Attribute
     properties
-        % Device Attributes
+        %BurstCount AXICoreTDD: Burst Count
         BurstCount
+        %CounterInt AXICoreTDD: Counter Int
         CounterInt
-        % DMA Gateing Mode
-        % 0 - none
-        % 1 - rx_only
-        % 2 - tx_only
-        % 3 - rx_tx
+        %DMAGateingMode AXICoreTDD: DMA Gateing Mode
+        % 0 - none, 1 - rx_only, 2 - tx_only, 3 - rx_tx
         DMAGateingMode = 0; 
         Enable
-        % Enable Mode
-        % 1 - rx_only
-        % 2 - tx_only
-        % 3 - rx_tx
+        %EnableMode AXICoreTDD: Enable Mode
+        % 1 - rx_only, 2 - tx_only, 3 - rx_tx
         EnableMode = 3;
+        %FrameLength AXICoreTDD: Frame Length
         FrameLength
+        %Secondary AXICoreTDD: Secondary
         Secondary
+        %SyncTerminalType AXICoreTDD: Sync Terminal Type
         SyncTerminalType
         
-        % Channel Attributes
+        %TxDPoff AXICoreTDD: Tx DP Off (ms)
         TxDPoff = [0 0];
+        %TxDPon AXICoreTDD: Tx DP On (ms) 
         TxDPon = [0 0];
+        %TxOff AXICoreTDD: Tx Off (ms) 
         TxOff = [0 0];
+        %TxOn AXICoreTDD: Tx Off (ms)
         TxOn = [0 0];
+        %TxVCOoff AXICoreTDD: Tx VCO Off (ms) 
         TxVCOoff = [0 0];
+        %TxVCOon AXICoreTDD: Tx VCO On (ms)
         TxVCOon = [0 0];
+        %RxDPoff AXICoreTDD: Rx DP Off (ms)
         RxDPoff = [0 0];
+        %RxDPon AXICoreTDD: Rx DP On (ms) 
         RxDPon = [0 0];
+        %RxOff AXICoreTDD: Rx Off (ms) 
         RxOff = [0 0];
+        %RxOn AXICoreTDD: Rx On (ms) 
         RxOn = [0 0];
+        %RxVCOoff AXICoreTDD: Rx VCO Off (ms) 
         RxVCOoff = [0 0];
+        %RxVCOon AXICoreTDD: Rx VCO On (ms) 
         RxVCOon = [0 0];
     end
     

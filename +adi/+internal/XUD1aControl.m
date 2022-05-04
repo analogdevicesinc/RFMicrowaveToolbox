@@ -1,10 +1,16 @@
 classdef XUD1aControl < adi.common.Attribute
     properties
+        %TXRX0 XUD1aControl(one-bit-adc-dac): TXRX0
         TXRX0
+        %TXRX1 XUD1aControl(one-bit-adc-dac): TXRX1
         TXRX1
+        %TXRX2 XUD1aControl(one-bit-adc-dac): TXRX2
         TXRX2
+        %TXRX3 XUD1aControl(one-bit-adc-dac): TXRX3
         TXRX3
+        %PllOutputSel XUD1aControl(one-bit-adc-dac): PLL Output Select
         PllOutputSel
+        %RxGainMode XUD1aControl(one-bit-adc-dac): Rx Gain Mode
         RxGainMode
     end
     
