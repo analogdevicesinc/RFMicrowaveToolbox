@@ -382,8 +382,8 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                     [r(ii, jj), c(ii, jj)] = find(Array == obj.ArrayMapInternal(ii, jj));
                 end
             end
-            ColumnPhase = (c-1)*AzimuthPhi;
-            RowPhase = (r-1)*ElevationPhi;
+            ColumnPhase = (c-1)*ElevationPhi;
+            RowPhase = (r-1)*AzimuthPhi;
             if strcmpi(RxOrTx, 'Rx')
                 obj.RxPhase = wrapTo360(ColumnPhase + RowPhase + Offset(obj.ArrayMapInternal));
                 obj.LatchRxSettings();
