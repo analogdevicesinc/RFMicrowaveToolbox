@@ -1033,6 +1033,10 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             setAllChipsChannelAttribute(obj, obj.RxSequencerStop, 'sequence_end', false, 'logical');
             setAllChipsChannelAttribute(obj, obj.TxSequencerStart, 'sequence_start', true, 'logical');
             setAllChipsChannelAttribute(obj, obj.TxSequencerStop, 'sequence_end', true, 'logical');
+
+            % Latch settings
+            obj.LatchRxSettings();
+            obj.LatchTxSettings();
         end
         
         function setupImpl(obj)
