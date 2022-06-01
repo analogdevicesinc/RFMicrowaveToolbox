@@ -413,7 +413,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             RowWin = rWin(r);
             gain = MaxGain*ColumnWin.*RowWin;
 
-            if strcmpi(RxorTx, 'Rx')
+            if strcmpi(RxOrTx, 'Rx')
                 obj.RxGain = gain;
                 obj.LatchRxSettings();
             elseif strcmpi(RxOrTx, 'Tx')
