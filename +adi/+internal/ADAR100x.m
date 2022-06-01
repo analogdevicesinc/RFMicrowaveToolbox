@@ -379,25 +379,40 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
 
             switch lower(window)
                 case "none"
-                    rCoeffs = ones(rLen);
-                    cCoeffs = ones(cLen);
+                    rWin = ones(rLen+2);
+                    cWin = ones(cLen+2);
                 case "bartlett"
-                    rCoeffs = bartlett(rLen);
-                    cCoeffs = bartlett(cLen);
+                    rWin = bartlett(rLen+2);
+                    cWin = bartlett(cLen+2);
                 case "blackman"
-                    rCoeffs = blackman(rLen);
-                    cCoeffs = blackman(cLen);
+                    rWin = blackman(rLen+2);
+                    cWin = blackman(cLen+2);
                 case "hamming"
-                    rCoeffs = hamming(rLen);
-                    cCoeffs = hamming(cLen);
+                    rWin = hamming(rLen+2);
+                    cWin = hamming(cLen+2);
                 case "hanning"
-                    rCoeffs = hann(rLen);
-                    cCoeffs = hann(cLen);
+                    rWin = hann(rLen+2);
+                    cWin = hann(cLen+2);
                 otherwise
                     error('window type unsupported for tapering');
             end
+            rWin = rWin(2:end-1);
+            cWin = cWin(2:end-1);
 
-            gain = rCoeffs*MaxGain*ones(size(obj.ArrayMapInternal))*cCoeffs;
+            Array = 1:numel(obj.ArrayMapInternal);
+            Array = reshape(Array, size(obj.ArrayMapInternal.')).';
+
+            r = zeros(size(Array));
+            c = zeros(size(Array));
+            for ii = 1:size(obj.ArrayMapInternal, 1)
+                for jj = 1:size(obj.ArrayMapInternal, 2)
+                    [r(ii, jj), c(ii, jj)] = find(Array == obj.ArrayMapInternal(ii, jj));
+                end
+            end
+            ColumnWin = cWin(c);
+            RowWin = rWin(r);
+            gain = MaxGain*ColumnWin.*RowWin;
+
             if strcmpi(RxorTx, 'Rx')
                 obj.RxGain = gain;
                 obj.LatchRxSettings();
