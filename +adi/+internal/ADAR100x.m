@@ -333,6 +333,24 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
     end
     
     methods
+        function TaperTx(obj, window, MaxGain)
+            % TaperTx Taper Stingray Tx gain.
+            % Inputs:
+            %   window: Options - "none", "bartlett", "blackmann",
+            %   "hamming", "hanning"
+            %   MaxGain: Maximum gain (0-127) of the Tx VGA
+            Taper("Tx", window, MaxGain);
+        end
+
+        function TaperRx(obj, window, MaxGain)
+            % TaperRx Taper Stingray Rx gain.
+            % Inputs:
+            %   window: Options - "none", "bartlett", "blackmann",
+            %   "hamming", "hanning"
+            %   MaxGain: Maximum gain (0-127) of the Rx VGA
+            Taper("Rx", window, MaxGain);
+        end
+
         function SteerRx(obj, Azimuth, Elevation, varargin)
             % SteerRx Steer the Rx array in a particular direction. This method assumes that the entire array is one analog beam.
             if (nargin == 3)
@@ -355,6 +373,40 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
     end
     
     methods (Access = private)
+        function Taper(obj, RxOrTx, window, MaxGain)
+            rLen = size(obj.ArrayMapInternal, 1);
+            cLen = size(obj.ArrayMapInternal, 2);
+
+            switch lower(window)
+                case "none"
+                    rCoeffs = ones(rLen);
+                    cCoeffs = ones(cLen);
+                case "bartlett"
+                    rCoeffs = bartlett(rLen);
+                    cCoeffs = bartlett(cLen);
+                case "blackman"
+                    rCoeffs = blackman(rLen);
+                    cCoeffs = blackman(cLen);
+                case "hamming"
+                    rCoeffs = hamming(rLen);
+                    cCoeffs = hamming(cLen);
+                case "hanning"
+                    rCoeffs = hann(rLen);
+                    cCoeffs = hann(cLen);
+                otherwise
+                    error('window type unsupported for tapering');
+            end
+
+            gain = rCoeffs*MaxGain*ones(size(obj.ArrayMapInternal))*cCoeffs;
+            if strcmpi(RxorTx, 'Rx')
+                obj.RxGain = gain;
+                obj.LatchRxSettings();
+            elseif strcmpi(RxOrTx, 'Tx')
+                obj.TxGain = gain;
+                obj.LatchTxSettings();
+            end
+        end
+
         function Steer(obj, RxOrTx, Azimuth, Elevation, Offset)
             [AzimuthPhi, ElevationPhi] = obj.CalculatePhi(Azimuth, Elevation);
             
@@ -387,7 +439,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             if strcmpi(RxOrTx, 'Rx')
                 obj.RxPhase = wrapTo360(ColumnPhase + RowPhase + Offset(obj.ArrayMapInternal));
                 obj.LatchRxSettings();
-            else
+            elseif strcmpi(RxOrTx, 'Tx')
                 obj.TxPhase = wrapTo360(ColumnPhase + RowPhase + Offset(obj.ArrayMapInternal));
                 obj.LatchTxSettings();
             end
@@ -813,11 +865,16 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         end
         
         function set.RxPhase(obj, values)
-            %{
             validateattributes( values, { 'double'}, ...
-                { 'real', 'nonnegative', 'finite', 'nonnan', 'nonempty','>=',0,'<=',357}, ...
+                { 'real', 'nonnegative', 'finite', 'nonnan', 'nonempty','>=',0,'<=',360}, ...
                 '', 'RxPhase');
-            %}
+            for ii = size(values, 1)
+                for jj = size(values, 2)
+                    if (values > 357)
+                        values(ii, jj) = 0;
+                    end
+                end
+            end
             setAllChipsChannelAttribute(obj, values, 'phase', false, 'double', 4);
             obj.RxPhase = values;
         end
@@ -849,11 +906,16 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         end
         
         function set.TxPhase(obj, values)
-            %{
             validateattributes( values, { 'double'}, ...
-                { 'real', 'nonnegative', 'finite', 'nonnan', 'nonempty','>=',0,'<=',357}, ...
+                { 'real', 'nonnegative', 'finite', 'nonnan', 'nonempty','>=',0,'<=',360}, ...
                 '', 'TxPhase');
-            %}
+            for ii = size(values, 1)
+                for jj = size(values, 2)
+                    if (values > 357)
+                        values(ii, jj) = 0;
+                    end
+                end
+            end
             setAllChipsChannelAttribute(obj, values, 'phase', true, 'double', 4);
             obj.TxPhase = values;
         end
@@ -917,7 +979,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                 { 'real', 'nonnegative','scalar', 'finite', 'nonnan', 'nonempty','integer','>=',0,'<=',127}, ...
                 '', 'Gain');             
             obj.setAttributeRAW(sprintf('voltage%d', ChIndx), ...
-                'beam_pos_save', sprintf('%d, %d, %d, %f', State, Attn, Gain, Phase), false, obj.deviceNames{ChipIDIndx});
+                'beam_pos_save', sprintf('%d, %d, %d, %f', State, Attn, Gain, Phase), false, obj.iioDevices{ChipIDIndx});
         end
         
         function SaveTxBeam(obj, ChipIDIndx, ChIndx, State, Attn, Gain, Phase)
@@ -928,7 +990,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                 { 'real', 'nonnegative','scalar', 'finite', 'nonnan', 'nonempty','integer','>=',0,'<=',127}, ...
                 '', 'Gain');             
             obj.setAttributeRAW(sprintf('voltage%d', ChIndx), ...
-                'beam_pos_save', sprintf('%d, %d, %d, %f', State, Attn, Gain, Phase), true, obj.deviceNames{ChipIDIndx});
+                'beam_pos_save', sprintf('%d, %d, %d, %f', State, Attn, Gain, Phase), true, obj.iioDevices{ChipIDIndx});
         end
     end
     
