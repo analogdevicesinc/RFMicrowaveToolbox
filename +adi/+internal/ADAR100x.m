@@ -333,29 +333,39 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
     end
     
     methods
-        function TaperTx(obj, window, MaxGain)
+        function TaperTx(obj, window, MaxGain, varargin)
             % TaperTx Taper Stingray Tx gain.
             % Inputs:
             %   window: Options - "none", "bartlett", "blackmann",
             %   "hamming", "hanning"
             %   MaxGain: Maximum gain (0-127) of the Tx VGA
-            obj.Taper("Tx", window, MaxGain);
+            if (nargin == 3)
+                Offset = zeros(size(obj.ArrayMapInternal));
+            elseif (nargin == 4)
+                Offset = varargin{1};
+            end
+            obj.Taper("Tx", window, MaxGain, Offset);
         end
 
-        function TaperRx(obj, window, MaxGain)
+        function TaperRx(obj, window, MaxGain, varargin)
             % TaperRx Taper Stingray Rx gain.
             % Inputs:
             %   window: Options - "none", "bartlett", "blackmann",
             %   "hamming", "hanning"
             %   MaxGain: Maximum gain (0-127) of the Rx VGA
-            obj.Taper("Rx", window, MaxGain);
+            if (nargin == 3)
+                Offset = zeros(size(obj.ArrayMapInternal));
+            elseif (nargin == 4)
+                Offset = varargin{1};
+            end
+            obj.Taper("Rx", window, MaxGain, Offset);
         end
 
         function SteerRx(obj, Azimuth, Elevation, varargin)
             % SteerRx Steer the Rx array in a particular direction. This method assumes that the entire array is one analog beam.
             if (nargin == 3)
                 Offset = zeros(size(obj.ArrayMapInternal));
-            else
+            elseif (nargin == 4)
                 Offset = varargin{1};
             end
             obj.Steer("Rx", Azimuth, Elevation, Offset);
@@ -365,7 +375,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             % SteerTx Steer the Tx array in a particular direction. This method assumes that the entire array is one analog beam.
             if (nargin == 3)
                 Offset = zeros(size(obj.ArrayMapInternal));
-            else
+            elseif (nargin == 4)
                 Offset = varargin{1};
             end
             obj.Steer("Tx", Azimuth, Elevation, Offset)
@@ -373,7 +383,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
     end
     
     methods (Access = private)
-        function Taper(obj, RxOrTx, window, MaxGain)
+        function Taper(obj, RxOrTx, window, MaxGain, Offset)
             rLen = size(obj.ArrayMapInternal, 1);
             cLen = size(obj.ArrayMapInternal, 2);
 
@@ -417,10 +427,10 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             gain = round(gain);
 
             if strcmpi(RxOrTx, 'Rx')
-                obj.RxGain = gain;
+                obj.RxGain = gain + Offset(obj.ArrayMapInternal);
                 obj.LatchRxSettings();
             elseif strcmpi(RxOrTx, 'Tx')
-                obj.TxGain = gain;
+                obj.TxGain = gain + Offset(obj.ArrayMapInternal);
                 obj.LatchTxSettings();
             end
         end
