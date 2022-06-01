@@ -333,32 +333,32 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
     end
     
     methods
-        function TaperTx(obj, window, MaxGain, varargin)
+        function TaperTx(obj, window, Gains, varargin)
             % TaperTx Taper Stingray Tx gain.
             % Inputs:
             %   window: Options - "none", "bartlett", "blackmann",
             %   "hamming", "hanning"
-            %   MaxGain: Maximum gain (0-127) of the Tx VGA
+            %   Gains: Scalar/Matrix of gains in range (0-127) for the Tx VGA
             if (nargin == 3)
                 Offset = zeros(size(obj.ArrayMapInternal));
             elseif (nargin == 4)
                 Offset = varargin{1};
             end
-            obj.Taper("Tx", window, MaxGain, Offset);
+            obj.Taper("Tx", window, Gains, Offset);
         end
 
-        function TaperRx(obj, window, MaxGain, varargin)
+        function TaperRx(obj, window, Gains, varargin)
             % TaperRx Taper Stingray Rx gain.
             % Inputs:
             %   window: Options - "none", "bartlett", "blackmann",
             %   "hamming", "hanning"
-            %   MaxGain: Maximum gain (0-127) of the Rx VGA
+            %   Gains: Scalar/Matrix of gains in range (0-127) for the Rx VGA
             if (nargin == 3)
                 Offset = zeros(size(obj.ArrayMapInternal));
             elseif (nargin == 4)
                 Offset = varargin{1};
             end
-            obj.Taper("Rx", window, MaxGain, Offset);
+            obj.Taper("Rx", window, Gains, Offset);
         end
 
         function SteerRx(obj, Azimuth, Elevation, varargin)
@@ -383,7 +383,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
     end
     
     methods (Access = private)
-        function Taper(obj, RxOrTx, window, MaxGain, Offset)
+        function Taper(obj, RxOrTx, window, Gains, Offset)
             rLen = size(obj.ArrayMapInternal, 1);
             cLen = size(obj.ArrayMapInternal, 2);
 
@@ -423,7 +423,11 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             end
             ColumnWin = cWin(c);
             RowWin = rWin(r);
-            gain = MaxGain*ColumnWin.*RowWin;
+            if isscalar(Gains)
+                gain = Gains*ColumnWin.*RowWin;
+            else
+                gain = ColumnWin.*Gains.*RowWin;
+            end
             gain = round(gain);
 
             if strcmpi(RxOrTx, 'Rx')
