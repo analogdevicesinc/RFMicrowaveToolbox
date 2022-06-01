@@ -398,8 +398,8 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             end
             rWin = rWin(2:end-1);
             cWin = cWin(2:end-1);
-            rwin = rwin/max(rwin);
-            cwin = cwin/max(cwin);
+            rWin = rWin/max(rWin);
+            cWin = cWin/max(cWin);
 
             Array = 1:numel(obj.ArrayMapInternal);
             Array = reshape(Array, size(obj.ArrayMapInternal.')).';
