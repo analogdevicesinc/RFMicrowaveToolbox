@@ -339,7 +339,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             %   window: Options - "none", "bartlett", "blackmann",
             %   "hamming", "hanning"
             %   MaxGain: Maximum gain (0-127) of the Tx VGA
-            Taper("Tx", window, MaxGain);
+            obj.Taper("Tx", window, MaxGain);
         end
 
         function TaperRx(obj, window, MaxGain)
@@ -348,7 +348,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             %   window: Options - "none", "bartlett", "blackmann",
             %   "hamming", "hanning"
             %   MaxGain: Maximum gain (0-127) of the Rx VGA
-            Taper("Rx", window, MaxGain);
+            obj.Taper("Rx", window, MaxGain);
         end
 
         function SteerRx(obj, Azimuth, Elevation, varargin)
