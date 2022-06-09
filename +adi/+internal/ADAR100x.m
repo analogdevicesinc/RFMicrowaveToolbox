@@ -403,6 +403,9 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                 case "hanning"
                     rWin = hann(rLen+2);
                     cWin = hann(cLen+2);
+                case "taylor"
+                    rWin = taylorwin(rLen+2);
+                    cWin = taylorwin(cLen+2);
                 otherwise
                     error('window type unsupported for tapering');
             end
