@@ -140,6 +140,7 @@ legend('Real', 'Imag')
 hanningWindow = hanning(rx.SamplesPerFrame);
 hanNoiseEqBw = enbw(hanningWindow);
 scalingFactor = sqrt(hanNoiseEqBw)*(rx.SamplesPerFrame/2)*2^15;
+scalingFactorArray = sqrt(hanNoiseEqBw)*(rx.SamplesPerFrame/2)*2^17; %bit growth due to coherent combining 4 ADCs
 
 %FFT for each subarray
 complexData = data./scalingFactor;
@@ -151,7 +152,7 @@ fftMagsdB = 20*log10(fftMags);
 freqAxis = linspace((-fs_RxIQ/1e6/2), (fs_RxIQ/1e6/2), length(fftMagsdB));
 
 %FFT for entire array
-complexDataArray = combinedComplexData./scalingFactor;
+complexDataArray = combinedComplexData./scalingFactorArray;
 windowedDataArray = complexDataArray.*hanningWindow;
 fftComplexArray = fft(windowedDataArray);
 fftComplexShiftedArray = fftshift(fftComplexArray);
