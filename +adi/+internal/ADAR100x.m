@@ -905,7 +905,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                 '', 'RxPhase');
             for ii = size(values, 1)
                 for jj = size(values, 2)
-                    if (values > 357)
+                    if (values(ii, jj) > 357)
                         values(ii, jj) = 0;
                     end
                 end
@@ -946,7 +946,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                 '', 'TxPhase');
             for ii = size(values, 1)
                 for jj = size(values, 2)
-                    if (values > 357)
+                    if (values(ii, jj) > 357)
                         values(ii, jj) = 0;
                     end
                 end
