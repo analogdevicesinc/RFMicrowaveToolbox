@@ -903,8 +903,8 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             validateattributes( values, { 'double'}, ...
                 { 'real', 'nonnegative', 'finite', 'nonnan', 'nonempty','>=',0,'<=',360}, ...
                 '', 'RxPhase');
-            for ii = size(values, 1)
-                for jj = size(values, 2)
+            for ii = 1:size(values, 1)
+                for jj = 1:size(values, 2)
                     if (values(ii, jj) > 357)
                         values(ii, jj) = 0;
                     end
@@ -944,8 +944,8 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             validateattributes( values, { 'double'}, ...
                 { 'real', 'nonnegative', 'finite', 'nonnan', 'nonempty','>=',0,'<=',360}, ...
                 '', 'TxPhase');
-            for ii = size(values, 1)
-                for jj = size(values, 2)
+            for ii = 1:size(values, 1)
+                for jj = 1:size(values, 2)
                     if (values(ii, jj) > 357)
                         values(ii, jj) = 0;
                     end
