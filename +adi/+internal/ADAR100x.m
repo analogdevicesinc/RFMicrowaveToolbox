@@ -434,10 +434,10 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             gain = round(gain);
 
             if strcmpi(RxOrTx, 'Rx')
-                obj.RxGain = gain + Offset(obj.ArrayMapInternal);
+                obj.RxGain = gain + Offset;
                 obj.LatchRxSettings();
             elseif strcmpi(RxOrTx, 'Tx')
-                obj.TxGain = gain + Offset(obj.ArrayMapInternal);
+                obj.TxGain = gain + Offset;
                 obj.LatchTxSettings();
             end
         end
@@ -472,10 +472,10 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             ColumnPhase = (c-1)*ElevationPhi;
             RowPhase = (r-1)*AzimuthPhi;
             if strcmpi(RxOrTx, 'Rx')
-                obj.RxPhase = wrapTo360(ColumnPhase + RowPhase + Offset(obj.ArrayMapInternal));
+                obj.RxPhase = wrapTo360(ColumnPhase + RowPhase + Offset);
                 obj.LatchRxSettings();
             elseif strcmpi(RxOrTx, 'Tx')
-                obj.TxPhase = wrapTo360(ColumnPhase + RowPhase + Offset(obj.ArrayMapInternal));
+                obj.TxPhase = wrapTo360(ColumnPhase + RowPhase + Offset);
                 obj.LatchTxSettings();
             end
         end
