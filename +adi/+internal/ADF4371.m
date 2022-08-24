@@ -1,7 +1,7 @@
 classdef ADF4371 < adi.common.Attribute & adi.common.Rx
     properties
-        ADF4371Name = 'RF8x'
-        ADF4371Frequency = 5000000000
+        ADF4371Name = 'RF16x'
+        ADF4371Frequency = 15000000000
         ADF4371Phase = 359999
         MUXOutEnable = true
     end
@@ -20,29 +20,18 @@ classdef ADF4371 < adi.common.Attribute & adi.common.Rx
             obj.ADF4371Name = value;
             if obj.ConnectedToDevice                
                 switch value
-                    case 'RF8x'
+                    % inverted logic to enable the correct channel
+                    case 'RF16x'
                         setAttributeBool(obj,'altvoltage0','powerdown',true,true,obj.ADF4371Device);
-                        setAttributeBool(obj,'altvoltage1','powerdown',false,true,obj.ADF4371Device);
-                        setAttributeBool(obj,'altvoltage2','powerdown',false,true,obj.ADF4371Device);
-                        setAttributeBool(obj,'altvoltage3','powerdown',false,true,obj.ADF4371Device);
-                        obj.ADF4371Channel = 'altvoltage0';
-                    case 'RFAUX8x'
-                        setAttributeBool(obj,'altvoltage0','powerdown',false,true,obj.ADF4371Device);
                         setAttributeBool(obj,'altvoltage1','powerdown',true,true,obj.ADF4371Device);
                         setAttributeBool(obj,'altvoltage2','powerdown',false,true,obj.ADF4371Device);
-                        setAttributeBool(obj,'altvoltage3','powerdown',false,true,obj.ADF4371Device);
-                        obj.ADF4371Channel = 'altvoltage1';
-                    case 'RF16x'
-                        setAttributeBool(obj,'altvoltage0','powerdown',false,true,obj.ADF4371Device);
-                        setAttributeBool(obj,'altvoltage1','powerdown',false,true,obj.ADF4371Device);
-                        setAttributeBool(obj,'altvoltage2','powerdown',true,true,obj.ADF4371Device);
-                        setAttributeBool(obj,'altvoltage3','powerdown',false,true,obj.ADF4371Device);
+                        setAttributeBool(obj,'altvoltage3','powerdown',true,true,obj.ADF4371Device);
                         obj.ADF4371Channel = 'altvoltage2';
                     case 'RF32x'
-                        setAttributeBool(obj,'altvoltage0','powerdown',false,true,obj.ADF4371Device);
-                        setAttributeBool(obj,'altvoltage1','powerdown',false,true,obj.ADF4371Device);
-                        setAttributeBool(obj,'altvoltage2','powerdown',false,true,obj.ADF4371Device);
-                        setAttributeBool(obj,'altvoltage3','powerdown',true,true,obj.ADF4371Device);
+                        setAttributeBool(obj,'altvoltage0','powerdown',true,true,obj.ADF4371Device);
+                        setAttributeBool(obj,'altvoltage1','powerdown',true,true,obj.ADF4371Device);
+                        setAttributeBool(obj,'altvoltage2','powerdown',true,true,obj.ADF4371Device);
+                        setAttributeBool(obj,'altvoltage3','powerdown',false,true,obj.ADF4371Device);
                         obj.ADF4371Channel = 'altvoltage3';
                     otherwise
                         error('Invalid setting chosen for ADF4371Name');
@@ -52,10 +41,6 @@ classdef ADF4371 < adi.common.Attribute & adi.common.Rx
 
         function set.ADF4371Frequency(obj, value)
             switch obj.ADF4371Name
-                case {'RF8x', 'RFAUX8x'}
-                    validateattributes( obj.ADF4371Frequency,{ 'double','single', 'uint32' }, ...
-                        { 'real', 'nonnegative','scalar','finite', 'nonnan', 'nonempty','integer',...
-                        '>=',4000000000,'<=',8000000000},'', 'ADF4371Frequency');
                 case 'RF16x'
                     validateattributes( obj.ADF4371Frequency,{ 'double','single', 'uint32' }, ...
                         { 'real', 'nonnegative','scalar','finite','nonnan', 'nonempty','integer',...
@@ -111,12 +96,6 @@ classdef ADF4371 < adi.common.Attribute & adi.common.Rx
             end            
 
             switch obj.ADF4371Name
-                case 'RF8x'
-                    setAttributeBool(obj,'altvoltage0','powerdown',false,true,obj.ADF4371Device);
-                    obj.ADF4371Channel = 'altvoltage0';
-                case 'RFAUX8x'
-                    setAttributeBool(obj,'altvoltage1','powerdown',false,true,obj.ADF4371Device);
-                    obj.ADF4371Channel = 'altvoltage1';
                 case 'RF16x'
                     setAttributeBool(obj,'altvoltage2','powerdown',false,true,obj.ADF4371Device);
                     obj.ADF4371Channel = 'altvoltage2';
@@ -126,7 +105,10 @@ classdef ADF4371 < adi.common.Attribute & adi.common.Rx
                 otherwise
                     error('Invalid setting chosen for ADF4371Name');
             end
-            obj.setAttributeBool('altvoltage0','powerdown',true,true,obj.ADF4371Device);
+            setAttributeBool(obj,'altvoltage0','powerdown',true,true,obj.ADF4371Device);
+            setAttributeBool(obj,'altvoltage1','powerdown',true,true,obj.ADF4371Device);
+            setAttributeBool(obj,'altvoltage2','powerdown',false,true,obj.ADF4371Device);
+            setAttributeBool(obj,'altvoltage3','powerdown',true,true,obj.ADF4371Device);
             obj.setAttributeLongLong(obj.ADF4371Channel,'frequency',obj.ADF4371Frequency,true,0,obj.ADF4371Device);
             obj.setAttributeLongLong(obj.ADF4371Channel,'phase',obj.ADF4371Phase,true,0,obj.ADF4371Device);
             obj.setDeviceAttributeRAW('muxout_enable', num2str(obj.MUXOutEnable), obj.ADF4371Device);
