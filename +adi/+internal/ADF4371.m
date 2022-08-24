@@ -21,16 +21,16 @@ classdef ADF4371 < adi.common.Attribute & adi.common.Rx
             if obj.ConnectedToDevice                
                 switch value
                     case 'RF8x'
-                        setAttributeBool(obj,'altvoltage0','powerdown',false,true,obj.ADF4371Device);
+                        setAttributeBool(obj,'altvoltage0','powerdown',true,true,obj.ADF4371Device);
                         obj.ADF4371Channel = 'altvoltage0';
                     case 'RFAUX8x'
-                        setAttributeBool(obj,'altvoltage1','powerdown',false,true,obj.ADF4371Device);
+                        setAttributeBool(obj,'altvoltage1','powerdown',true,true,obj.ADF4371Device);
                         obj.ADF4371Channel = 'altvoltage1';
                     case 'RF16x'
-                        setAttributeBool(obj,'altvoltage2','powerdown',false,true,obj.ADF4371Device);
+                        setAttributeBool(obj,'altvoltage2','powerdown',true,true,obj.ADF4371Device);
                         obj.ADF4371Channel = 'altvoltage2';
                     case 'RF32x'
-                        setAttributeBool(obj,'altvoltage3','powerdown',false,true,obj.ADF4371Device);
+                        setAttributeBool(obj,'altvoltage3','powerdown',true,true,obj.ADF4371Device);
                         obj.ADF4371Channel = 'altvoltage3';
                     otherwise
                         error('Invalid setting chosen for ADF4371Name');
@@ -40,7 +40,7 @@ classdef ADF4371 < adi.common.Attribute & adi.common.Rx
 
         function set.ADF4371Frequency(obj, value)
             switch obj.ADF4371Name
-                case 'RF8x' || 'RFAUX8x'
+                case {'RF8x', 'RFAUX8x'}
                     validateattributes( obj.ADF4371Frequency,{ 'double','single', 'uint32' }, ...
                         { 'real', 'nonnegative','scalar','finite', 'nonnan', 'nonempty','integer',...
                         '>=',4000000000,'<=',8000000000},'', 'ADF4371Frequency');
