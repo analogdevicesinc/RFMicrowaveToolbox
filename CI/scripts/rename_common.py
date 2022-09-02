@@ -36,7 +36,6 @@ if os.path.isdir(src):
     except OSError as error:
         print(error)
     for file in os.listdir(src):
-        print(file)
-        shutil.move(os.path.join(src, file), dst)
+        shutil.move(os.path.join(src, file), os.path.join(dst, file))
 else:
     print("No +common folder found. Maybe you already renamed it?")
