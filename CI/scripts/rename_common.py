@@ -1,6 +1,7 @@
 import os
 import glob
 import pathlib
+import shutil
 
 new_dir = "+commonrf"
 
@@ -30,6 +31,11 @@ src = os.path.join(path, "+adi", "+common")
 dst = os.path.join(path, "+adi", new_dir)
 if os.path.isdir(src):
     print("Renaming:", src, "->", dst)
-    os.rename(src, dst)
+    try:
+        os.mkdir(dst)
+    except OSError as error:
+        print(error)
+    for file in os.listdir(src):
+        shutil.move(os.path.join(src, file), os.path.join(dst, file))
 else:
     print("No +common folder found. Maybe you already renamed it?")
