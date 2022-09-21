@@ -18,6 +18,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         iioDriverName = 'adar1000';
         devName = 'adar1000';
         SamplesPerFrame = 0;
+        SkipInit = false;
     end
     
     properties (Hidden)
@@ -265,8 +266,8 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                     {'size', size(obj.ElementToChipChannelMap)});
             elseif strcmpi(AttrClass, 'raw') || ...
                     strcmpi(AttrClass, 'int32') || strcmpi(AttrClass, 'int64')
-                validateattributes(values, {'numeric', 'uint32'},...
-                    {'size', size(obj.ElementToChipChannelMap)});
+%                 validateattributes(values, {'char','numeric', 'uint32'},...
+%                     {'size', size(obj.ElementToChipChannelMap)});
             elseif strcmpi(AttrClass, 'double')
                 validateattributes(values, {'numeric', 'double'},...
                     {'size', size(obj.ElementToChipChannelMap)});
@@ -285,8 +286,13 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                             obj.setAttributeBool(channel, attr, ...
                                 values(r, c), isOutput, obj.iioDevices{devIndx});
                         elseif strcmpi(AttrClass, 'raw')
+                            if iscell(values)
+                                value = values{r,c};
+                            else
+                                value = values(r, c);
+                            end
                             obj.setAttributeRAW(channel, attr, ...
-                                values(r, c), isOutput, obj.iioDevices{devIndx});
+                                value, isOutput, obj.iioDevices{devIndx});
                         elseif strcmpi(AttrClass, 'int32') || strcmpi(AttrClass, 'int64')
                             obj.setAttributeLongLong(channel, attr, ...
                                 values(r, c), isOutput, Tol, obj.iioDevices{devIndx});
@@ -587,7 +593,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         % end
         
         function set.BeamMemEnable(obj, values)            
-            setAllChipsDeviceAttributeRAW(obj, 'beam_mem_enable', num2str(values), true);
+            setAllChipsDeviceAttributeRAW(obj, 'beam_mem_enable', values, true);
             obj.BeamMemEnable = values;
         end
 
@@ -603,12 +609,12 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         end
 
         function set.BiasMemEnable(obj, values)            
-            setAllChipsDeviceAttributeRAW(obj, 'bias_mem_enable', num2str(values), true);
+            setAllChipsDeviceAttributeRAW(obj, 'bias_mem_enable', values, true);
             obj.BiasMemEnable = values;
         end
         
         function set.CommonMemEnable(obj, values)
-            setAllChipsDeviceAttributeRAW(obj, 'common_mem_enable', num2str(values), true);
+            setAllChipsDeviceAttributeRAW(obj, 'common_mem_enable', values, true);
             obj.CommonMemEnable = values;
         end
         
@@ -642,12 +648,12 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         end
         
         function set.PolState(obj, values)
-            setAllChipsDeviceAttributeRAW(obj, 'pol', num2str(values), true);
+            setAllChipsDeviceAttributeRAW(obj, 'pol', values, true);
             obj.PolState = values;
         end
         
         function set.PolSwitchEnable(obj, values)
-            setAllChipsDeviceAttributeRAW(obj, 'sw_drv_en_pol', num2str(values), true);
+            setAllChipsDeviceAttributeRAW(obj, 'sw_drv_en_pol', values, true);
             obj.PolSwitchEnable = values;
         end
         
@@ -675,7 +681,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         end
         
         function set.RxVGAEnable(obj, values)            
-            setAllChipsDeviceAttributeRAW(obj, 'rx_vga_enable', num2str(values), true);
+            setAllChipsDeviceAttributeRAW(obj, 'rx_vga_enable', values, true);
             obj.RxVGAEnable = values;
         end
         
@@ -686,17 +692,17 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         end
         
         function set.RxVMEnable(obj, values)            
-            setAllChipsDeviceAttributeRAW(obj, 'rx_vm_enable', num2str(values), true);
+            setAllChipsDeviceAttributeRAW(obj, 'rx_vm_enable', values, true);
             obj.RxVMEnable = values;
         end
         
         function set.SequencerEnable(obj, values)
-            setAllChipsDeviceAttributeRAW(obj, 'sequencer_enable', num2str(values), true);
+            setAllChipsDeviceAttributeRAW(obj, 'sequencer_enable', values, true);
             obj.SequencerEnable = values;
         end
         
         function set.TRSwitchEnable(obj, values)            
-            setAllChipsDeviceAttributeRAW(obj, 'sw_drv_en_tr', num2str(values), true);
+            setAllChipsDeviceAttributeRAW(obj, 'sw_drv_en_tr', values, true);
             obj.TRSwitchEnable = values;
         end
         
@@ -707,7 +713,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         end
         
         function set.TxPAEnable(obj, values)            
-            setAllChipsDeviceAttributeRAW(obj, 'tx_drv_enable', num2str(values), true);
+            setAllChipsDeviceAttributeRAW(obj, 'tx_drv_enable', values, true);
             obj.TxPAEnable = values;
         end
         
@@ -724,7 +730,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         end
         
         function set.TxVGAEnable(obj, values)
-            setAllChipsDeviceAttributeRAW(obj, 'tx_vga_enable', num2str(values), true);
+            setAllChipsDeviceAttributeRAW(obj, 'tx_vga_enable', values, true);
             obj.TxVGAEnable = values;
         end
         
@@ -735,13 +741,13 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         end
         
         function set.TxVMEnable(obj, values)            
-            setAllChipsDeviceAttributeRAW(obj, 'tx_vm_enable', num2str(values), true);
+            setAllChipsDeviceAttributeRAW(obj, 'tx_vm_enable', values, true);
             obj.TxVMEnable = values;
         end
         
         function Reset(obj)
-            values = true(size(obj.deviceNames));
-            setAllChipsDeviceAttributeRAW(obj, 'reset', num2str(values), true);
+            values = true(size(obj.SubarrayToChipMap));
+            setAllChipsDeviceAttributeRAW(obj, 'reset', values, true);
         end
         
         function Initialize(obj, PAOff, PAOn, LNAOff, LNAOn)
@@ -1021,6 +1027,10 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                 if isempty(obj.iioDevices{dn})
                    error('%s not found',obj.deviceNames{dn});
                 end
+            end
+
+            if obj.SkipInit
+                return;
             end
 
             % Write device attributes

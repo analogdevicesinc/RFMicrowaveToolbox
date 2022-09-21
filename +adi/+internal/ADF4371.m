@@ -4,6 +4,19 @@ classdef ADF4371 < adi.common.Attribute & adi.common.Rx
         ADF4371Frequency = 15000000000
         ADF4371Phase = 359999
         MUXOutEnable = true
+        % ADF4371FrequencyDeviationRange = 500e6/4;
+        % ADF4371FrequencyDeviationTime = 1e3;
+        % ADF4371RampMode = 'Disabled';
+        % ADF4371DelayWord = 4095;
+        % ADF4371DelayClock = "PFD";
+        % ADF4371DelayStart = 0;
+        % ADF4371RampDelayEnable = 0;
+        % ADF4371TriangleDelayEnable = 0;
+        % ADF4371SingleFullTriangle = 0;
+        % ADF4371TxTriggerEnable = 0;
+        % ADF4371Clk1Value = 100;
+        % ADF4371PhaseValue = 3;
+        % ADF4371Enable = 0;
     end
 
     properties (Hidden)

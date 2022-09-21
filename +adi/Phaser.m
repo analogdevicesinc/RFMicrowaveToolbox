@@ -1,8 +1,9 @@
 classdef Phaser < adi.internal.ADAR100x & ...
-        adi.internal.AXICoreTDD
-    % adi.Phaser Analog Devices Inc. Stingray beamformer development platform
+        adi.internal.AXICoreTDD% & ...
+%         adi.internal.ADF4371
+    % adi.Phaser Analog Devices Inc. ADALM-PHASER beamformer development platform
     %   The adi.Phaser system object is an API to control the
-    %   Stingray X/Ku Band Beamforming Developer Platform.
+    %   ADALM-PHASER X/Ku Band Beamforming Developer Platform.
     %
     %   rx = adi.Phaser;
     %   rx = adi.Phaser('uri','ip:192.168.2.1');
@@ -10,9 +11,9 @@ classdef Phaser < adi.internal.ADAR100x & ...
     %   <a href="https://wiki.analog.com/resources/eval/developer-kits/x-band-dev-kit">Stingray X/Ku Band Beamforming Developer Platform Wiki</a>
     properties(Nontunable, Hidden)
         ArrayMapInternal = [7,8,5,6,3,4,1,2];
-        ElementToChipChannelMap = [1,2,3,4, 1,2,3,4]; % channel attributes
-        ElementToChipMap = [1,1,1,1, 2,2,2,2]; % channel attributes
-        SubarrayToChipMap = [1, 2]; % device attributes
+        ElementToChipChannelMap = [3,4,1,2, 3,4,1,2]; % channel attributes
+        ElementToChipMap = [2,2,2,2, 1,1,1,1]; % channel attributes
+        SubarrayToChipMap = [2, 1]; % device attributes
     end
     
     properties(Dependent)
@@ -35,6 +36,7 @@ classdef Phaser < adi.internal.ADAR100x & ...
         function obj = Phaser(varargin)
             coder.allowpcode('plain');
             obj = obj@adi.internal.ADAR100x(varargin{:});
+            obj.Frequency = 10492000000;
         end
         % Destructor
         function delete(obj)
@@ -51,6 +53,8 @@ classdef Phaser < adi.internal.ADAR100x & ...
     methods (Hidden, Access = protected)
         function setupInit(obj)
             setupInit@adi.internal.ADAR100x(obj);
+            % PLL
+            % setupInit@adi.internal.ADF4371(obj);
             % AXI-Core-TDD
 %             setupInit@adi.internal.AXICoreTDD(obj);
         end
