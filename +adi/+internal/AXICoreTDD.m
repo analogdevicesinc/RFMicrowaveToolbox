@@ -211,8 +211,8 @@ classdef AXICoreTDD < adi.common.Attribute
         function set.TxDPoff(obj, value)
             validateattributes(value, {'double', 'single', 'uint32'}, {'size', [1 2]});
             if obj.ConnectedToDevice
-                obj.setAttributeRAW('data0', 'dp_off_ms', value(1), true, obj.AXICoreTDDDevPtr);
-                obj.setAttributeRAW('data1', 'dp_off_ms', value(2), true, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data0', 'dp_off_ms', num2str(value(1)), true, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data1', 'dp_off_ms', num2str(value(2)), true, obj.AXICoreTDDDevPtr);
             end
         end
         
@@ -227,8 +227,8 @@ classdef AXICoreTDD < adi.common.Attribute
         function set.TxDPon(obj, value)
             validateattributes(value, {'double', 'single', 'uint32'}, {'size', [1 2]});
             if obj.ConnectedToDevice
-                obj.setAttributeRAW('data0', 'dp_on_ms', value(1), true, obj.AXICoreTDDDevPtr);
-                obj.setAttributeRAW('data1', 'dp_on_ms', value(2), true, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data0', 'dp_on_ms', num2str(value(1)), true, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data1', 'dp_on_ms', num2str(value(2)), true, obj.AXICoreTDDDevPtr);
             end
         end
         
@@ -243,8 +243,8 @@ classdef AXICoreTDD < adi.common.Attribute
         function set.TxOff(obj, value)
             validateattributes(value, {'double', 'single', 'uint32'}, {'size', [1 2]});
             if obj.ConnectedToDevice
-                obj.setAttributeRAW('data0', 'off_ms', value(1), true, obj.AXICoreTDDDevPtr);
-                obj.setAttributeRAW('data1', 'off_ms', value(2), true, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data0', 'off_ms', num2str(value(1)), true, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data1', 'off_ms', num2str(value(2)), true, obj.AXICoreTDDDevPtr);
             end
         end
         
@@ -259,8 +259,8 @@ classdef AXICoreTDD < adi.common.Attribute
         function set.TxOn(obj, value)
             validateattributes(value, {'double', 'single', 'uint32'}, {'size', [1 2]});
             if obj.ConnectedToDevice
-                obj.setAttributeRAW('data0', 'on_ms', value(1), true, obj.AXICoreTDDDevPtr);
-                obj.setAttributeRAW('data1', 'on_ms', value(2), true, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data0', 'on_ms', num2str(value(1)), true, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data1', 'on_ms', num2str(value(2)), true, obj.AXICoreTDDDevPtr);
             end
         end
         
@@ -275,8 +275,8 @@ classdef AXICoreTDD < adi.common.Attribute
         function set.TxVCOoff(obj, value)
             validateattributes(value, {'double', 'single', 'uint32'}, {'size', [1 2]});
             if obj.ConnectedToDevice
-                obj.setAttributeRAW('data0', 'vco_off_ms', value(1), true, obj.AXICoreTDDDevPtr);
-                obj.setAttributeRAW('data1', 'vco_off_ms', value(2), true, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data0', 'vco_off_ms', num2str(value(1)), true, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data1', 'vco_off_ms', num2str(value(2)), true, obj.AXICoreTDDDevPtr);
             end
         end
         
@@ -291,8 +291,8 @@ classdef AXICoreTDD < adi.common.Attribute
         function set.TxVCOon(obj, value)
             validateattributes(value, {'double', 'single', 'uint32'}, {'size', [1 2]});
             if obj.ConnectedToDevice
-                obj.setAttributeRAW('data0', 'vco_on_ms', value(1), true, obj.AXICoreTDDDevPtr);
-                obj.setAttributeRAW('data1', 'vco_on_ms', value(2), true, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data0', 'vco_on_ms', num2str(value(1)), true, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data1', 'vco_on_ms', num2str(value(2)), true, obj.AXICoreTDDDevPtr);
             end
         end
         
@@ -307,8 +307,8 @@ classdef AXICoreTDD < adi.common.Attribute
         function set.RxDPoff(obj, value)
             validateattributes(value, {'double', 'single', 'uint32'}, {'size', [1 2]});
             if obj.ConnectedToDevice
-                obj.setAttributeRAW('data0', 'dp_off_ms', value(1), false, obj.AXICoreTDDDevPtr);
-                obj.setAttributeRAW('data1', 'dp_off_ms', value(2), false, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data0', 'dp_off_ms', num2str(value(1)), false, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data1', 'dp_off_ms', num2str(value(2)), false, obj.AXICoreTDDDevPtr);
             end
         end
         
@@ -323,8 +323,8 @@ classdef AXICoreTDD < adi.common.Attribute
         function set.RxDPon(obj, value)
             validateattributes(value, {'double', 'single', 'uint32'}, {'size', [1 2]});
             if obj.ConnectedToDevice
-                obj.setAttributeRAW('data0', 'dp_on_ms', value(1), false, obj.AXICoreTDDDevPtr);
-                obj.setAttributeRAW('data1', 'dp_on_ms', value(2), false, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data0', 'dp_on_ms', num2str(value(1)), false, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data1', 'dp_on_ms', num2str(value(2)), false, obj.AXICoreTDDDevPtr);
             end
         end
         
@@ -339,8 +339,8 @@ classdef AXICoreTDD < adi.common.Attribute
         function set.RxOff(obj, value)
             validateattributes(value, {'double', 'single', 'uint32'}, {'size', [1 2]});
             if obj.ConnectedToDevice
-                obj.setAttributeRAW('data0', 'off_ms', value(1), false, obj.AXICoreTDDDevPtr);
-                obj.setAttributeRAW('data1', 'off_ms', value(2), false, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data0', 'off_ms', num2str(value(1)), false, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data1', 'off_ms', num2str(value(2)), false, obj.AXICoreTDDDevPtr);
             end
         end
         
@@ -355,8 +355,8 @@ classdef AXICoreTDD < adi.common.Attribute
         function set.RxOn(obj, value)
             validateattributes(value, {'double', 'single', 'uint32'}, {'size', [1 2]});
             if obj.ConnectedToDevice
-                obj.setAttributeRAW('data0', 'on_ms', value(1), false, obj.AXICoreTDDDevPtr);
-                obj.setAttributeRAW('data1', 'on_ms', value(2), false, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data0', 'on_ms', num2str(value(1)), false, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data1', 'on_ms', num2str(value(2)), false, obj.AXICoreTDDDevPtr);
             end
         end
         
@@ -371,8 +371,8 @@ classdef AXICoreTDD < adi.common.Attribute
         function set.RxVCOoff(obj, value)
             validateattributes(value, {'double', 'single', 'uint32'}, {'size', [1 2]});
             if obj.ConnectedToDevice
-                obj.setAttributeRAW('data0', 'vco_off_ms', value(1), false, obj.AXICoreTDDDevPtr);
-                obj.setAttributeRAW('data1', 'vco_off_ms', value(2), false, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data0', 'vco_off_ms', num2str(value(1)), false, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data1', 'vco_off_ms', num2str(value(2)), false, obj.AXICoreTDDDevPtr);
             end
         end
         
@@ -387,8 +387,8 @@ classdef AXICoreTDD < adi.common.Attribute
         function set.RxVCOon(obj, value)
             validateattributes(value, {'double', 'single', 'uint32'}, {'size', [1 2]});
             if obj.ConnectedToDevice
-                obj.setAttributeRAW('data0', 'vco_on_ms', value(1), false, obj.AXICoreTDDDevPtr);
-                obj.setAttributeRAW('data1', 'vco_on_ms', value(2), false, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data0', 'vco_on_ms', num2str(value(1)), false, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data1', 'vco_on_ms', num2str(value(2)), false, obj.AXICoreTDDDevPtr);
             end
         end
     end
