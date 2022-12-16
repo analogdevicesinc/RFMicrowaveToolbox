@@ -15,7 +15,7 @@ classdef ADF4159 < adi.common.Attribute & adi.common.Rx
         %FrequencyDeviationStep Frequency Deviation Step
         %   Set step size in Hz of synthesizer ramp. This is only
         %   applicable when RampMode is not set to "disabled".
-        FrequencyDeviationStep = 0;
+        FrequencyDeviationStep = 500e6 / 4 / 1000;
         %FrequencyDeviationTime Frequency Deviation Time
         %   Set time in uSeconds to reach ramp peak value. This is only
         %   applicable when RampMode is not set to "disabled"
@@ -95,7 +95,7 @@ classdef ADF4159 < adi.common.Attribute & adi.common.Rx
             obj.FrequencyDeviationTime = rvalue;
         end
         function set.RampMode(obj,value)
-            setAttributeRAW(obj, 'altvoltage0', 'ramp_mode', value, true, obj.iioDeviceADF4159);
+            setAttributeRAW(obj, 'altvoltage0', 'ramp_mode', char(value), true, obj.iioDeviceADF4159);
             obj.RampMode = value;
         end
         function set.Powerdown(obj,value)
@@ -109,7 +109,7 @@ classdef ADF4159 < adi.common.Attribute & adi.common.Rx
             obj.ToggleUpdown();
         end
         function set.DelayClockSource(obj,value)
-            setDebugAttributeRAW(obj, 'adi,delay-clk-sel-pfd-x-clk1-enable', value, true, obj.iioDeviceADF4159);
+            setDebugAttributeRAW(obj, 'adi,delay-clk-sel-pfd-x-clk1-enable', char(value), obj.iioDeviceADF4159);
             obj.DelayClockSource = value;
             obj.ToggleUpdown();            
         end
@@ -135,7 +135,7 @@ classdef ADF4159 < adi.common.Attribute & adi.common.Rx
             obj.ToggleUpdown();            
         end
         function set.SingleFullTriangleEnable(obj,value)
-            setDebugAttributeBool(obj, 'sing_ful_tri', value, true, obj.iioDeviceADF4159);
+            setDebugAttributeBool(obj, 'adi,single-full-triangle-enable', value, true, obj.iioDeviceADF4159);
             obj.SingleFullTriangleEnable = value;
             obj.ToggleUpdown();            
         end
@@ -145,9 +145,9 @@ classdef ADF4159 < adi.common.Attribute & adi.common.Rx
     methods(Access = protected)
 
         function ToggleUpdown(obj)
-            cstate = obj.getAttributeBool("altvoltage0", "powerdown", true);
-            obj.setAttributeBool("altvoltage0", "powerdown", true, ~cstate);
-            obj.setAttributeBool("altvoltage0", "powerdown", true, cstate);
+            cstate = obj.getAttributeBool('altvoltage0', 'powerdown', true, obj.iioDeviceADF4159);
+            obj.setAttributeBool('altvoltage0', 'powerdown', ~cstate, true, obj.iioDeviceADF4159);
+            obj.setAttributeBool('altvoltage0', 'powerdown', cstate, true, obj.iioDeviceADF4159);
         end
 
     end
@@ -157,23 +157,23 @@ classdef ADF4159 < adi.common.Attribute & adi.common.Rx
             % Do writes directly to hardware without using set methods.
             % This is required sine Simulink support doesn't support
             % modification to nontunable variables at SetupImpl
-            obj.iioDeviceADF4159 = getDev(obj.devNameADF4159);
+            obj.iioDeviceADF4159 = obj.getDev(obj.devNameADF4159);
 
             % Set defaults
             setAttributeLongLong(obj, 'altvoltage0', 'frequency', int64(obj.Frequency), true, 0, obj.iioDeviceADF4159);
             setAttributeLongLong(obj, 'altvoltage0', 'frequency_deviation_range', int64(obj.FrequencyDeviationRange), true, 40, obj.iioDeviceADF4159);
             setAttributeLongLong(obj, 'altvoltage0', 'frequency_deviation_step', int64(obj.FrequencyDeviationStep), true, 40, obj.iioDeviceADF4159);
             setAttributeLongLong(obj, 'altvoltage0', 'frequency_deviation_time', int64(obj.FrequencyDeviationTime), true, 40, obj.iioDeviceADF4159);
-            setAttributeRAW(obj, 'altvoltage0', 'ramp_mode', obj.RampMode, true, obj.iioDeviceADF4159);
+            setAttributeRAW(obj, 'altvoltage0', 'ramp_mode', char(obj.RampMode), true, obj.iioDeviceADF4159);
             setAttributeBool(obj,'altvoltage0','powerdown', obj.Powerdown,true, obj.iioDeviceADF4159);
 
             setDebugAttributeLongLong(obj, 'adi,delay-start-word', obj.DelayStartWord, true, obj.iioDeviceADF4159);
-            setDebugAttributeRAW(obj, 'adi,delay-clk-sel-pfd-x-clk1-enable', obj.DelayClockSource, true, obj.iioDeviceADF4159);
+            setDebugAttributeRAW(obj, 'adi,delay-clk-sel-pfd-x-clk1-enable', char(obj.DelayClockSource), obj.iioDeviceADF4159);
             setDebugAttributeBool(obj, 'adi,delay-start-enable', obj.DelayStartEnable, true, obj.iioDeviceADF4159);
             setDebugAttributeBool(obj, 'adi,ramp-delay-enable', obj.RampDelayEnable, true, obj.iioDeviceADF4159);
             setDebugAttributeBool(obj, 'adi,txdata-trigger-delay-enable', obj.TriggerDelayEnable, true, obj.iioDeviceADF4159);
             setDebugAttributeBool(obj, 'adi,txdata-trigger-enable', obj.TriggerEnable, true, obj.iioDeviceADF4159);
-            setDebugAttributeBool(obj, 'sing_ful_tri', obj.SingleFullTriangleEnable, true, obj.iioDeviceADF4159);
+            setDebugAttributeBool(obj, 'adi,single-full-triangle-enable', obj.SingleFullTriangleEnable, true, obj.iioDeviceADF4159);
 
             % Update all part registers
             obj.ToggleUpdown();

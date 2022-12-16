@@ -1,6 +1,6 @@
 classdef Phaser < adi.internal.ADAR100x & ...
-        adi.internal.AXICoreTDD% & ...
-%         adi.internal.ADF4371
+        adi.internal.ADF4159 & ...
+        adi.internal.AXICoreTDD
     % adi.Phaser Analog Devices Inc. ADALM-PHASER beamformer development platform
     %   The adi.Phaser system object is an API to control the
     %   ADALM-PHASER X/Ku Band Beamforming Developer Platform.
@@ -36,7 +36,7 @@ classdef Phaser < adi.internal.ADAR100x & ...
         function obj = Phaser(varargin)
             coder.allowpcode('plain');
             obj = obj@adi.internal.ADAR100x(varargin{:});
-            obj.Frequency = 10492000000;
+            obj.TargetFrequency = 10492000000;
         end
         % Destructor
         function delete(obj)
@@ -54,7 +54,7 @@ classdef Phaser < adi.internal.ADAR100x & ...
         function setupInit(obj)
             setupInit@adi.internal.ADAR100x(obj);
             % PLL
-            % setupInit@adi.internal.ADF4371(obj);
+            setupInit@adi.internal.ADF4159(obj);
             % AXI-Core-TDD
 %             setupInit@adi.internal.AXICoreTDD(obj);
         end

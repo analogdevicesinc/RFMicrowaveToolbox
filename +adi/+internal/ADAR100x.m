@@ -152,8 +152,8 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
     end
     
     properties
-        %Frequency ADAR1000 Frequency
-        Frequency = 10e9
+        %TargetFrequency ADAR1000 TargetFrequency
+        TargetFrequency = 10e9
         %ElementSpacing ADAR1000 Element Spacing
         ElementSpacing = 0.015
     end
@@ -515,8 +515,8 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             ElR = Elevation * pi / 180;
 
             % Calculate the phase increment (Φ) for each element in the array in both directions (in degrees)
-            AzPhi = 2 * obj.Frequency * obj.ElementSpacing * sin(AzR) * 180 / 3e8;
-            ElPhi = 2 * obj.Frequency * obj.ElementSpacing * sin(ElR) * 180 / 3e8;
+            AzPhi = 2 * obj.TargetFrequency * obj.ElementSpacing * sin(AzR) * 180 / 3e8;
+            ElPhi = 2 * obj.TargetFrequency * obj.ElementSpacing * sin(ElR) * 180 / 3e8;
         end
     end
     
