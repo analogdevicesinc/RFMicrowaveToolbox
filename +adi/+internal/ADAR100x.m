@@ -149,6 +149,13 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         TxSequencerStop = false(1, 4)
         %Temp ADAR1000 Temperature
         Temp = 0
+
+        %TxRxSwitchControl TxRx Switch Control
+        %   Set source of control for Rx and Tx switching.
+        %   TxRxSwitchControl is a cellarray where each element address
+        %   individual ADAR1000's. Each cell must contain a string of value
+        %   'spi' or 'external' to set the modes.
+        TxRxSwitchControl = {'spi'};
     end
     
     properties
@@ -552,6 +559,8 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             obj.RxEnable = RxEnableMat>0;
             obj.TxEnable = TxEnableMat>0;
             % obj.StateTxOrRx = StateTxOrRxMat;
+            % Set mode through SPI
+            obj.setAllChipsDeviceAttributeRAW('tr_spi', obj.TxEnable, true);
             obj.Mode = values;
         end
                 
@@ -745,6 +754,15 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             obj.TxVMEnable = values;
         end
         
+        function set.TxRxSwitchControl(obj, values)
+            bvalues = false(size(values));
+            for i = 1:length(values)
+                bvalues(i) = strcmpi(values{i},'external');
+            end
+            obj.setAllChipsDeviceAttributeRAW('tr_source', bvalues, true);
+            obj.TxRxSwitchControl = values;
+        end
+
         function Reset(obj)
             values = true(size(obj.SubarrayToChipMap));
             setAllChipsDeviceAttributeRAW(obj, 'reset', values, true);

@@ -11,7 +11,7 @@ classdef ADF4159 < adi.common.Attribute & adi.common.Rx
         %FrequencyDeviationRange Frequency Deviation Range
         %   Set upper bound on frequency ramp from Frequency property in Hz.
         %   This is only applicable when RampMode is not set to "disabled"
-        FrequencyDeviationRange = 0;
+        FrequencyDeviationRange = 1e6;
         %FrequencyDeviationStep Frequency Deviation Step
         %   Set step size in Hz of synthesizer ramp. This is only
         %   applicable when RampMode is not set to "disabled".
@@ -80,18 +80,18 @@ classdef ADF4159 < adi.common.Attribute & adi.common.Rx
             obj.Frequency = value;
         end
         function set.FrequencyDeviationRange(obj,value)
-            setAttributeLongLong(obj, 'altvoltage0', 'frequency_deviation_range', int64(value), true, 40, obj.iioDeviceADF4159);
-            rvalue = obj.getAttributeLongLong('altvoltage0', 'frequency_deviation_range',true);
+            setAttributeLongLong(obj, 'altvoltage0', 'frequency_deviation_range', int64(value), true, 20000, obj.iioDeviceADF4159);
+            rvalue = obj.getAttributeLongLong('altvoltage0', 'frequency_deviation_range',true, obj.iioDeviceADF4159);
             obj.FrequencyDeviationRange = rvalue;
         end
         function set.FrequencyDeviationStep(obj,value)
             setAttributeLongLong(obj, 'altvoltage0', 'frequency_deviation_step', int64(value), true, 40, obj.iioDeviceADF4159);
-            rvalue = obj.getAttributeLongLong('altvoltage0', 'frequency_deviation_step',true);
+            rvalue = obj.getAttributeLongLong('altvoltage0', 'frequency_deviation_step',true, obj.iioDeviceADF4159);
             obj.FrequencyDeviationStep = rvalue;
         end
         function set.FrequencyDeviationTime(obj,value)
             setAttributeLongLong(obj, 'altvoltage0', 'frequency_deviation_time', int64(value), true, 40, obj.iioDeviceADF4159);
-            rvalue = obj.getAttributeLongLong('altvoltage0', 'frequency_deviation_time',true);
+            rvalue = obj.getAttributeLongLong('altvoltage0', 'frequency_deviation_time',true, obj.iioDeviceADF4159);
             obj.FrequencyDeviationTime = rvalue;
         end
         function set.RampMode(obj,value)
@@ -161,7 +161,7 @@ classdef ADF4159 < adi.common.Attribute & adi.common.Rx
 
             % Set defaults
             setAttributeLongLong(obj, 'altvoltage0', 'frequency', int64(obj.Frequency), true, 0, obj.iioDeviceADF4159);
-            setAttributeLongLong(obj, 'altvoltage0', 'frequency_deviation_range', int64(obj.FrequencyDeviationRange), true, 40, obj.iioDeviceADF4159);
+            setAttributeLongLong(obj, 'altvoltage0', 'frequency_deviation_range', int64(obj.FrequencyDeviationRange), true, 20000, obj.iioDeviceADF4159);
             setAttributeLongLong(obj, 'altvoltage0', 'frequency_deviation_step', int64(obj.FrequencyDeviationStep), true, 40, obj.iioDeviceADF4159);
             setAttributeLongLong(obj, 'altvoltage0', 'frequency_deviation_time', int64(obj.FrequencyDeviationTime), true, 40, obj.iioDeviceADF4159);
             setAttributeRAW(obj, 'altvoltage0', 'ramp_mode', char(obj.RampMode), true, obj.iioDeviceADF4159);
