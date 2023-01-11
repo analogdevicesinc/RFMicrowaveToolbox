@@ -76,8 +76,9 @@ classdef ADF4159 < adi.common.Attribute & adi.common.Rx
     methods
 
         function set.Frequency(obj,value)
-            setAttributeLongLong(obj, 'altvoltage0', 'frequency', int64(value), true, 0, obj.iioDeviceADF4159);
-            obj.Frequency = value;
+            setAttributeLongLong(obj, 'altvoltage0', 'frequency', int64(value), true, 1000, obj.iioDeviceADF4159);
+            rvalue = getAttributeLongLong(obj, 'altvoltage0', 'frequency', true, obj.iioDeviceADF4159);
+            obj.Frequency = rvalue;
         end
         function set.FrequencyDeviationRange(obj,value)
             setAttributeLongLong(obj, 'altvoltage0', 'frequency_deviation_range', int64(value), true, 20000, obj.iioDeviceADF4159);

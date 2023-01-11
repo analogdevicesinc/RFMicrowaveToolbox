@@ -893,7 +893,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             validateattributes( values, { 'double', 'single', 'uint32'}, ...
                 { 'real', 'nonnegative', 'finite', 'nonnan', 'nonempty','integer','>=',0,'<=',127}, ...
                 '', 'RxGain');
-            setAllChipsChannelAttribute(obj, values, 'hardwaregain', false, 'double');
+            setAllChipsChannelAttribute(obj, values, 'hardwaregain', false, 'double', 128);
             obj.RxGain = values;
         end
         
@@ -936,7 +936,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                 { 'real', 'nonnegative', 'finite', 'nonnan', 'nonempty','integer','>=',0,'<=',127}, ...
                 '', 'TxGain');
             obj.verifySizing(values, obj.ElementToChipChannelMap, 'TxGain');
-            setAllChipsChannelAttribute(obj, values, 'hardwaregain', true, 'double');
+            setAllChipsChannelAttribute(obj, values, 'hardwaregain', true, 'double', 128);
             obj.TxGain = values;
         end
         
@@ -1104,12 +1104,12 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             setAllChipsChannelAttribute(obj, obj.RxAttn, 'attenuation', false, 'logical');
             setAllChipsChannelAttribute(obj, obj.RxBeamState, 'beam_pos_load', false, 'int32');
             setAllChipsChannelAttribute(obj, ~obj.RxPowerDown, 'powerdown', false, 'logical');
-            setAllChipsChannelAttribute(obj, obj.RxGain, 'hardwaregain', false, 'double', 2);warning('FIXME LATER')
+            setAllChipsChannelAttribute(obj, obj.RxGain, 'hardwaregain', false, 'double', 128);warning('FIXME LATER')
             setAllChipsChannelAttribute(obj, obj.RxPhase, 'phase', false, 'double', 4);
             setAllChipsChannelAttribute(obj, obj.TxAttn, 'attenuation', true, 'logical');
             setAllChipsChannelAttribute(obj, obj.TxBeamState, 'beam_pos_load', true, 'int32');
             setAllChipsChannelAttribute(obj, ~obj.TxPowerDown, 'powerdown', true, 'logical');
-            setAllChipsChannelAttribute(obj, obj.TxGain, 'hardwaregain', true, 'double',2);warning('FIXME LATER')
+            setAllChipsChannelAttribute(obj, obj.TxGain, 'hardwaregain', true, 'double',128);warning('FIXME LATER')
             setAllChipsChannelAttribute(obj, obj.TxPhase, 'phase', true, 'double', 4);
             setAllChipsChannelAttribute(obj, obj.RxSequencerStart, 'sequence_start', false, 'logical');
             setAllChipsChannelAttribute(obj, obj.RxSequencerStop, 'sequence_end', false, 'logical');
