@@ -6,7 +6,6 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
     end
     
     properties(Abstract, Nontunable, Hidden)
-        ArrayMapInternal
         ElementToChipChannelMap % channel attributes
         SubarrayToChipMap % device attributes
         deviceNames
@@ -189,10 +188,6 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         function obj = ADAR100x(varargin)
             coder.allowpcode('plain');
             obj = obj@matlabshared.libiio.base(varargin{:});
-            % Check that the number of chips matches for all the inputs
-            if ((numel(obj.deviceNames)*4) ~= numel(obj.ArrayMapInternal))
-                error('Expected equal number of elements in ArrayMapInternal and 4*numel(ChipIDs)');
-            end
             obj.updateDefaultProps();
         end
         
@@ -812,20 +807,20 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             obj.LNABiasOn = LNAOn*ones(size(obj.deviceNames));
             
             % Default channel enable
-            obj.RxPowerDown = zeros(size(obj.ArrayMapInternal));
-            obj.TxPowerDown = zeros(size(obj.ArrayMapInternal));
+            obj.RxPowerDown = zeros(size(obj.ElementToChipChannelMap));
+            obj.TxPowerDown = zeros(size(obj.ElementToChipChannelMap));
 
             % Default PA bias
-            obj.PABiasOff = PAOff*ones(size(obj.ArrayMapInternal));
-            obj.PABiasOn = PAOn*ones(size(obj.ArrayMapInternal));
+            obj.PABiasOff = PAOff*ones(size(obj.ElementToChipChannelMap));
+            obj.PABiasOn = PAOn*ones(size(obj.ElementToChipChannelMap));
 
             % Default attenuator, gain, and phase
-            obj.RxAttn = false(size(obj.ArrayMapInternal));
-            obj.RxGain = hex2dec('0x7F')*ones(size(obj.ArrayMapInternal));
-            obj.RxPhase = zeros(size(obj.ArrayMapInternal));
-            obj.TxAttn = false(size(obj.ArrayMapInternal));
-            obj.TxGain = hex2dec('0x7F')*ones(size(obj.ArrayMapInternal));
-            obj.TxPhase = zeros(size(obj.ArrayMapInternal));
+            obj.RxAttn = false(size(obj.ElementToChipChannelMap));
+            obj.RxGain = hex2dec('0x7F')*ones(size(obj.ElementToChipChannelMap));
+            obj.RxPhase = zeros(size(obj.ElementToChipChannelMap));
+            obj.TxAttn = false(size(obj.ElementToChipChannelMap));
+            obj.TxGain = hex2dec('0x7F')*ones(size(obj.ElementToChipChannelMap));
+            obj.TxPhase = zeros(size(obj.ElementToChipChannelMap));
             
             % Latch in the new settings
             obj.LatchRxSettings();
@@ -957,7 +952,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         end
         
 %         function result = get.RxBiasState(obj)
-%             result = zeros(size(obj.ArrayMapInternal));
+%             result = zeros(size(obj.ElementToChipChannelMap));
 %             if ~isempty(obj.iioDevices)
 %                 result = getAllChipsChannelAttribute(obj, 'bias_set_load', false, 'logical');
 %             end
@@ -978,7 +973,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         end
         
 %         function result = get.TxBiasState(obj)
-%             result = zeros(size(obj.ArrayMapInternal));
+%             result = zeros(size(obj.ElementToChipChannelMap));
 %             if ~isempty(obj.iioDevices)
 %                 result = ~getAllChipsChannelAttribute(obj, 'bias_set_load', true, 'logical');
 %             end
