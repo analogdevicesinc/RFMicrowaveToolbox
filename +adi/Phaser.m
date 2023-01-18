@@ -10,15 +10,9 @@ classdef Phaser < adi.internal.ADAR100x & ...
     %
     %   <a href="https://wiki.analog.com/resources/eval/developer-kits/x-band-dev-kit">Stingray X/Ku Band Beamforming Developer Platform Wiki</a>
     properties(Nontunable, Hidden)
-        ArrayMapInternal = [7,8,5,6,3,4,1,2];
         ElementToChipChannelMap = [3,4,1,2, 3,4,1,2]; % channel attributes
         ElementToChipMap = [2,2,2,2, 1,1,1,1]; % channel attributes
         SubarrayToChipMap = [2, 1]; % device attributes
-    end
-    
-    properties(Dependent)
-        %ArrayMap Map of physical array to ADAR1000 channel array
-        ArrayMap
     end
     
     properties(Hidden)
@@ -40,13 +34,6 @@ classdef Phaser < adi.internal.ADAR100x & ...
         end
         % Destructor
         function delete(obj)
-        end
-                
-        function set.ArrayMap(obj,value)
-            obj.ArrayMapInternal = value;
-        end
-        function value = get.ArrayMap(obj)
-            value = obj.ArrayMapInternal;
         end
     end
 
