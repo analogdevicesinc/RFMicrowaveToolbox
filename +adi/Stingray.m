@@ -12,14 +12,9 @@ classdef Stingray < adi.internal.ADAR100x & ...
     %
     %   <a href="https://wiki.analog.com/resources/eval/developer-kits/x-band-dev-kit">Stingray X/Ku Band Beamforming Developer Platform Wiki</a>
     properties(Nontunable, Hidden)
-        ArrayMapInternal = [2 6 5 1; 4 8 7 3; 10 14 13 9; 12 16 15 11; ...
-            18 22 21 17; 20 24 23 19; 26 30 29 25; 28 32 31 27];
-        
-    end
-    
-    properties(Dependent)
-        %ArrayMap Map of physical array to ADAR1000 channel array
-        ArrayMap
+        ElementToChipChannelMap = [4,3,4,3, 4,3,4,3; 1,2,1,2, 1,2,1,2; 4,3,4,3, 4,3,4,3; 1,2,1,2, 1,2,1,2]; % channel attributes
+        ElementToChipMap = [1,1,3,3, 5,5,7,7; 1,1,3,3, 5,5,7,7; 2,2,4,4, 6,6,8,8; 2,2,4,4, 6,6,8,8]; % channel attributes
+        SubarrayToChipMap = [1,3,5,7; 2,4,6,8]; % device attributes
     end
     
     properties(Hidden)
@@ -46,13 +41,6 @@ classdef Stingray < adi.internal.ADAR100x & ...
         end
         % Destructor
         function delete(obj)
-        end
-                
-        function set.ArrayMap(obj,value)
-            obj.ArrayMapInternal = value;
-        end
-        function value = get.ArrayMap(obj)
-            value = obj.ArrayMapInternal;
         end
     end
 
