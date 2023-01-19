@@ -75,7 +75,7 @@ classdef ADF4371 < adi.common.Attribute & adi.common.Rx
                 '', 'ADF4371Phase');
             obj.ADF4371Phase = value;
             if obj.ConnectedToDevice
-                setAttributeLongLong(obj,obj.ADF4371Channel,'phase',value,true,0,obj.ADF4371Device);
+                setAttributeLongLong(obj,obj.ADF4371Channel,'phase',value,true,1,obj.ADF4371Device);
             end
         end
 
@@ -123,7 +123,7 @@ classdef ADF4371 < adi.common.Attribute & adi.common.Rx
             setAttributeBool(obj,'altvoltage2','powerdown',false,true,obj.ADF4371Device);
             setAttributeBool(obj,'altvoltage3','powerdown',true,true,obj.ADF4371Device);
             obj.setAttributeLongLong(obj.ADF4371Channel,'frequency',obj.ADF4371Frequency,true,0,obj.ADF4371Device);
-            obj.setAttributeLongLong(obj.ADF4371Channel,'phase',obj.ADF4371Phase,true,0,obj.ADF4371Device);
+            obj.setAttributeLongLong(obj.ADF4371Channel,'phase',obj.ADF4371Phase,true,1,obj.ADF4371Device);
             obj.setDeviceAttributeRAW('muxout_enable', num2str(obj.MUXOutEnable), obj.ADF4371Device);
         end
     end
