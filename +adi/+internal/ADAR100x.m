@@ -994,10 +994,10 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         end
         
         function result = get.Temp(obj)
-            result = zeros(numel(obj.SubarrayToChipMap), 1);
-            for d = 1:numel(obj.iioDevices)
-                result(d) = str2double(obj.getAttributeRAW('temp0', 'raw', false, obj.iioDevices{d}));
-            end            
+            result = zeros(size(obj.SubarrayToChipMap));
+            if ~isempty(obj.iioDevices)
+                    result = obj.getAllChipsDeviceAttributeRAW('temp0', 'raw');
+            end
         end
     end
     
