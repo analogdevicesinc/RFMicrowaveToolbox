@@ -768,43 +768,43 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             obj.Reset();
             
             % Set the bias currents to nominal
-            obj.RxLNABiasCurrent = hex2dec('0x08')*ones(size(obj.deviceNames));
-            obj.RxVGABiasCurrentVM = hex2dec('0x55')*ones(size(obj.deviceNames));
-            obj.TxVGABiasCurrentVM = hex2dec('0x2D')*ones(size(obj.deviceNames));
-            obj.TxPABiasCurrent = hex2dec('0x06')*ones(size(obj.deviceNames));
+            obj.RxLNABiasCurrent = hex2dec('0x08')*ones(size(obj.SubarrayToChipMap));
+            obj.RxVGABiasCurrentVM = hex2dec('0x55')*ones(size(obj.SubarrayToChipMap));
+            obj.TxVGABiasCurrentVM = hex2dec('0x2D')*ones(size(obj.SubarrayToChipMap));
+            obj.TxPABiasCurrent = hex2dec('0x06')*ones(size(obj.SubarrayToChipMap));
             
             % Disable RAM control
-            obj.BeamMemEnable = false(size(obj.deviceNames));
-            obj.BiasMemEnable = false(size(obj.deviceNames));
-            obj.CommonMemEnable = false(size(obj.deviceNames));
+            obj.BeamMemEnable = false(size(obj.SubarrayToChipMap));
+            obj.BiasMemEnable = false(size(obj.SubarrayToChipMap));
+            obj.CommonMemEnable = false(size(obj.SubarrayToChipMap));
             
             % Enable all internal amplifiers
-            obj.RxVGAEnable = true(size(obj.deviceNames)); 
-            obj.RxVMEnable = true(size(obj.deviceNames));
-            obj.RxLNAEnable = true(size(obj.deviceNames));
-            obj.TxVGAEnable = true(size(obj.deviceNames));
-            obj.TxVMEnable = true(size(obj.deviceNames));
-            obj.TxPAEnable = true(size(obj.deviceNames));
+            obj.RxVGAEnable = true(size(obj.SubarrayToChipMap)); 
+            obj.RxVMEnable = true(size(obj.SubarrayToChipMap));
+            obj.RxLNAEnable = true(size(obj.SubarrayToChipMap));
+            obj.TxVGAEnable = true(size(obj.SubarrayToChipMap));
+            obj.TxVMEnable = true(size(obj.SubarrayToChipMap));
+            obj.TxPAEnable = true(size(obj.SubarrayToChipMap));
             
             % Disable Tx/Rx paths for the device
-            TempMode = cell(size(obj.deviceNames));
+            TempMode = cell(size(obj.SubarrayToChipMap));
             TempMode(:) = {'disabled'};
             obj.Mode = TempMode;
 
             % Enable the PA/LNA bias DACs
-            obj.LNABiasOutEnable = true(size(obj.deviceNames));
-            obj.BiasDACEnable = true(size(obj.deviceNames));
-            TempBiasDACMode = cell(size(obj.deviceNames));
+            obj.LNABiasOutEnable = true(size(obj.SubarrayToChipMap));
+            obj.BiasDACEnable = true(size(obj.SubarrayToChipMap));
+            TempBiasDACMode = cell(size(obj.SubarrayToChipMap));
             TempBiasDACMode(:) = {'Toggle'};
             obj.BiasDACMode = TempBiasDACMode;
             
             % Configure the external switch control
-            obj.ExternalTRPolarity = true(size(obj.deviceNames));
-            obj.TRSwitchEnable = true(size(obj.deviceNames));
+            obj.ExternalTRPolarity = true(size(obj.SubarrayToChipMap));
+            obj.TRSwitchEnable = true(size(obj.SubarrayToChipMap));
 
             % Set the default LNA bias
-            obj.LNABiasOff = LNAOff*ones(size(obj.deviceNames));
-            obj.LNABiasOn = LNAOn*ones(size(obj.deviceNames));
+            obj.LNABiasOff = LNAOff*ones(size(obj.SubarrayToChipMap));
+            obj.LNABiasOn = LNAOn*ones(size(obj.SubarrayToChipMap));
             
             % Default channel enable
             obj.RxPowerDown = zeros(size(obj.ElementToChipChannelMap));
@@ -994,10 +994,10 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         end
         
         function result = get.Temp(obj)
-            result = zeros(numel(obj.deviceNames), 1);
-            for d = 1:numel(obj.iioDevices)
-                result(d) = str2double(obj.getAttributeRAW('temp0', 'raw', false, obj.iioDevices{d}));
-            end            
+            result = zeros(size(obj.SubarrayToChipMap));
+            if ~isempty(obj.iioDevices)
+                    result = obj.getAllChipsDeviceAttributeRAW('temp0', 'raw');
+            end
         end
     end
     
