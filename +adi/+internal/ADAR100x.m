@@ -1051,19 +1051,19 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             setAllChipsDeviceAttributeRAW(obj, 'tx_en', obj.TxEnable, true);
             setAllChipsDeviceAttributeRAW(obj, 'lna_bias_out_enable', obj.LNABiasOutEnable, true);
             setAllChipsDeviceAttributeRAW(obj, 'lna_bias_on', int32(obj.LNABiasOn / obj.BIAS_CODE_TO_VOLTAGE_SCALE), false);
-%             values = obj.StateTxOrRx;
-%             ivalues = char(ones(size(values)) * '0');
-%             for ii = 1:numel(values)
-%                 if ~(strcmpi(values(ii), 'Tx') || strcmpi(values(ii), 'Rx'))
-%                     error('Expected ''Tx'' or ''Rx'' for property, StateTxOrRx');
-%                 end
-%                 if strcmpi(values(ii), 'Tx')
-%                     ivalues(ii) = '1';
-%                 else
-%                     ivalues(ii) = '0';
-%                 end
-%             end
-%             setAllChipsDeviceAttributeRAW(obj, 'tr_spi', ivalues, true);
+            values = obj.Mode;
+            ivalues = char(ones(size(values)) * '0');
+            for ii = 1:numel(values)
+                if ~(strcmpi(values(ii), 'Tx') || strcmpi(values(ii), 'Rx'))
+                    error('Expected ''Tx'' or ''Rx'' for property, StateTxOrRx');
+                end
+                if strcmpi(values(ii), 'Tx')
+                    ivalues(ii) = '1';
+                else
+                    ivalues(ii) = '0';
+                end
+            end
+            setAllChipsDeviceAttributeRAW(obj, 'tr_spi', ivalues, true);
             setAllChipsDeviceAttributeRAW(obj, 'beam_mem_enable', obj.BeamMemEnable, true);
 
             setAllChipsDeviceAttributeRAW(obj, 'bias_ctrl', obj.CellArrayToArray(obj.BiasDACMode, {'Toggle','On'}, [1,0]), true);
