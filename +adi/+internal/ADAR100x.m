@@ -880,7 +880,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         end
         
         function set.RxPowerDown(obj, values)
-            setAllChipsChannelAttribute(obj, ~values, 'powerdown', false, 'logical');
+            setAllChipsChannelAttribute(obj, values, 'powerdown', false, 'logical');
             obj.RxPowerDown = values;
         end
 
@@ -922,7 +922,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         
         function set.TxPowerDown(obj, values)
             obj.verifySizing(values, obj.ElementToChipChannelMap, 'TxPowerDown');
-            setAllChipsChannelAttribute(obj, ~values, 'powerdown', true, 'logical');
+            setAllChipsChannelAttribute(obj, values, 'powerdown', true, 'logical');
             obj.TxPowerDown = values;
         end
         
