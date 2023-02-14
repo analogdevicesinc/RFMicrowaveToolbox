@@ -1098,12 +1098,12 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             setAllChipsChannelAttribute(obj, int64(obj.PABiasOn / obj.BIAS_CODE_TO_VOLTAGE_SCALE), 'pa_bias_on', true, 'int32');
             setAllChipsChannelAttribute(obj, obj.RxAttn, 'attenuation', false, 'logical');
             setAllChipsChannelAttribute(obj, obj.RxBeamState, 'beam_pos_load', false, 'int32');
-            setAllChipsChannelAttribute(obj, ~obj.RxPowerDown, 'powerdown', false, 'logical');
+            setAllChipsChannelAttribute(obj, obj.RxPowerDown, 'powerdown', false, 'logical');
             setAllChipsChannelAttribute(obj, obj.RxGain, 'hardwaregain', false, 'double', 128);warning('FIXME LATER')
             setAllChipsChannelAttribute(obj, obj.RxPhase, 'phase', false, 'double', 4);
             setAllChipsChannelAttribute(obj, obj.TxAttn, 'attenuation', true, 'logical');
             setAllChipsChannelAttribute(obj, obj.TxBeamState, 'beam_pos_load', true, 'int32');
-            setAllChipsChannelAttribute(obj, ~obj.TxPowerDown, 'powerdown', true, 'logical');
+            setAllChipsChannelAttribute(obj, obj.TxPowerDown, 'powerdown', true, 'logical');
             setAllChipsChannelAttribute(obj, obj.TxGain, 'hardwaregain', true, 'double',128);warning('FIXME LATER')
             setAllChipsChannelAttribute(obj, obj.TxPhase, 'phase', true, 'double', 4);
             setAllChipsChannelAttribute(obj, obj.RxSequencerStart, 'sequence_start', false, 'logical');
