@@ -20,8 +20,8 @@ classdef LTC2314 < adi.common.Attribute & adi.common.Rx
         function result = get.LTC2314RFPower(obj)
             result = 0;
             if ~isempty(obj.LTC2314Device)
-                result = obj.getAttributeRAW('voltage0', 'raw', true, obj.LTC2314Device);
-                result = 2.048*result / (2^obj.ADC_BITS);
+                result = obj.getAttributeRAW('voltage0', 'raw', false, obj.LTC2314Device);
+                result = 2.048*str2double(result) / (2^obj.ADC_BITS);
                 result = (64.297 * result) - 113;
             end
         end        
