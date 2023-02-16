@@ -43,10 +43,6 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         %StateTxOrRx Set state to Rx or Tx via tr_spi bit
         %   Options are 'Rx', or 'Tx'
         StateTxOrRx = {'Rx'}
-        %RxEnable Enable Rx channel subcircuits when under SPI control
-        RxEnable = true
-        %TxEnable Enable Tx channel subcircuits when under SPI control
-        TxEnable = false
         %LNABiasOutEnable Enables output of LNA bias DAC
         LNABiasOutEnable = false
         %LNABiasOn External Bias for External LNAs
@@ -156,6 +152,15 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         %   'spi' or 'external' to set the modes.
         TxRxSwitchControl = {'spi'};
     end
+
+    properties (Hidden)
+        % RxEnable and TxEnable properties are to be used through Mode alone.
+        % They are not to be used directly.
+        %RxEnable Enable Rx channel subcircuits when under SPI control
+        RxEnable = true
+        %TxEnable Enable Tx channel subcircuits when under SPI control
+        TxEnable = false
+    end
     
     properties
         %TargetFrequency ADAR1000 TargetFrequency
@@ -206,7 +211,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                 'RxVGAEnable', 'RxVGABiasCurrentVM', 'RxVMEnable', ...
                 'SequencerEnable', 'TRSwitchEnable', 'TxPABiasCurrent', ...
                 'TxPAEnable', 'TxToRxDelay1', 'TxToRxDelay2', ...
-                'TxVGAEnable', 'TxVGABiasCurrentVM', 'TxVMEnable'
+                'TxVGAEnable', 'TxVGABiasCurrentVM', 'TxVMEnable', 'TxRxSwitchControl'
             };
             ChannelProps = {
                 'DetectorEnable', ...% 'DetectorPower', 
@@ -585,7 +590,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         %     for ii = 1:numel(values)
         %         if ~(strcmpi(values(ii), 'Tx') || strcmpi(values(ii), 'Rx'))
         %             error('Expected ''Tx'' or ''Rx'' for property, StateTxOrRx');
-        %         end
+%         %         end
         %         if strcmpi(values(ii), 'Tx')
         %             ivalues(ii) = '1';
         %         else
@@ -751,7 +756,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         
         function set.TxRxSwitchControl(obj, values)
             bvalues = false(size(values));
-            for i = 1:length(values)
+            for i = 1:numel(values)
                 bvalues(i) = strcmpi(values{i},'external');
             end
             obj.setAllChipsDeviceAttributeRAW('tr_source', bvalues, true);
