@@ -29,15 +29,7 @@ classdef LTC2314 < adi.common.Attribute & adi.common.Rx
     
     methods (Hidden, Access = protected)
         function setupInit(obj)
-            numDevs = obj.iio_context_get_devices_count(obj.iioCtx);
-            obj.LTC2314Device = cell(1,length(obj.LTC2314DeviceName));            
-            for k = 1:numDevs
-                devPtr = obj.iio_context_get_device(obj.iioCtx, k-1);
-                name = obj.iio_device_get_name(devPtr);
-                if strcmpi(obj.LTC2314DeviceName,name)
-                    obj.LTC2314Device = devPtr;
-                end
-            end
+            obj.LTC2314Device = obj.getDev(obj.LTC2314DeviceName);
             if isempty(obj.LTC2314Device)
                error('%s not found',obj.LTC2314DeviceName);
             end
