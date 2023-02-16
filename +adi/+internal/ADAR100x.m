@@ -40,9 +40,6 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         %Mode Mode
         %   Options are 'Rx', 'Tx', or 'disabled'
         Mode = {'Rx'}
-        %StateTxOrRx Set state to Rx or Tx via tr_spi bit
-        %   Options are 'Rx', or 'Tx'
-        StateTxOrRx = {'Rx'}
         %LNABiasOutEnable Enables output of LNA bias DAC
         LNABiasOutEnable = false
         %LNABiasOn External Bias for External LNAs
@@ -153,15 +150,6 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         TxRxSwitchControl = {'spi'};
     end
 
-    properties (Hidden)
-        % RxEnable and TxEnable properties are to be used through Mode alone.
-        % They are not to be used directly.
-        %RxEnable Enable Rx channel subcircuits when under SPI control
-        RxEnable = true
-        %TxEnable Enable Tx channel subcircuits when under SPI control
-        TxEnable = false
-    end
-    
     properties
         %TargetFrequency ADAR1000 TargetFrequency
         TargetFrequency = 10e9
@@ -531,8 +519,6 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         function set.Mode(obj, values)
             RxEnableMat = zeros(size(obj.SubarrayToChipMap));
             TxEnableMat = zeros(size(obj.SubarrayToChipMap));
-            StateTxOrRxMat = cell(size(obj.SubarrayToChipMap));
-            StateTxOrRxMat(:) = {'Rx'};
 
             for r = 1:size(obj.SubarrayToChipMap,1)
                 for c = 1:size(obj.SubarrayToChipMap,2)
@@ -542,10 +528,9 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                         error('Expected ''Tx'' or ''Rx'' or ''Disabled'' for property, Mode');
                     end
                     if strcmpi(values{r,c}, 'Disabled')
-                        RxEnableMat(r,c) = true;
+                        RxEnableMat(r,c) = false;
                         TxEnableMat(r,c) = false;
                     else
-                        StateTxOrRxMat{r,c} = values{r,c};
                         if strcmpi(values{r,c}, 'Tx')
                             RxEnableMat(r,c) = false;
                             TxEnableMat(r,c) = true;                        
@@ -556,24 +541,13 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                     end
                 end
             end
-            obj.RxEnable = RxEnableMat>0;
-            obj.TxEnable = TxEnableMat>0;
-            % obj.StateTxOrRx = StateTxOrRxMat;
-            % Set mode through SPI
-            obj.setAllChipsDeviceAttributeRAW('tr_spi', obj.TxEnable, true);
+            values_tmp = RxEnableMat>0;
+            setAllChipsDeviceAttributeRAW(obj, 'rx_en', values_tmp, true);
+            values_tmp = TxEnableMat>0;
+            setAllChipsDeviceAttributeRAW(obj, 'tx_en', values_tmp, true);
             obj.Mode = values;
         end
                 
-        function set.RxEnable(obj, values)
-            setAllChipsDeviceAttributeRAW(obj, 'rx_en', values, true);
-            obj.RxEnable = values;
-        end
-        
-        function set.TxEnable(obj, values)
-            setAllChipsDeviceAttributeRAW(obj, 'tx_en', values, true);
-            obj.TxEnable = values;
-        end
-        
         function set.LNABiasOutEnable(obj, values)            
             setAllChipsDeviceAttributeRAW(obj, 'lna_bias_out_enable', values, true);
             obj.LNABiasOutEnable = values;
@@ -584,22 +558,6 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             setAllChipsDeviceAttributeRAW(obj, 'lna_bias_on', dac_codes, false);
             obj.LNABiasOn = values;
         end
-        
-        % function set.StateTxOrRx(obj, values)
-        %     ivalues = char(ones(size(values)) * '0');
-        %     for ii = 1:numel(values)
-        %         if ~(strcmpi(values(ii), 'Tx') || strcmpi(values(ii), 'Rx'))
-        %             error('Expected ''Tx'' or ''Rx'' for property, StateTxOrRx');
-%         %         end
-        %         if strcmpi(values(ii), 'Tx')
-        %             ivalues(ii) = '1';
-        %         else
-        %             ivalues(ii) = '0';
-        %         end
-        %     end
-        %     setAllChipsDeviceAttributeRAW(obj, 'tr_spi', ivalues, true);
-        %     obj.StateTxOrRx = values;
-        % end
         
         function set.BeamMemEnable(obj, values)            
             setAllChipsDeviceAttributeRAW(obj, 'beam_mem_enable', values, true);
@@ -1052,15 +1010,13 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             end
 
             % Write device attributes
-            setAllChipsDeviceAttributeRAW(obj, 'rx_en', obj.RxEnable, true);
-            setAllChipsDeviceAttributeRAW(obj, 'tx_en', obj.TxEnable, true);
             setAllChipsDeviceAttributeRAW(obj, 'lna_bias_out_enable', obj.LNABiasOutEnable, true);
             setAllChipsDeviceAttributeRAW(obj, 'lna_bias_on', int32(obj.LNABiasOn / obj.BIAS_CODE_TO_VOLTAGE_SCALE), false);
             values = obj.Mode;
             ivalues = char(ones(size(values)) * '0');
             for ii = 1:numel(values)
                 if ~(strcmpi(values(ii), 'Tx') || strcmpi(values(ii), 'Rx'))
-                    error('Expected ''Tx'' or ''Rx'' for property, StateTxOrRx');
+                    error('Expected ''Tx'' or ''Rx'' for property, Mode');
                 end
                 if strcmpi(values(ii), 'Tx')
                     ivalues(ii) = '1';
