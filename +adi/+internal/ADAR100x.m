@@ -565,7 +565,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         end
 
         function set.BiasDACEnable(obj, values)            
-            setAllChipsDeviceAttributeRAW(obj, 'bias_enable', num2str(values), true);
+            setAllChipsDeviceAttributeRAW(obj, 'bias_enable', values, true);
             obj.BiasDACEnable = values;
         end
         
@@ -631,7 +631,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         end
         
         function set.RxLNAEnable(obj, values)
-            setAllChipsDeviceAttributeRAW(obj, 'rx_lna_enable', num2str(values), true);
+            setAllChipsDeviceAttributeRAW(obj, 'rx_lna_enable', values, true);
             obj.RxLNAEnable = values;
         end
         
