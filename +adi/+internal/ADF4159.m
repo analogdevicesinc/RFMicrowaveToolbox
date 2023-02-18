@@ -162,9 +162,9 @@ classdef ADF4159 < adi.common.Attribute & adi.common.Rx
 
             % Set defaults
             setAttributeLongLong(obj, 'altvoltage0', 'frequency', int64(obj.Frequency), true, 0, obj.iioDeviceADF4159);
-            setAttributeLongLong(obj, 'altvoltage0', 'frequency_deviation_range', int64(obj.FrequencyDeviationRange), true, 20000, obj.iioDeviceADF4159);
-            setAttributeLongLong(obj, 'altvoltage0', 'frequency_deviation_step', int64(obj.FrequencyDeviationStep), true, 40, obj.iioDeviceADF4159);
-            setAttributeLongLong(obj, 'altvoltage0', 'frequency_deviation_time', int64(obj.FrequencyDeviationTime), true, 40, obj.iioDeviceADF4159);
+            setAttributeLongLong(obj, 'altvoltage0', 'frequency_deviation_range', int64(obj.FrequencyDeviationRange), true, 20000, obj.iioDeviceADF4159, false);
+            setAttributeLongLong(obj, 'altvoltage0', 'frequency_deviation_step', int64(obj.FrequencyDeviationStep), true, 40, obj.iioDeviceADF4159, false);
+            setAttributeLongLong(obj, 'altvoltage0', 'frequency_deviation_time', int64(obj.FrequencyDeviationTime), true, 40, obj.iioDeviceADF4159, false);
             setAttributeRAW(obj, 'altvoltage0', 'ramp_mode', char(obj.RampMode), true, obj.iioDeviceADF4159);
             setAttributeBool(obj,'altvoltage0','powerdown', obj.Powerdown,true, obj.iioDeviceADF4159);
 
