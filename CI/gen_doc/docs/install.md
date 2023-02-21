@@ -1,4 +1,4 @@
-
+{% include 'header.tmpl' %}
 # Installation
 
 ## Dependencies
@@ -43,13 +43,13 @@ To leverage HDL-Coder and the reference designs with the toolbox requires the fo
 
 ## Transceiver Toolbox Install
 
-The Transceiver Toolbox itself can be installed either from:
+The RF and Microwave Toolbox itself can be installed either from:
 
 - [MATLAB's Add-On Explorer](https://www.mathworks.com/products/matlab/add-on-explorer.html) 
-- [GitHub Releases page](https://github.com/analogdevicesinc/TransceiverToolbox/releases).
+- [GitHub Releases page](https://github.com/analogdevicesinc/RFMicrowaveToolbox/releases).
 
 !!! warning "MATLAB Versions"
-    Before installing Transceiver Toolbox check the [Release Page](https://github.com/analogdevicesinc/TransceiverToolbox/releases) to check for the lasted supported of MATLAB. The latest version is the one which is available in [Add-on Explorer](https://www.mathworks.com/products/matlab/add-on-explorer.html), since Add-On Explorer does not currently support hosting multiple versions. If you have an older release of MATLAB, download the MLTBX installer from matching release on the [Release Page](https://github.com/analogdevicesinc/TransceiverToolbox/releases).
+    Before installing RF and Microwave Toolbox check the [Release Page](https://github.com/analogdevicesinc/RFMicrowaveToolbox/releases) to check for the lasted supported of MATLAB. The latest version is the one which is available in [Add-on Explorer](https://www.mathworks.com/products/matlab/add-on-explorer.html), since Add-On Explorer does not currently support hosting multiple versions. If you have an older release of MATLAB, download the MLTBX installer from matching release on the [Release Page](https://github.com/analogdevicesinc/TransceiverToolbox/releases).
 
 
 ### Add-On Explorer Walkthrough
