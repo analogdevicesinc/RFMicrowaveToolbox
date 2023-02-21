@@ -9,5 +9,5 @@ doc adi
 
 They can also be viewed on GitHub:
 
- - [Streaming examples](https://github.com/analogdevicesinc/HighSpeedConverterToolbox/tree/master/hsx_examples)
+ - [Streaming examples](https://github.com/analogdevicesinc/RFMicrowaveToolbox/tree/main/rfm_examples)
 
