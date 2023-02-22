@@ -37,123 +37,277 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
     end
     
     properties
-        %Mode Mode
-        %   Options are 'Rx', 'Tx', or 'disabled'
+        %Mode Mode        
+        %   Mode is a cellarray where each element addresses individual ADAR1000's. 
+        %   Each cell must contain a string of value
+        %   'Rx', 'Tx', or 'disabled' to set the modes.
         Mode = {'Rx'}
-        %LNABiasOutEnable Enables output of LNA bias DAC
+        %LNABiasOutEnable LNA Bias Out Enable 
+        %   Enable output of LNA bias DAC. LNABiasOutEnable is an array where 
+        %   each element addresses individual ADAR1000's. Each element 
+        %   must be a logical true (to enable) or false (to not enable).
         LNABiasOutEnable = false
-        %LNABiasOn External Bias for External LNAs
+        %LNABiasOn LNA Bias On 
+        %   External Bias for External LNAs. LNABiasOn is an array 
+        %   where each element addresses individual ADAR1000's.
         LNABiasOn = -0.8
-        %BeamMemEnable Beam Memory Enable
+        %BeamMemEnable Beam Mem Enable
+        %   Enable beam memory. BeamMemEnable is an array where 
+        %   each element addresses individual ADAR1000's. Each element 
+        %   must be a logical true (to enable) or false (to not enable).
         BeamMemEnable = false
-        %BiasDACEnable Enables PA and LNA bias DACs
+        %BiasDACEnable Bias DAC Enable 
+        %   Enable PA and LNA bias DACs. BiasDACEnable is an array where 
+        %   each element addresses individual ADAR1000's. Each element 
+        %   must be a logical true (to enable) or false (to not enable).
         BiasDACEnable = true
-        %BiasDACMode External Am plifier Bias Control
+        %BiasDACMode Bias DAC Mode 
+        %   External Amplifier Bias Control. BiasDACMode is a 
+        %   cellarray where each element addresses individual ADAR1000's. 
+        %   Each cell must contain a string of values
+        %   'On' or 'Off' to set the modes.
         BiasDACMode = {'On'}
-        %BiasMemEnable Bias Memory Enable
+        %BiasMemEnable Bias Mem Enable
+        %   Enable bias memory. BiasMemEnable is an array where each 
+        %   element addresses individual ADAR1000's. Each element must be 
+        %   a logical true (to enable) or false (to not enable).
         BiasMemEnable = false
-        %CommonMemEnable Common Memory Enable
+        %CommonMemEnable Common Mem Enable
+        %   CommonMemEnable is an array where each element addresses 
+        %   individual ADAR1000's. Each element must be a logical 
+        %   true (to enable) or false (to not enable).
         CommonMemEnable = false
-        %CommonRxBeamState Static Rx Beam Position Load
+        %CommonRxBeamState Common Rx Beam State 
+        %   Static Rx Beam Position Load. CommonRxBeamState is an array 
+        %   where each element addresses individual ADAR1000's.
         CommonRxBeamState = 0
-        %CommonTxBeamState Static Tx Beam Position Load
+        %CommonTxBeamState Common Tx Beam State 
+        %   Static Tx Beam Position Load. CommonTxBeamState is an array 
+        %   where each element addresses individual ADAR1000's.
         CommonTxBeamState = 0
-        %ExternalTRPin Tx/Rx Output Driver Select
+        %ExternalTRPin External TR Pin 
+        %   Select Tx/Rx output driver.
+        %   TxRxSwitchControl is a cellarray where each element addresses
+        %   individual ADAR1000's. Each cell must contain a string of
+        %   values 'Pos' or 'Neg' to set the modes.
         ExternalTRPin = {'Pos'}
-        %ExternalTRPolarity Controls Sense of Tx/Rx Switch Driver Output
+        %ExternalTRPolarity External TR Polarity 
+        %   Controls Sense of Tx/Rx Switch Driver Output. 
+        %   ExternalTRPolarity is an array where each element addresses 
+        %   individual ADAR1000's. Each element must be a logical 
+        %   true (to enable) or false (to not enable).
         ExternalTRPolarity = true
-        %LNABiasOff External Bias for External LNAs
+        %LNABiasOff LNA Bias Off 
+        %   External Bias for External LNAs. LNABiasOff is an array 
+        %   where each element addresses individual ADAR1000's.
         LNABiasOff = -2
-        %PolState Control for External Polarity Switch Drivers
+        %PolState Pol State
+        %   Control for External Polarity Switch Drivers.
+        %   PolSwitchEnable is an array where each element addresses 
+        %   individual ADAR1000's. Each element must be a logical 
+        %   true (to enable) or false (to not enable).
         PolState = false
-        %PolSwitchEnable Enables Switch Driver for External Polarization Switch
+        %PolSwitchEnable Pol Switch Enable 
+        %   Enables Switch Driver for External Polarization Switch.
+        %   PolSwitchEnable is an array where each element addresses 
+        %   individual ADAR1000's. Each element must be a logical 
+        %   true (to enable) or false (to not enable).
         PolSwitchEnable = false
-        %RxLNABiasCurrent LNA Bias Current Setting
+        %RxLNABiasCurrent Rx LNA Bias Current
+        %   Set LNA bias current. RxLNABiasCurrent is an array 
+        %   where each element addresses individual ADAR1000's.
         RxLNABiasCurrent = 8
         %RxLNAEnable Rx LNA Enable
+        %   Enables Rx LNA. RxLNAEnable is an array 
+        %   where each element addresses individual ADAR1000's.  
+        %   Each element must be a logical true (to enable) or 
+        %   false (to not enable).
         RxLNAEnable = true
-        %RxToTxDelay1 LNA Bias off to TR Switch Delay
+        %RxToTxDelay1 Rx To Tx Delay1
+        %   LNA Bias off to TR Switch Delay. RxToTxDelay1 is an array 
+        %   where each element addresses individual ADAR1000's.
         RxToTxDelay1 = 0
-        %RxToTxDelay2 TR Switch to PA Bias on Delay
+        %RxToTxDelay2 Rx To Tx Delay2
+        %   TR Switch to PA Bias on Delay. RxToTxDelay2 is an array 
+        %   where each element addresses individual ADAR1000's.
         RxToTxDelay2 = 0
-        %RxVGAEnable Enables the Rx Channel VGAs
+        %RxVGAEnable Rx VGA Enable
+        %   Enable Rx Channel VGAs. RxVGAEnable is an array 
+        %   where each element addresses individual ADAR1000's. 
+        %   Each element must be a logical true (to enable) or 
+        %   false (to not enable).
         RxVGAEnable = true
-        %RxVGABiasCurrentVM Rx Bias Current
+        %RxVGABiasCurrentVM Rx VGA Bias Current VM
+        %   Apply Rx bias current. RxVGABiasCurrentVM is an array 
+        %   where each element addresses individual ADAR1000's.
         RxVGABiasCurrentVM = 85
-        %RxVMEnable Enables the Rx Channel Vector Modulators
+        %RxVMEnable Rx VM Enable
+        %   Enable Rx Channel Vector Modulators.
+        %   RxVMEnable is an array where each element addresses
+        %   individual ADAR1000's. Each element must be a logical
+        %   true (to enable) or false (to not enable).
         RxVMEnable = true
-        %SequencerEnable Sequencer Enable
+        %Sequencer  Sequencer
+        %   Enable sequencer. Sequencer is an array where each element 
+        %   addresses individual ADAR1000's. Each element must be a 
+        %   logical true (to enable) or false (to not enable).
         SequencerEnable = false
-        %TRSwitchEnable Enables Switch Driver for External Tx/Rx Switch
+        %TRSwitchEnable TR Switch Enable 
+        %   Enables Switch Driver for External Tx/Rx Switch. 
+        %   TRSwitchEnable is an array where each element 
+        %   addresses individual ADAR1000's. Each element must be a 
+        %   logical true (to enable) or false (to not enable).
         TRSwitchEnable = true
-        %TxPABiasCurrent Tx Driver Bias Current Setting
+        %TxPABiasCurrent Tx PA Bias Current
+        %   Set Tx driver bias current. TxPABiasCurrent is an array 
+        %   where each element addresses individual ADAR1000's.
         TxPABiasCurrent = 6
-        %TxPAEnable Enables the Tx Channel Drivers
+        %TxPAEnable Tx PA Enable
+        %   Enables the Tx channel drivers. TxToRxDelay1 is an array 
+        %   where each element addresses individual ADAR1000's.  
+        %   Each element must be a logical true (to enable) or 
+        %   false (to not enable).
         TxPAEnable = false
-        %TxToRxDelay1 PA Bias off to TR Switch Delay
+        %TxToRxDelay1 Tx To Rx Delay1
+        %   PA Bias off to TR Switch Delay. TxToRxDelay1 is an array 
+        %   where each element addresses individual ADAR1000's.
         TxToRxDelay1 = 0
-        %TxToRxDelay2 TR Switch to LNA Bias on Delay
+        %TxToRxDelay2 Tx To Rx Delay2 
+        %   TR Switch to LNA Bias on Delay. TxToRxDelay2 is an array 
+        %   where each element addresses individual ADAR1000's.
         TxToRxDelay2 = 0
-        %TxVGAEnable Enables the Tx Channel VGAs
+        %TxVGAEnable Tx VGA Enable
+        %   Enable Tx Channel VGAs. TxVGAEnable is an array 
+        %   where each element addresses individual ADAR1000's. 
+        %   Each element must be a logical true (to enable) or 
+        %   false (to not enable).
         TxVGAEnable = true
-        %TxVGABiasCurrentVM Tx Bias Current
+        %TxVGABiasCurrentVM Tx VGA Bias Current VM
+        %   Apply Tx bias current. TxVGABiasCurrentVM is an array 
+        %   where each element addresses individual ADAR1000's.
         TxVGABiasCurrentVM = 45
-        %TxVMEnable Enables the Tx Channel Vector Modulators
+        %TxVMEnable Tx VM Enable
+        %   Enable Tx Channel Vector Modulators.
+        %   TxVMEnable is an array where each element addresses
+        %   individual ADAR1000's. Each element must be a logical
+        %   true (to enable) or false (to not enable).
         TxVMEnable = true
-        
+        %TxRxSwitchControl TxRx Switch Control
+        %   Set source of control for Rx and Tx switching.
+        %   TxRxSwitchControl is a cellarray where each element addresses
+        %   individual ADAR1000's. Each cell must contain a string of
+        %   values 'spi' or 'external' to set the modes.
+        TxRxSwitchControl = {'spi'};
+
         %DetectorEnable Detector Enable
+        %   DetectorEnable is an array where each element addresses
+        %   each channel of each ADAR1000.
         DetectorEnable = true(1, 4)
         %DetectorPower Detector Power
+        %   DetectorPower is an array where each element addresses
+        %   each channel of each ADAR1000.
         DetectorPower = 255*ones(1, 4)
         %PABiasOff External Bias for External PA 
+        %   Apply bias off to external PA.
+        %   PABiasOff is an array where each element addresses
+        %   each channel of each ADAR1000. 
         PABiasOff = -2.484*ones(1, 4)
-        %PABiasOn External Bias for External PA  
+        %PABiasOn External Bias for External PA
+        %   Apply bias on to external PA.
+        %   PABiasOn is an array where each element addresses
+        %   each channel of each ADAR1000. 
         PABiasOn = -2.484*ones(1, 4)
         %RxAttn Rx Attenuation
+        %   Attenuate Rx channels.
+        %   RxAttn is an array where each element addresses
+        %   each channel of each ADAR1000. Each element must be a logical
+        %   true (to attenuate) or false (to not attenuate).
         RxAttn = true(1, 4)
-        %RxBeamState Load Rx Position
+        %RxBeamState Rx Beam State
+        %   Load Rx Position. RxBeamState is an array where each element addresses
+        %   each channel of each ADAR1000. Each element must be a value
+        %   between 0 and 360.
         RxBeamState = zeros(1, 4)
         %RxPowerDown Rx Powerdown
+        %   Power down Rx channels.
+        %   RxPowerDown is a logical array where each element addresses
+        %   each channel of each ADAR1000. Each element must be a logical
+        %   false (to power up) or true (to power down).
         RxPowerDown = true(1, 4)
         %RxGain Rx Gain
+        %   Apply gain to Rx channels.
+        %   RxGain is an array where each element addresses
+        %   each channel of each ADAR1000. Each element must be a value
+        %   between 0 and 127.
         RxGain = ones(1, 4)
         %RxPhase Rx Phase
+        %   Apply phase to Rx channels.
+        %   RxPhase is an array where each element addresses
+        %   each channel of each ADAR1000. Each element must be a value
+        %   between 0 and 360.
         RxPhase = zeros(1, 4)
         %TxAttn Tx Attenuation
+        %   Attenuate Tx channels.
+        %   TxAttn is an array where each element addresses
+        %   each channel of each ADAR1000. Each element must be a logical
+        %   true (to attenuate) or false (to not attenuate).
         TxAttn = true(1, 4)
-        %TxBeamState Load Tx Position
+        %TxBeamState Tx Beam State
+        %   Load Tx Position. TxBeamState is an array where each element addresses
+        %   each channel of each ADAR1000. Each element must be a value
+        %   between 0 and 360.
         TxBeamState = zeros(1, 4)
         %TxPowerDown Tx Powerdown
+        %   Power down Tx channels.
+        %   TxPowerDown is a logical array where each element addresses
+        %   each channel of each ADAR1000. Each element must be a logical
+        %   false (to power up) or true (to power down).
         TxPowerDown = true(1, 4)
         %TxGain Tx Gain
+        %   Apply gain to Tx channels.
+        %   TxGain is an array where each element addresses
+        %   each channel of each ADAR1000. Each element must be a value
+        %   between 0 and 127.
         TxGain = ones(1, 4)
         %TxPhase Tx Phase
+        %   Apply phase to Tx channels.
+        %   TxPhase is an array where each element addresses
+        %   each channel of each ADAR1000. Each element must be a value
+        %   between 0 and 360.
         TxPhase = zeros(1, 4)
         % RxBiasState = zeros(1, 4)
         %RxSequencerStart Rx Sequencer Start
+        %   RxSequencerStart is a logical array where each element addresses
+        %   each channel of each ADAR1000. Each element must be a logical
+        %   false or true.
         RxSequencerStart = false(1, 4)
         %RxSequencerStop Rx Sequencer Stop
+        %   RxSequencerStop is a logical array where each element addresses
+        %   each channel of each ADAR1000. Each element must be a logical
+        %   false or true.
         RxSequencerStop = false(1, 4)
         % TxBiasState = zeros(1, 4)
         %TxSequencerStart Tx Sequencer Start
+        %   TxSequencerStart is a logical array where each element addresses
+        %   each channel of each ADAR1000. Each element must be a logical
+        %   false or true.
         TxSequencerStart = false(1, 4)
         %TxSequencerStop Tx Sequencer Stop
+        %   TxSequencerStop is a logical array where each element addresses
+        %   each channel of each ADAR1000. Each element must be a logical
+        %   false or true.
         TxSequencerStop = false(1, 4)
         %Temp ADAR1000 Temperature
+        %   Get temperature of X-band Development Platform.
         Temp = 0
-
-        %TxRxSwitchControl TxRx Switch Control
-        %   Set source of control for Rx and Tx switching.
-        %   TxRxSwitchControl is a cellarray where each element address
-        %   individual ADAR1000's. Each cell must contain a string of value
-        %   'spi' or 'external' to set the modes.
-        TxRxSwitchControl = {'spi'};
     end
 
     properties
-        %TargetFrequency ADAR1000 TargetFrequency
+        %TargetFrequency Target Frequency 
+        %   ADAR1000 target frequency
         TargetFrequency = 10e9
-        %ElementSpacing ADAR1000 Element Spacing
+        %ElementSpacing Element Spacing 
+        %   ADAR1000 element spacing
         ElementSpacing = 0.015
     end
     
