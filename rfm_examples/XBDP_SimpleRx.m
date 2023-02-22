@@ -7,19 +7,19 @@
 % Microwave Toolbox.
 %
 % Author: Sam Ringwood
-% Date: 6/2022
+% Date: 2/2023
 
 % Gain Access to the Analog Devices, Inc. RF Microwave Toolbox at:
 % https://github.com/analogdevicesinc/RFMicrowaveToolbox
 
 %% Array Mapping
-%check channel element maps correctly to hardware!
+%verify element maps correctly to hardware!
 subarray = ...
-    [[1 9 17 25 3 11 19 27];... %subarray 1
-    [2 10 18 26 4 12 20 28];... %subarray 2
-    [6 14 22 30 8 16 24 32];... %subarray 3
-    [5 13 21 29 7 15 23 31]]';  %subarray 4. linear indexed to sray.ArrayMap
-subarray_ref = [1 2 5 6]; %subarray reference channels, linear indexed
+    [[1 2 5 6 9 10 13 14];... %subarray 1
+    [3 4 7 8 11 12 15 16];... %subarray 2
+    [19 20 23 24 27 28 31 32];... %subarray 3
+    [17 18 21 22 25 26 29 30]]';  %subarray 4 
+subarray_ref = [2 4 18 20]; %subarray reference elements
 adc_map = [4 2 1 3]; %ADC map to subarray
 adc_ref = 4; %ADC reference channel
 
@@ -44,10 +44,10 @@ rx.setRegister(hex2dec('61'),'283'); %Fine DDC Control, bypass fine NCO
 % Setup ADAR1000EVAL1Z in RX Mode
 sray = adi.Stingray;
 sray.uri = uri;
-sray.Frequency = 10e9;
+rxPhaseCalOffsets = zeros(size(sray.RxGain));
 sray.Mode(:) = {'Rx'}; %set mode, 'Rx', 'Tx, 'Disabled'
 sray.RxAttn(:) = 1; %1: Attenuation Off, 0: Attenuation On
-sray.SteerRx(0,0); %Broadside
+sray.SteerRx(0,0,rxPhaseCalOffsets); %Broadside
 sray.RxGain(:) = 127; %127: Highest Gain, 0: Lowest Gain, Decimal Value
 sray.LatchRxSettings; %Latch SPI settings to devices
 sray(); %constructor to write properties to hardware
@@ -61,13 +61,11 @@ sray.RxGainMode   = 1; %0: Low Gain, 1: High Gain - RX Mode only
 sray.ADF4371Frequency = 14.5e9; %program if using on-board LO PLL
 sray.PllOutputSel = 1; %1: ADF4371 RF1 (8 GHz to 16 GHz), 0: ADF4371 RF2 (16 GHz to 32 GHz)
 
-sray.ArrayMap; %Channel Array Map for ADAR1000EVAL1Z. sray.ArrayMap(1) returns channel 2.
-
-sray.RxPowerDown(:) = true; %True: Enable RX Channels
+sray.RxPowerDown(:) = false; %Enable RX Channels
 
 data = rx(); %capture data from ADCs, 4096x4 matrix
 
-sray.RxPowerDown(:) = false; %Power off all Rx channels
+sray.RxPowerDown(:) = true; %Disable Rx channels
 
 combinedComplexData = sum(data,2); %complex addition for all 4 ADCs
 
