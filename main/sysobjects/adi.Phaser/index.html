@@ -1,0 +1,1074 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../adi.Stingray/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.13">
+    
+    
+      
+        <title>adi.Phaser - Analog Devices, Inc. RF and Microwave Toolbox</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ffa9267a.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.a0c5b2b5.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/style.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/rd_style.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Analog Devices, Inc. RF and Microwave Toolbox" class="md-header__button md-logo" aria-label="Analog Devices, Inc. RF and Microwave Toolbox" data-md-component="logo">
+      
+  <img src="../../assets/matlab_white_icon.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Analog Devices, Inc. RF and Microwave Toolbox
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              adi.Phaser
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Analog Devices, Inc. RF and Microwave Toolbox" class="md-nav__button md-logo" aria-label="Analog Devices, Inc. RF and Microwave Toolbox" data-md-component="logo">
+      
+  <img src="../../assets/matlab_white_icon.svg" alt="logo">
+
+    </a>
+    Analog Devices, Inc. RF and Microwave Toolbox
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../install/" class="md-nav__link">
+        Installation
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../streaming/" class="md-nav__link">
+        Data Streaming
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/" class="md-nav__link">
+        Examples
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../support/" class="md-nav__link">
+        Support
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          Reference API
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Reference API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_1" id="__nav_6_1_label" tabindex="0">
+          Device Interfaces
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          Device Interfaces
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adi.Stingray/" class="md-nav__link">
+        adi.Stingray
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        adi.Phaser
+      </a>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>adi.Phaser</h1>
+
+<!-- <div class="sysobj_h1">adi.Phaser</div> -->
+
+<!-- <div class="sysobj_top_desc">
+Receive data from Analog Devices AD9361 transceiver
+</div> -->
+
+<!-- <div class="sysobj_desc_title">Description</div> -->
+
+<div class="sysobj_desc_txt">
+<span>
+    The adi.Phaser system object is an API to control the<br>    ADALM-PHASER X/Ku Band Beamforming Developer Platform.<br> <br>    rx = adi.Phaser;<br>    rx = adi.Phaser('uri','ip:ip:192.168.2.1');<br> <br>    <a href="https://wiki.analog.com/resources/eval/developer-kits/x-band-dev-kit">Stingray X/Ku Band Beamforming Developer Platform Wiki</a><br>
+</span>
+
+</div>
+
+<div class="sysobj_desc_title">Creation</div>
+
+<p>The class can be instantiated in the following way with and without property name value pairs.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">dev</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">adi</span><span class="p">.</span><span class="n">Phaser</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">dev</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">adi</span><span class="p">.</span><span class="n">Phaser</span><span class="p">(</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">Value</span><span class="p">)</span>
+</code></pre></div>
+<div class="sysobj_desc_title">Properties</div>
+
+<div class="sysobj_desc_txt">
+<span>
+Unless otherwise indicated, properties are non-tunable, which means you cannot change their values after calling the object. Objects lock when you call them, and the release function unlocks them.
+<br><br>
+If a property is tunable, you can change its value at any time.
+<br><br>
+For more information on changing property values, see <a href="https://www.mathworks.com/help/matlab/matlab_prog/system-design-in-matlab-using-system-objects.html">System Design in MATLAB Using System Objects.</a>
+</span>
+</div>
+<div class="property">
+  <button type="button" onclick="collapse('EnablePLL')" class="collapsible-property collapsible-property-EnablePLL">EnablePLL <span style="text-align:right" class="plus-EnablePLL">+</span></button>
+  <div class="content content-EnablePLL" style="display: none;">
+    <p style="padding: 0px;">Enable onboard PLL which is the main LO source. This controls V_CTRL_1</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('EnableTxPLL')" class="collapsible-property collapsible-property-EnableTxPLL">EnableTxPLL <span style="text-align:right" class="plus-EnableTxPLL">+</span></button>
+  <div class="content content-EnableTxPLL" style="display: none;">
+    <p style="padding: 0px;">Enable PLL to feed the Tx LO. This controls V_CTRL_2</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('NumADAR1000s')" class="collapsible-property collapsible-property-NumADAR1000s">NumADAR1000s <span style="text-align:right" class="plus-NumADAR1000s">+</span></button>
+  <div class="content content-NumADAR1000s" style="display: none;">
+    <p style="padding: 0px;"></p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('Mode')" class="collapsible-property collapsible-property-Mode">Mode <span style="text-align:right" class="plus-Mode">+</span></button>
+  <div class="content content-Mode" style="display: none;">
+    <p style="padding: 0px;">Mode is a cellarray where each element addresses individual ADAR1000's. Each cell must contain a string of value 'Rx', 'Tx', or 'disabled' to set the modes.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('LNABiasOutEnable')" class="collapsible-property collapsible-property-LNABiasOutEnable">LNABiasOutEnable <span style="text-align:right" class="plus-LNABiasOutEnable">+</span></button>
+  <div class="content content-LNABiasOutEnable" style="display: none;">
+    <p style="padding: 0px;">Enable output of LNA bias DAC. LNABiasOutEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable).</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('LNABiasOn')" class="collapsible-property collapsible-property-LNABiasOn">LNABiasOn <span style="text-align:right" class="plus-LNABiasOn">+</span></button>
+  <div class="content content-LNABiasOn" style="display: none;">
+    <p style="padding: 0px;">External Bias for External LNAs. LNABiasOn is an array where each element addresses individual ADAR1000's.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('BeamMemEnable')" class="collapsible-property collapsible-property-BeamMemEnable">BeamMemEnable <span style="text-align:right" class="plus-BeamMemEnable">+</span></button>
+  <div class="content content-BeamMemEnable" style="display: none;">
+    <p style="padding: 0px;">Enable beam memory. BeamMemEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable).</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('BiasDACEnable')" class="collapsible-property collapsible-property-BiasDACEnable">BiasDACEnable <span style="text-align:right" class="plus-BiasDACEnable">+</span></button>
+  <div class="content content-BiasDACEnable" style="display: none;">
+    <p style="padding: 0px;">Enable PA and LNA bias DACs. BiasDACEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable).</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('BiasDACMode')" class="collapsible-property collapsible-property-BiasDACMode">BiasDACMode <span style="text-align:right" class="plus-BiasDACMode">+</span></button>
+  <div class="content content-BiasDACMode" style="display: none;">
+    <p style="padding: 0px;">External Amplifier Bias Control. BiasDACMode is a cellarray where each element addresses individual ADAR1000's. Each cell must contain a string of values 'On' or 'Off' to set the modes.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('BiasMemEnable')" class="collapsible-property collapsible-property-BiasMemEnable">BiasMemEnable <span style="text-align:right" class="plus-BiasMemEnable">+</span></button>
+  <div class="content content-BiasMemEnable" style="display: none;">
+    <p style="padding: 0px;">Enable bias memory. BiasMemEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable).</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('CommonMemEnable')" class="collapsible-property collapsible-property-CommonMemEnable">CommonMemEnable <span style="text-align:right" class="plus-CommonMemEnable">+</span></button>
+  <div class="content content-CommonMemEnable" style="display: none;">
+    <p style="padding: 0px;">CommonMemEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable).</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('CommonRxBeamState')" class="collapsible-property collapsible-property-CommonRxBeamState">CommonRxBeamState <span style="text-align:right" class="plus-CommonRxBeamState">+</span></button>
+  <div class="content content-CommonRxBeamState" style="display: none;">
+    <p style="padding: 0px;">Static Rx Beam Position Load. CommonRxBeamState is an array where each element addresses individual ADAR1000's.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('CommonTxBeamState')" class="collapsible-property collapsible-property-CommonTxBeamState">CommonTxBeamState <span style="text-align:right" class="plus-CommonTxBeamState">+</span></button>
+  <div class="content content-CommonTxBeamState" style="display: none;">
+    <p style="padding: 0px;">Static Tx Beam Position Load. CommonTxBeamState is an array where each element addresses individual ADAR1000's.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('ExternalTRPin')" class="collapsible-property collapsible-property-ExternalTRPin">ExternalTRPin <span style="text-align:right" class="plus-ExternalTRPin">+</span></button>
+  <div class="content content-ExternalTRPin" style="display: none;">
+    <p style="padding: 0px;">Select Tx/Rx output driver. TxRxSwitchControl is a cellarray where each element addresses individual ADAR1000's. Each cell must contain a string of values 'Pos' or 'Neg' to set the modes.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('ExternalTRPolarity')" class="collapsible-property collapsible-property-ExternalTRPolarity">ExternalTRPolarity <span style="text-align:right" class="plus-ExternalTRPolarity">+</span></button>
+  <div class="content content-ExternalTRPolarity" style="display: none;">
+    <p style="padding: 0px;">Controls Sense of Tx/Rx Switch Driver Output. ExternalTRPolarity is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable).</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('LNABiasOff')" class="collapsible-property collapsible-property-LNABiasOff">LNABiasOff <span style="text-align:right" class="plus-LNABiasOff">+</span></button>
+  <div class="content content-LNABiasOff" style="display: none;">
+    <p style="padding: 0px;">External Bias for External LNAs. LNABiasOff is an array where each element addresses individual ADAR1000's.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('PolState')" class="collapsible-property collapsible-property-PolState">PolState <span style="text-align:right" class="plus-PolState">+</span></button>
+  <div class="content content-PolState" style="display: none;">
+    <p style="padding: 0px;">Control for External Polarity Switch Drivers. PolSwitchEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable).</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('PolSwitchEnable')" class="collapsible-property collapsible-property-PolSwitchEnable">PolSwitchEnable <span style="text-align:right" class="plus-PolSwitchEnable">+</span></button>
+  <div class="content content-PolSwitchEnable" style="display: none;">
+    <p style="padding: 0px;">Enables Switch Driver for External Polarization Switch. PolSwitchEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable).</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('RxLNABiasCurrent')" class="collapsible-property collapsible-property-RxLNABiasCurrent">RxLNABiasCurrent <span style="text-align:right" class="plus-RxLNABiasCurrent">+</span></button>
+  <div class="content content-RxLNABiasCurrent" style="display: none;">
+    <p style="padding: 0px;">Set LNA bias current. RxLNABiasCurrent is an array where each element addresses individual ADAR1000's.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('RxLNAEnable')" class="collapsible-property collapsible-property-RxLNAEnable">RxLNAEnable <span style="text-align:right" class="plus-RxLNAEnable">+</span></button>
+  <div class="content content-RxLNAEnable" style="display: none;">
+    <p style="padding: 0px;">Enables Rx LNA. RxLNAEnable is an array where each element addresses individual ADAR1000's.  Each element must be a logical true (to enable) or false (to not enable).</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('RxToTxDelay1')" class="collapsible-property collapsible-property-RxToTxDelay1">RxToTxDelay1 <span style="text-align:right" class="plus-RxToTxDelay1">+</span></button>
+  <div class="content content-RxToTxDelay1" style="display: none;">
+    <p style="padding: 0px;">LNA Bias off to TR Switch Delay. RxToTxDelay1 is an array where each element addresses individual ADAR1000's.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('RxToTxDelay2')" class="collapsible-property collapsible-property-RxToTxDelay2">RxToTxDelay2 <span style="text-align:right" class="plus-RxToTxDelay2">+</span></button>
+  <div class="content content-RxToTxDelay2" style="display: none;">
+    <p style="padding: 0px;">TR Switch to PA Bias on Delay. RxToTxDelay2 is an array where each element addresses individual ADAR1000's.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('RxVGAEnable')" class="collapsible-property collapsible-property-RxVGAEnable">RxVGAEnable <span style="text-align:right" class="plus-RxVGAEnable">+</span></button>
+  <div class="content content-RxVGAEnable" style="display: none;">
+    <p style="padding: 0px;">Enable Rx Channel VGAs. RxVGAEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable).</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('RxVGABiasCurrentVM')" class="collapsible-property collapsible-property-RxVGABiasCurrentVM">RxVGABiasCurrentVM <span style="text-align:right" class="plus-RxVGABiasCurrentVM">+</span></button>
+  <div class="content content-RxVGABiasCurrentVM" style="display: none;">
+    <p style="padding: 0px;">Apply Rx bias current. RxVGABiasCurrentVM is an array where each element addresses individual ADAR1000's.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('RxVMEnable')" class="collapsible-property collapsible-property-RxVMEnable">RxVMEnable <span style="text-align:right" class="plus-RxVMEnable">+</span></button>
+  <div class="content content-RxVMEnable" style="display: none;">
+    <p style="padding: 0px;">Enable Rx Channel Vector Modulators. RxVMEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable).</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('SequencerEnable')" class="collapsible-property collapsible-property-SequencerEnable">SequencerEnable <span style="text-align:right" class="plus-SequencerEnable">+</span></button>
+  <div class="content content-SequencerEnable" style="display: none;">
+    <p style="padding: 0px;">Enable sequencer. Sequencer is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable).</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('TRSwitchEnable')" class="collapsible-property collapsible-property-TRSwitchEnable">TRSwitchEnable <span style="text-align:right" class="plus-TRSwitchEnable">+</span></button>
+  <div class="content content-TRSwitchEnable" style="display: none;">
+    <p style="padding: 0px;">Enables Switch Driver for External Tx/Rx Switch. TRSwitchEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable).</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('TxPABiasCurrent')" class="collapsible-property collapsible-property-TxPABiasCurrent">TxPABiasCurrent <span style="text-align:right" class="plus-TxPABiasCurrent">+</span></button>
+  <div class="content content-TxPABiasCurrent" style="display: none;">
+    <p style="padding: 0px;">Set Tx driver bias current. TxPABiasCurrent is an array where each element addresses individual ADAR1000's.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('TxPAEnable')" class="collapsible-property collapsible-property-TxPAEnable">TxPAEnable <span style="text-align:right" class="plus-TxPAEnable">+</span></button>
+  <div class="content content-TxPAEnable" style="display: none;">
+    <p style="padding: 0px;">Enables the Tx channel drivers. TxToRxDelay1 is an array where each element addresses individual ADAR1000's.  Each element must be a logical true (to enable) or false (to not enable).</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('TxToRxDelay1')" class="collapsible-property collapsible-property-TxToRxDelay1">TxToRxDelay1 <span style="text-align:right" class="plus-TxToRxDelay1">+</span></button>
+  <div class="content content-TxToRxDelay1" style="display: none;">
+    <p style="padding: 0px;">PA Bias off to TR Switch Delay. TxToRxDelay1 is an array where each element addresses individual ADAR1000's.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('TxToRxDelay2')" class="collapsible-property collapsible-property-TxToRxDelay2">TxToRxDelay2 <span style="text-align:right" class="plus-TxToRxDelay2">+</span></button>
+  <div class="content content-TxToRxDelay2" style="display: none;">
+    <p style="padding: 0px;">TR Switch to LNA Bias on Delay. TxToRxDelay2 is an array where each element addresses individual ADAR1000's.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('TxVGAEnable')" class="collapsible-property collapsible-property-TxVGAEnable">TxVGAEnable <span style="text-align:right" class="plus-TxVGAEnable">+</span></button>
+  <div class="content content-TxVGAEnable" style="display: none;">
+    <p style="padding: 0px;">Enable Tx Channel VGAs. TxVGAEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable).</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('TxVGABiasCurrentVM')" class="collapsible-property collapsible-property-TxVGABiasCurrentVM">TxVGABiasCurrentVM <span style="text-align:right" class="plus-TxVGABiasCurrentVM">+</span></button>
+  <div class="content content-TxVGABiasCurrentVM" style="display: none;">
+    <p style="padding: 0px;">Apply Tx bias current. TxVGABiasCurrentVM is an array where each element addresses individual ADAR1000's.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('TxVMEnable')" class="collapsible-property collapsible-property-TxVMEnable">TxVMEnable <span style="text-align:right" class="plus-TxVMEnable">+</span></button>
+  <div class="content content-TxVMEnable" style="display: none;">
+    <p style="padding: 0px;">Enable Tx Channel Vector Modulators. TxVMEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable).</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('TxRxSwitchControl')" class="collapsible-property collapsible-property-TxRxSwitchControl">TxRxSwitchControl <span style="text-align:right" class="plus-TxRxSwitchControl">+</span></button>
+  <div class="content content-TxRxSwitchControl" style="display: none;">
+    <p style="padding: 0px;">Set source of control for Rx and Tx switching. TxRxSwitchControl is a cellarray where each element addresses individual ADAR1000's. Each cell must contain a string of values 'spi' or 'external' to set the modes.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('DetectorEnable')" class="collapsible-property collapsible-property-DetectorEnable">DetectorEnable <span style="text-align:right" class="plus-DetectorEnable">+</span></button>
+  <div class="content content-DetectorEnable" style="display: none;">
+    <p style="padding: 0px;">DetectorEnable is an array where each element addresses each channel of each ADAR1000.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('DetectorPower')" class="collapsible-property collapsible-property-DetectorPower">DetectorPower <span style="text-align:right" class="plus-DetectorPower">+</span></button>
+  <div class="content content-DetectorPower" style="display: none;">
+    <p style="padding: 0px;">DetectorPower is an array where each element addresses each channel of each ADAR1000.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('PABiasOff')" class="collapsible-property collapsible-property-PABiasOff">PABiasOff <span style="text-align:right" class="plus-PABiasOff">+</span></button>
+  <div class="content content-PABiasOff" style="display: none;">
+    <p style="padding: 0px;">Apply bias off to external PA. PABiasOff is an array where each element addresses each channel of each ADAR1000.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('PABiasOn')" class="collapsible-property collapsible-property-PABiasOn">PABiasOn <span style="text-align:right" class="plus-PABiasOn">+</span></button>
+  <div class="content content-PABiasOn" style="display: none;">
+    <p style="padding: 0px;">Apply bias on to external PA. PABiasOn is an array where each element addresses each channel of each ADAR1000.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('RxAttn')" class="collapsible-property collapsible-property-RxAttn">RxAttn <span style="text-align:right" class="plus-RxAttn">+</span></button>
+  <div class="content content-RxAttn" style="display: none;">
+    <p style="padding: 0px;">Attenuate Rx channels. RxAttn is an array where each element addresses each channel of each ADAR1000. Each element must be a logical true (to attenuate) or false (to not attenuate).</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('RxBeamState')" class="collapsible-property collapsible-property-RxBeamState">RxBeamState <span style="text-align:right" class="plus-RxBeamState">+</span></button>
+  <div class="content content-RxBeamState" style="display: none;">
+    <p style="padding: 0px;">Load Rx Position. RxBeamState is an array where each element addresses each channel of each ADAR1000. Each element must be a value between 0 and 360.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('RxPowerDown')" class="collapsible-property collapsible-property-RxPowerDown">RxPowerDown <span style="text-align:right" class="plus-RxPowerDown">+</span></button>
+  <div class="content content-RxPowerDown" style="display: none;">
+    <p style="padding: 0px;">Power down Rx channels. RxPowerDown is a logical array where each element addresses each channel of each ADAR1000. Each element must be a logical false (to power up) or true (to power down).</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('RxGain')" class="collapsible-property collapsible-property-RxGain">RxGain <span style="text-align:right" class="plus-RxGain">+</span></button>
+  <div class="content content-RxGain" style="display: none;">
+    <p style="padding: 0px;">Apply gain to Rx channels. RxGain is an array where each element addresses each channel of each ADAR1000. Each element must be a value between 0 and 127.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('RxPhase')" class="collapsible-property collapsible-property-RxPhase">RxPhase <span style="text-align:right" class="plus-RxPhase">+</span></button>
+  <div class="content content-RxPhase" style="display: none;">
+    <p style="padding: 0px;">Apply phase to Rx channels. RxPhase is an array where each element addresses each channel of each ADAR1000. Each element must be a value between 0 and 360.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('TxAttn')" class="collapsible-property collapsible-property-TxAttn">TxAttn <span style="text-align:right" class="plus-TxAttn">+</span></button>
+  <div class="content content-TxAttn" style="display: none;">
+    <p style="padding: 0px;">Attenuate Tx channels. TxAttn is an array where each element addresses each channel of each ADAR1000. Each element must be a logical true (to attenuate) or false (to not attenuate).</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('TxBeamState')" class="collapsible-property collapsible-property-TxBeamState">TxBeamState <span style="text-align:right" class="plus-TxBeamState">+</span></button>
+  <div class="content content-TxBeamState" style="display: none;">
+    <p style="padding: 0px;">Load Tx Position. TxBeamState is an array where each element addresses each channel of each ADAR1000. Each element must be a value between 0 and 360.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('TxPowerDown')" class="collapsible-property collapsible-property-TxPowerDown">TxPowerDown <span style="text-align:right" class="plus-TxPowerDown">+</span></button>
+  <div class="content content-TxPowerDown" style="display: none;">
+    <p style="padding: 0px;">Power down Tx channels. TxPowerDown is a logical array where each element addresses each channel of each ADAR1000. Each element must be a logical false (to power up) or true (to power down).</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('TxGain')" class="collapsible-property collapsible-property-TxGain">TxGain <span style="text-align:right" class="plus-TxGain">+</span></button>
+  <div class="content content-TxGain" style="display: none;">
+    <p style="padding: 0px;">Apply gain to Tx channels. TxGain is an array where each element addresses each channel of each ADAR1000. Each element must be a value between 0 and 127.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('TxPhase')" class="collapsible-property collapsible-property-TxPhase">TxPhase <span style="text-align:right" class="plus-TxPhase">+</span></button>
+  <div class="content content-TxPhase" style="display: none;">
+    <p style="padding: 0px;">Apply phase to Tx channels. TxPhase is an array where each element addresses each channel of each ADAR1000. Each element must be a value between 0 and 360.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('RxSequencerStart')" class="collapsible-property collapsible-property-RxSequencerStart">RxSequencerStart <span style="text-align:right" class="plus-RxSequencerStart">+</span></button>
+  <div class="content content-RxSequencerStart" style="display: none;">
+    <p style="padding: 0px;">RxSequencerStart Rx Sequencer Start RxSequencerStart is a logical array where each element addresses each channel of each ADAR1000. Each element must be a logical false or true.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('RxSequencerStop')" class="collapsible-property collapsible-property-RxSequencerStop">RxSequencerStop <span style="text-align:right" class="plus-RxSequencerStop">+</span></button>
+  <div class="content content-RxSequencerStop" style="display: none;">
+    <p style="padding: 0px;">RxSequencerStop is a logical array where each element addresses each channel of each ADAR1000. Each element must be a logical false or true.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('TxSequencerStart')" class="collapsible-property collapsible-property-TxSequencerStart">TxSequencerStart <span style="text-align:right" class="plus-TxSequencerStart">+</span></button>
+  <div class="content content-TxSequencerStart" style="display: none;">
+    <p style="padding: 0px;">TxSequencerStart Tx Sequencer Start TxSequencerStart is a logical array where each element addresses each channel of each ADAR1000. Each element must be a logical false or true.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('TxSequencerStop')" class="collapsible-property collapsible-property-TxSequencerStop">TxSequencerStop <span style="text-align:right" class="plus-TxSequencerStop">+</span></button>
+  <div class="content content-TxSequencerStop" style="display: none;">
+    <p style="padding: 0px;">TxSequencerStop is a logical array where each element addresses each channel of each ADAR1000. Each element must be a logical false or true.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('Temp')" class="collapsible-property collapsible-property-Temp">Temp <span style="text-align:right" class="plus-Temp">+</span></button>
+  <div class="content content-Temp" style="display: none;">
+    <p style="padding: 0px;">Get temperature of X-band Development Platform.</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('TargetFrequency')" class="collapsible-property collapsible-property-TargetFrequency">TargetFrequency <span style="text-align:right" class="plus-TargetFrequency">+</span></button>
+  <div class="content content-TargetFrequency" style="display: none;">
+    <p style="padding: 0px;">ADAR1000 target frequency</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('ElementSpacing')" class="collapsible-property collapsible-property-ElementSpacing">ElementSpacing <span style="text-align:right" class="plus-ElementSpacing">+</span></button>
+  <div class="content content-ElementSpacing" style="display: none;">
+    <p style="padding: 0px;">ADAR1000 element spacing</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('uri')" class="collapsible-property collapsible-property-uri">uri <span style="text-align:right" class="plus-uri">+</span></button>
+  <div class="content content-uri" style="display: none;">
+    <p style="padding: 0px;">Hostname or IP address of remote libIIO deviceHelp for adi.Phaser/uri is inherited from superclass matlabshared.libiio.base</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('channelCount')" class="collapsible-property collapsible-property-channelCount">channelCount <span style="text-align:right" class="plus-channelCount">+</span></button>
+  <div class="content content-channelCount" style="display: none;">
+    <p style="padding: 0px;">Number of enabled channelsHelp for adi.Phaser/channelCount is inherited from superclass matlabshared.libiio.base</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('DataTimeout')" class="collapsible-property collapsible-property-DataTimeout">DataTimeout <span style="text-align:right" class="plus-DataTimeout">+</span></button>
+  <div class="content content-DataTimeout" style="display: none;">
+    <p style="padding: 0px;">Timeout for I/O operations (in seconds) 0 = non-blocking (or default context timeout) Inf = infiniteHelp for adi.Phaser/DataTimeout is inherited from superclass matlabshared.libiio.base</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('EnabledChannels')" class="collapsible-property collapsible-property-EnabledChannels">EnabledChannels <span style="text-align:right" class="plus-EnabledChannels">+</span></button>
+  <div class="content content-EnabledChannels" style="display: none;">
+    <p style="padding: 0px;">Indexs of channels to be enabled. Input should be a [1xN] vector with the indexes of channels to be enabled. Order is irrelevant</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('Frequency')" class="collapsible-property collapsible-property-Frequency">Frequency <span style="text-align:right" class="plus-Frequency">+</span></button>
+  <div class="content content-Frequency" style="display: none;">
+    <p style="padding: 0px;">Set output frequency of synthesizer in Hz. When the synthesizer is ramping this is the start frequencyHelp for adi.Phaser/Frequency is inherited from superclass adi.internal.ADF4159</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('FrequencyDeviationRange')" class="collapsible-property collapsible-property-FrequencyDeviationRange">FrequencyDeviationRange <span style="text-align:right" class="plus-FrequencyDeviationRange">+</span></button>
+  <div class="content content-FrequencyDeviationRange" style="display: none;">
+    <p style="padding: 0px;">Set upper bound on frequency ramp from Frequency property in Hz. This is only applicable when RampMode is not set to "disabled"Help for adi.Phaser/FrequencyDeviationRange is inherited from superclass adi.internal.ADF4159</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('FrequencyDeviationStep')" class="collapsible-property collapsible-property-FrequencyDeviationStep">FrequencyDeviationStep <span style="text-align:right" class="plus-FrequencyDeviationStep">+</span></button>
+  <div class="content content-FrequencyDeviationStep" style="display: none;">
+    <p style="padding: 0px;">Set step size in Hz of synthesizer ramp. This is only applicable when RampMode is not set to "disabled".Help for adi.Phaser/FrequencyDeviationStep is inherited from superclass adi.internal.ADF4159</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('FrequencyDeviationTime')" class="collapsible-property collapsible-property-FrequencyDeviationTime">FrequencyDeviationTime <span style="text-align:right" class="plus-FrequencyDeviationTime">+</span></button>
+  <div class="content content-FrequencyDeviationTime" style="display: none;">
+    <p style="padding: 0px;">Set time in uSeconds to reach ramp peak value. This is only applicable when RampMode is not set to "disabled"Help for adi.Phaser/FrequencyDeviationTime is inherited from superclass adi.internal.ADF4159</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('RampMode')" class="collapsible-property collapsible-property-RampMode">RampMode <span style="text-align:right" class="plus-RampMode">+</span></button>
+  <div class="content content-RampMode" style="display: none;">
+    <p style="padding: 0px;">Set ramp waveform. Options are: - "disabled" - "continuous_sawtooth" - "continuous_triangular" - "single_sawtooth_burst" - "single_ramp_burst"Help for adi.Phaser/RampMode is inherited from superclass adi.internal.ADF4159</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('Powerdown')" class="collapsible-property collapsible-property-Powerdown">Powerdown <span style="text-align:right" class="plus-Powerdown">+</span></button>
+  <div class="content content-Powerdown" style="display: none;">
+    <p style="padding: 0px;">When true output will be disabled. Writing to this value will also update all settings of deviceHelp for adi.Phaser/Powerdown is inherited from superclass adi.internal.ADF4159</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('DelayStartWord')" class="collapsible-property collapsible-property-DelayStartWord">DelayStartWord <span style="text-align:right" class="plus-DelayStartWord">+</span></button>
+  <div class="content content-DelayStartWord" style="display: none;">
+    <p style="padding: 0px;">Set start delay of each ramp in PFD or PFD*CLK1 clock cycles. This is a 12-bit numberHelp for adi.Phaser/DelayStartWord is inherited from superclass adi.internal.ADF4159</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('DelayClockSource')" class="collapsible-property collapsible-property-DelayClockSource">DelayClockSource <span style="text-align:right" class="plus-DelayClockSource">+</span></button>
+  <div class="content content-DelayClockSource" style="display: none;">
+    <p style="padding: 0px;">Set clock use to determine ramp delay. Options are: - "PFD" - "PFD*CLK1"Help for adi.Phaser/DelayClockSource is inherited from superclass adi.internal.ADF4159</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('DelayStartEnable')" class="collapsible-property collapsible-property-DelayStartEnable">DelayStartEnable <span style="text-align:right" class="plus-DelayStartEnable">+</span></button>
+  <div class="content content-DelayStartEnable" style="display: none;">
+    <p style="padding: 0px;">Enable delaying of ramp signal at start of first ramp generationHelp for adi.Phaser/DelayStartEnable is inherited from superclass adi.internal.ADF4159</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('RampDelayEnable')" class="collapsible-property collapsible-property-RampDelayEnable">RampDelayEnable <span style="text-align:right" class="plus-RampDelayEnable">+</span></button>
+  <div class="content content-RampDelayEnable" style="display: none;">
+    <p style="padding: 0px;">Enable delaying of ramp signal at start of each ramp generationHelp for adi.Phaser/RampDelayEnable is inherited from superclass adi.internal.ADF4159</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('TriggerDelayEnable')" class="collapsible-property collapsible-property-TriggerDelayEnable">TriggerDelayEnable <span style="text-align:right" class="plus-TriggerDelayEnable">+</span></button>
+  <div class="content content-TriggerDelayEnable" style="display: none;">
+    <p style="padding: 0px;">Enable ramp start delay when controlled by external triggerHelp for adi.Phaser/TriggerDelayEnable is inherited from superclass adi.internal.ADF4159</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('TriggerEnable')" class="collapsible-property collapsible-property-TriggerEnable">TriggerEnable <span style="text-align:right" class="plus-TriggerEnable">+</span></button>
+  <div class="content content-TriggerEnable" style="display: none;">
+    <p style="padding: 0px;">Allow for use of external trigger on TX Data pin to start rampHelp for adi.Phaser/TriggerEnable is inherited from superclass adi.internal.ADF4159</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('SingleFullTriangleEnable')" class="collapsible-property collapsible-property-SingleFullTriangleEnable">SingleFullTriangleEnable <span style="text-align:right" class="plus-SingleFullTriangleEnable">+</span></button>
+  <div class="content content-SingleFullTriangleEnable" style="display: none;">
+    <p style="padding: 0px;">Enable sending of single full triangular wave. This is applicable when RampMode is in "single_ramp_burst"Help for adi.Phaser/SingleFullTriangleEnable is inherited from superclass adi.internal.ADF4159</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('BurstCount')" class="collapsible-property collapsible-property-BurstCount">BurstCount <span style="text-align:right" class="plus-BurstCount">+</span></button>
+  <div class="content content-BurstCount" style="display: none;">
+    <p style="padding: 0px;"></p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('CounterInt')" class="collapsible-property collapsible-property-CounterInt">CounterInt <span style="text-align:right" class="plus-CounterInt">+</span></button>
+  <div class="content content-CounterInt" style="display: none;">
+    <p style="padding: 0px;"></p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('DMAGateingMode')" class="collapsible-property collapsible-property-DMAGateingMode">DMAGateingMode <span style="text-align:right" class="plus-DMAGateingMode">+</span></button>
+  <div class="content content-DMAGateingMode" style="display: none;">
+    <p style="padding: 0px;">0 - none, 1 - rx_only, 2 - tx_only, 3 - rx_tx</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('Enable')" class="collapsible-property collapsible-property-Enable">Enable <span style="text-align:right" class="plus-Enable">+</span></button>
+  <div class="content content-Enable" style="display: none;">
+    <p style="padding: 0px;"></p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('EnableMode')" class="collapsible-property collapsible-property-EnableMode">EnableMode <span style="text-align:right" class="plus-EnableMode">+</span></button>
+  <div class="content content-EnableMode" style="display: none;">
+    <p style="padding: 0px;">1 - rx_only, 2 - tx_only, 3 - rx_tx</p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('FrameLength')" class="collapsible-property collapsible-property-FrameLength">FrameLength <span style="text-align:right" class="plus-FrameLength">+</span></button>
+  <div class="content content-FrameLength" style="display: none;">
+    <p style="padding: 0px;"></p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('Secondary')" class="collapsible-property collapsible-property-Secondary">Secondary <span style="text-align:right" class="plus-Secondary">+</span></button>
+  <div class="content content-Secondary" style="display: none;">
+    <p style="padding: 0px;"></p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('SyncTerminalType')" class="collapsible-property collapsible-property-SyncTerminalType">SyncTerminalType <span style="text-align:right" class="plus-SyncTerminalType">+</span></button>
+  <div class="content content-SyncTerminalType" style="display: none;">
+    <p style="padding: 0px;"></p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('TxDPoff')" class="collapsible-property collapsible-property-TxDPoff">TxDPoff <span style="text-align:right" class="plus-TxDPoff">+</span></button>
+  <div class="content content-TxDPoff" style="display: none;">
+    <p style="padding: 0px;"></p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('TxDPon')" class="collapsible-property collapsible-property-TxDPon">TxDPon <span style="text-align:right" class="plus-TxDPon">+</span></button>
+  <div class="content content-TxDPon" style="display: none;">
+    <p style="padding: 0px;"></p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('TxOff')" class="collapsible-property collapsible-property-TxOff">TxOff <span style="text-align:right" class="plus-TxOff">+</span></button>
+  <div class="content content-TxOff" style="display: none;">
+    <p style="padding: 0px;"></p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('TxOn')" class="collapsible-property collapsible-property-TxOn">TxOn <span style="text-align:right" class="plus-TxOn">+</span></button>
+  <div class="content content-TxOn" style="display: none;">
+    <p style="padding: 0px;"></p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('TxVCOoff')" class="collapsible-property collapsible-property-TxVCOoff">TxVCOoff <span style="text-align:right" class="plus-TxVCOoff">+</span></button>
+  <div class="content content-TxVCOoff" style="display: none;">
+    <p style="padding: 0px;"></p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('TxVCOon')" class="collapsible-property collapsible-property-TxVCOon">TxVCOon <span style="text-align:right" class="plus-TxVCOon">+</span></button>
+  <div class="content content-TxVCOon" style="display: none;">
+    <p style="padding: 0px;"></p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('RxDPoff')" class="collapsible-property collapsible-property-RxDPoff">RxDPoff <span style="text-align:right" class="plus-RxDPoff">+</span></button>
+  <div class="content content-RxDPoff" style="display: none;">
+    <p style="padding: 0px;"></p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('RxDPon')" class="collapsible-property collapsible-property-RxDPon">RxDPon <span style="text-align:right" class="plus-RxDPon">+</span></button>
+  <div class="content content-RxDPon" style="display: none;">
+    <p style="padding: 0px;"></p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('RxOff')" class="collapsible-property collapsible-property-RxOff">RxOff <span style="text-align:right" class="plus-RxOff">+</span></button>
+  <div class="content content-RxOff" style="display: none;">
+    <p style="padding: 0px;"></p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('RxOn')" class="collapsible-property collapsible-property-RxOn">RxOn <span style="text-align:right" class="plus-RxOn">+</span></button>
+  <div class="content content-RxOn" style="display: none;">
+    <p style="padding: 0px;"></p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('RxVCOoff')" class="collapsible-property collapsible-property-RxVCOoff">RxVCOoff <span style="text-align:right" class="plus-RxVCOoff">+</span></button>
+  <div class="content content-RxVCOoff" style="display: none;">
+    <p style="padding: 0px;"></p>
+  </div>
+  </div>
+<div class="property">
+  <button type="button" onclick="collapse('RxVCOon')" class="collapsible-property collapsible-property-RxVCOon">RxVCOon <span style="text-align:right" class="plus-RxVCOon">+</span></button>
+  <div class="content content-RxVCOon" style="display: none;">
+    <p style="padding: 0px;"></p>
+  </div>
+  </div>
+
+<div class="sysobj_desc_title">Example Usage</div>
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>%% Configure device
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>tx = adi.Phaser;
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>tx.uri = &quot;ip:analog.local&quot;;
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>tx.DataSource = &#39;DMA&#39;;
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>tx.EnableCyclicBuffers = true;
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>tx.EnabledChannels = 1;
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>%% Generate tone
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>amplitude = 2^15; frequency = 0.12e6;
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>swv1 = dsp.SineWave(amplitude, frequency);
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>swv1.SamplesPerFrame = 2^14;
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>swv1.SampleRate = tx.SamplingRate;
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>y = swv1();
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>%% Send
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>tx(y);
+</code></pre></div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.2a6f1dda.min.js"></script>
+      
+        <script src="../../js/sys_objects.js"></script>
+      
+    
+  </body>
+</html>
