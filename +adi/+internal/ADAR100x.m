@@ -114,7 +114,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         %RxBeamState Load Rx Position
         RxBeamState = zeros(1, 4)
         %RxPowerDown Rx Powerdown
-        RxPowerDown = false(1, 4)
+        RxPowerDown = true(1, 4)
         %RxGain Rx Gain
         RxGain = ones(1, 4)
         %RxPhase Rx Phase
@@ -124,7 +124,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         %TxBeamState Load Tx Position
         TxBeamState = zeros(1, 4)
         %TxPowerDown Tx Powerdown
-        TxPowerDown = false(1, 4)
+        TxPowerDown = true(1, 4)
         %TxGain Tx Gain
         TxGain = ones(1, 4)
         %TxPhase Tx Phase
@@ -363,7 +363,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             %   "hamming", "hanning"
             %   Gains: Scalar/Matrix of gains in range (0-127) for the Tx VGA
             if (nargin == 3)
-                Offset = zeros(size(obj.ArrayMapInternal));
+                Offset = zeros(size(obj.ElementToChipChannelMap));
             elseif (nargin == 4)
                 Offset = varargin{1};
             end
@@ -374,10 +374,10 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             % TaperRx Taper Stingray Rx gain.
             % Inputs:
             %   window: Options - "none", "bartlett", "blackmann",
-            %   "hamming", "hanning"
+            %   "hamming", "hanning", "taylor"
             %   Gains: Scalar/Matrix of gains in range (0-127) for the Rx VGA
             if (nargin == 3)
-                Offset = zeros(size(obj.ArrayMapInternal));
+                Offset = zeros(size(obj.ElementToChipChannelMap));
             elseif (nargin == 4)
                 Offset = varargin{1};
             end
@@ -387,7 +387,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         function SteerRx(obj, Azimuth, Elevation, varargin)
             % SteerRx Steer the Rx array in a particular direction. This method assumes that the entire array is one analog beam.
             if (nargin == 3)
-                Offset = zeros(size(obj.ArrayMapInternal));
+                Offset = zeros(size(obj.ElementToChipChannelMap));
             elseif (nargin == 4)
                 Offset = varargin{1};
             end
@@ -397,7 +397,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         function SteerTx(obj, Azimuth, Elevation, varargin)
             % SteerTx Steer the Tx array in a particular direction. This method assumes that the entire array is one analog beam.
             if (nargin == 3)
-                Offset = zeros(size(obj.ArrayMapInternal));
+                Offset = zeros(size(obj.ElementToChipChannelMap));
             elseif (nargin == 4)
                 Offset = varargin{1};
             end
@@ -407,8 +407,8 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
     
     methods (Access = private)
         function Taper(obj, RxOrTx, window, Gains, Offset)
-            rLen = size(obj.ArrayMapInternal, 1);
-            cLen = size(obj.ArrayMapInternal, 2);
+            rLen = size(obj.ElementToChipChannelMap, 1);
+            cLen = size(obj.ElementToChipChannelMap, 2);
 
             switch lower(window)
                 case "none"
@@ -436,19 +436,9 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             cWin = cWin(2:end-1);
             rWin = rWin/max(rWin);
             cWin = cWin/max(cWin);
+            RowWin = repmat(cWin, 1, rLen).';
+            ColumnWin = repmat(rWin.', cLen, 1).';
 
-            Array = 1:numel(obj.ArrayMapInternal);
-            Array = reshape(Array, size(obj.ArrayMapInternal.')).';
-
-            r = zeros(size(Array));
-            c = zeros(size(Array));
-            for ii = 1:size(obj.ArrayMapInternal, 1)
-                for jj = 1:size(obj.ArrayMapInternal, 2)
-                    [r(ii, jj), c(ii, jj)] = find(Array == obj.ArrayMapInternal(ii, jj));
-                end
-            end
-            ColumnWin = cWin(c);
-            RowWin = rWin(r);
             if isscalar(Gains)
                 gain = Gains*ColumnWin.*RowWin;
             else
@@ -482,18 +472,11 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             end
             
             % Steer the elements in the array and Latch in the new phases
-            Array = 1:numel(obj.ArrayMapInternal);
-            Array = reshape(Array, size(obj.ArrayMapInternal.')).';
+            rLen = size(obj.ElementToChipChannelMap, 1);
+            cLen = size(obj.ElementToChipChannelMap, 2);
+            RowPhase = ElevationPhi*repmat((0:rLen-1).', 1, cLen);
+            ColumnPhase = AzimuthPhi*repmat(0:cLen-1, rLen, 1);
 
-            r = zeros(size(Array));
-            c = zeros(size(Array));
-            for ii = 1:size(obj.ArrayMapInternal, 1)
-                for jj = 1:size(obj.ArrayMapInternal, 2)
-                    [r(ii, jj), c(ii, jj)] = find(Array == obj.ArrayMapInternal(ii, jj));
-                end
-            end
-            ColumnPhase = (c-1)*ElevationPhi;
-            RowPhase = (r-1)*AzimuthPhi;
             if strcmpi(RxOrTx, 'Rx')
                 obj.RxPhase = wrapTo360(ColumnPhase + RowPhase + Offset);
                 obj.LatchRxSettings();
@@ -522,7 +505,6 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
 
             for r = 1:size(obj.SubarrayToChipMap,1)
                 for c = 1:size(obj.SubarrayToChipMap,2)
-                    devIndx = obj.SubarrayToChipMap(r,c);
                     if ~(strcmpi(values{r,c}, 'Tx') || strcmpi(values{r,c}, 'Rx') ...
                              || strcmpi(values{r,c}, 'Disabled'))
                         error('Expected ''Tx'' or ''Rx'' or ''Disabled'' for property, Mode');
@@ -770,8 +752,8 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             obj.LNABiasOn = LNAOn*ones(size(obj.SubarrayToChipMap));
             
             % Default channel enable
-            obj.RxPowerDown = zeros(size(obj.ElementToChipChannelMap));
-            obj.TxPowerDown = zeros(size(obj.ElementToChipChannelMap));
+            obj.RxPowerDown = true(size(obj.ElementToChipChannelMap));
+            obj.TxPowerDown = true(size(obj.ElementToChipChannelMap));
 
             % Default PA bias
             obj.PABiasOff = PAOff*ones(size(obj.ElementToChipChannelMap));
@@ -1013,18 +995,33 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             setAllChipsDeviceAttributeRAW(obj, 'lna_bias_out_enable', obj.LNABiasOutEnable, true);
             setAllChipsDeviceAttributeRAW(obj, 'lna_bias_on', int32(obj.LNABiasOn / obj.BIAS_CODE_TO_VOLTAGE_SCALE), false);
             values = obj.Mode;
-            ivalues = char(ones(size(values)) * '0');
-            for ii = 1:numel(values)
-                if ~(strcmpi(values(ii), 'Tx') || strcmpi(values(ii), 'Rx'))
-                    error('Expected ''Tx'' or ''Rx'' for property, Mode');
-                end
-                if strcmpi(values(ii), 'Tx')
-                    ivalues(ii) = '1';
-                else
-                    ivalues(ii) = '0';
+            RxEnableMat = zeros(size(obj.SubarrayToChipMap));
+            TxEnableMat = zeros(size(obj.SubarrayToChipMap));
+
+            for r = 1:size(obj.SubarrayToChipMap,1)
+                for c = 1:size(obj.SubarrayToChipMap,2)
+                    if ~(strcmpi(values{r,c}, 'Tx') || strcmpi(values{r,c}, 'Rx') ...
+                             || strcmpi(values{r,c}, 'Disabled'))
+                        error('Expected ''Tx'' or ''Rx'' or ''Disabled'' for property, Mode');
+                    end
+                    if strcmpi(values{r,c}, 'Disabled')
+                        RxEnableMat(r,c) = false;
+                        TxEnableMat(r,c) = false;
+                    else
+                        if strcmpi(values{r,c}, 'Tx')
+                            RxEnableMat(r,c) = false;
+                            TxEnableMat(r,c) = true;
+                        else
+                            RxEnableMat(r,c) = true;
+                            TxEnableMat(r,c) = false;
+                        end
+                    end
                 end
             end
-            setAllChipsDeviceAttributeRAW(obj, 'tr_spi', ivalues, true);
+            values_tmp = RxEnableMat>0;
+            setAllChipsDeviceAttributeRAW(obj, 'rx_en', values_tmp, true);
+            values_tmp = TxEnableMat>0;
+            setAllChipsDeviceAttributeRAW(obj, 'tx_en', values_tmp, true);
             setAllChipsDeviceAttributeRAW(obj, 'beam_mem_enable', obj.BeamMemEnable, true);
 
             setAllChipsDeviceAttributeRAW(obj, 'bias_ctrl', obj.CellArrayToArray(obj.BiasDACMode, {'Toggle','On'}, [1,0]), true);
