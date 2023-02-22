@@ -1,12 +1,939 @@
 [
   {
     "name": "adi.Stingray",
-    "dec": "",
-    "props": []
+    "dec": "    The adi.Stingray system object is an API to control the<br>    Stingray X/Ku Band Beamforming Developer Platform.<br> <br>    rx = adi.Stingray;<br>    rx = adi.Stingray('uri','ip:192.168.2.1');<br> <br>    <a href=\"https://wiki.analog.com/resources/eval/developer-kits/x-band-dev-kit\">Stingray X/Ku Band Beamforming Developer Platform Wiki</a><br>    Documentation for adi.Stingray<br>       doc adi.Stingray<br>",
+    "props": [
+      {
+        "prop_name": "NumADAR1000s",
+        "prop_title": "adi.Stingray/NumADAR1000s is a property.",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "Mode",
+        "prop_title": " Mode Mode        ",
+        "prop_description": "Mode is a cellarray where each element addresses individual ADAR1000's. Each cell must contain a string of value 'Rx', 'Tx', or 'disabled' to set the modes."
+      },
+      {
+        "prop_name": "LNABiasOutEnable",
+        "prop_title": " LNABiasOutEnable LNA Bias Out Enable ",
+        "prop_description": "Enable output of LNA bias DAC. LNABiasOutEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "LNABiasOn",
+        "prop_title": " LNABiasOn LNA Bias On ",
+        "prop_description": "External Bias for External LNAs. LNABiasOn is an array where each element addresses individual ADAR1000's."
+      },
+      {
+        "prop_name": "BeamMemEnable",
+        "prop_title": " BeamMemEnable Beam Mem Enable",
+        "prop_description": "Enable beam memory. BeamMemEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "BiasDACEnable",
+        "prop_title": " BiasDACEnable Bias DAC Enable ",
+        "prop_description": "Enable PA and LNA bias DACs. BiasDACEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "BiasDACMode",
+        "prop_title": " BiasDACMode Bias DAC Mode ",
+        "prop_description": "External Amplifier Bias Control. BiasDACMode is a cellarray where each element addresses individual ADAR1000's. Each cell must contain a string of values 'On' or 'Off' to set the modes."
+      },
+      {
+        "prop_name": "BiasMemEnable",
+        "prop_title": " BiasMemEnable Bias Mem Enable",
+        "prop_description": "Enable bias memory. BiasMemEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "CommonMemEnable",
+        "prop_title": " CommonMemEnable Common Mem Enable",
+        "prop_description": "CommonMemEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "CommonRxBeamState",
+        "prop_title": " CommonRxBeamState Common Rx Beam State ",
+        "prop_description": "Static Rx Beam Position Load. CommonRxBeamState is an array where each element addresses individual ADAR1000's."
+      },
+      {
+        "prop_name": "CommonTxBeamState",
+        "prop_title": " CommonTxBeamState Common Tx Beam State ",
+        "prop_description": "Static Tx Beam Position Load. CommonTxBeamState is an array where each element addresses individual ADAR1000's."
+      },
+      {
+        "prop_name": "ExternalTRPin",
+        "prop_title": " ExternalTRPin External TR Pin ",
+        "prop_description": "Select Tx/Rx output driver. TxRxSwitchControl is a cellarray where each element addresses individual ADAR1000's. Each cell must contain a string of values 'Pos' or 'Neg' to set the modes."
+      },
+      {
+        "prop_name": "ExternalTRPolarity",
+        "prop_title": " ExternalTRPolarity External TR Polarity ",
+        "prop_description": "Controls Sense of Tx/Rx Switch Driver Output. ExternalTRPolarity is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "LNABiasOff",
+        "prop_title": " LNABiasOff LNA Bias Off ",
+        "prop_description": "External Bias for External LNAs. LNABiasOff is an array where each element addresses individual ADAR1000's."
+      },
+      {
+        "prop_name": "PolState",
+        "prop_title": " PolState Pol State",
+        "prop_description": "Control for External Polarity Switch Drivers. PolSwitchEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "PolSwitchEnable",
+        "prop_title": " PolSwitchEnable Pol Switch Enable ",
+        "prop_description": "Enables Switch Driver for External Polarization Switch. PolSwitchEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "RxLNABiasCurrent",
+        "prop_title": " RxLNABiasCurrent Rx LNA Bias Current",
+        "prop_description": "Set LNA bias current. RxLNABiasCurrent is an array where each element addresses individual ADAR1000's."
+      },
+      {
+        "prop_name": "RxLNAEnable",
+        "prop_title": " RxLNAEnable Rx LNA Enable",
+        "prop_description": "Enables Rx LNA. RxLNAEnable is an array where each element addresses individual ADAR1000's.  Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "RxToTxDelay1",
+        "prop_title": " RxToTxDelay1 Rx To Tx Delay1",
+        "prop_description": "LNA Bias off to TR Switch Delay. RxToTxDelay1 is an array where each element addresses individual ADAR1000's."
+      },
+      {
+        "prop_name": "RxToTxDelay2",
+        "prop_title": " RxToTxDelay2 Rx To Tx Delay2",
+        "prop_description": "TR Switch to PA Bias on Delay. RxToTxDelay2 is an array where each element addresses individual ADAR1000's."
+      },
+      {
+        "prop_name": "RxVGAEnable",
+        "prop_title": " RxVGAEnable Rx VGA Enable",
+        "prop_description": "Enable Rx Channel VGAs. RxVGAEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "RxVGABiasCurrentVM",
+        "prop_title": " RxVGABiasCurrentVM Rx VGA Bias Current VM",
+        "prop_description": "Apply Rx bias current. RxVGABiasCurrentVM is an array where each element addresses individual ADAR1000's."
+      },
+      {
+        "prop_name": "RxVMEnable",
+        "prop_title": " RxVMEnable Rx VM Enable",
+        "prop_description": "Enable Rx Channel Vector Modulators. RxVMEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "SequencerEnable",
+        "prop_title": " Sequencer  Sequencer",
+        "prop_description": "Enable sequencer. Sequencer is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "TRSwitchEnable",
+        "prop_title": " TRSwitchEnable TR Switch Enable ",
+        "prop_description": "Enables Switch Driver for External Tx/Rx Switch. TRSwitchEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "TxPABiasCurrent",
+        "prop_title": " TxPABiasCurrent Tx PA Bias Current",
+        "prop_description": "Set Tx driver bias current. TxPABiasCurrent is an array where each element addresses individual ADAR1000's."
+      },
+      {
+        "prop_name": "TxPAEnable",
+        "prop_title": " TxPAEnable Tx PA Enable",
+        "prop_description": "Enables the Tx channel drivers. TxToRxDelay1 is an array where each element addresses individual ADAR1000's.  Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "TxToRxDelay1",
+        "prop_title": " TxToRxDelay1 Tx To Rx Delay1",
+        "prop_description": "PA Bias off to TR Switch Delay. TxToRxDelay1 is an array where each element addresses individual ADAR1000's."
+      },
+      {
+        "prop_name": "TxToRxDelay2",
+        "prop_title": " TxToRxDelay2 Tx To Rx Delay2 ",
+        "prop_description": "TR Switch to LNA Bias on Delay. TxToRxDelay2 is an array where each element addresses individual ADAR1000's."
+      },
+      {
+        "prop_name": "TxVGAEnable",
+        "prop_title": " TxVGAEnable Tx VGA Enable",
+        "prop_description": "Enable Tx Channel VGAs. TxVGAEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "TxVGABiasCurrentVM",
+        "prop_title": " TxVGABiasCurrentVM Tx VGA Bias Current VM",
+        "prop_description": "Apply Tx bias current. TxVGABiasCurrentVM is an array where each element addresses individual ADAR1000's."
+      },
+      {
+        "prop_name": "TxVMEnable",
+        "prop_title": " TxVMEnable Tx VM Enable",
+        "prop_description": "Enable Tx Channel Vector Modulators. TxVMEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "TxRxSwitchControl",
+        "prop_title": " TxRxSwitchControl TxRx Switch Control",
+        "prop_description": "Set source of control for Rx and Tx switching. TxRxSwitchControl is a cellarray where each element addresses individual ADAR1000's. Each cell must contain a string of values 'spi' or 'external' to set the modes."
+      },
+      {
+        "prop_name": "DetectorEnable",
+        "prop_title": " DetectorEnable Detector Enable",
+        "prop_description": "DetectorEnable is an array where each element addresses each channel of each ADAR1000."
+      },
+      {
+        "prop_name": "DetectorPower",
+        "prop_title": " DetectorPower Detector Power",
+        "prop_description": "DetectorPower is an array where each element addresses each channel of each ADAR1000."
+      },
+      {
+        "prop_name": "PABiasOff",
+        "prop_title": " PABiasOff External Bias for External PA ",
+        "prop_description": "Apply bias off to external PA. PABiasOff is an array where each element addresses each channel of each ADAR1000."
+      },
+      {
+        "prop_name": "PABiasOn",
+        "prop_title": " PABiasOn External Bias for External PA",
+        "prop_description": "Apply bias on to external PA. PABiasOn is an array where each element addresses each channel of each ADAR1000."
+      },
+      {
+        "prop_name": "RxAttn",
+        "prop_title": " RxAttn Rx Attenuation",
+        "prop_description": "Attenuate Rx channels. RxAttn is an array where each element addresses each channel of each ADAR1000. Each element must be a logical true (to attenuate) or false (to not attenuate)."
+      },
+      {
+        "prop_name": "RxBeamState",
+        "prop_title": " RxBeamState Rx Beam State",
+        "prop_description": "Load Rx Position. RxBeamState is an array where each element addresses each channel of each ADAR1000. Each element must be a value between 0 and 360."
+      },
+      {
+        "prop_name": "RxPowerDown",
+        "prop_title": " RxPowerDown Rx Powerdown",
+        "prop_description": "Power down Rx channels. RxPowerDown is a logical array where each element addresses each channel of each ADAR1000. Each element must be a logical false (to power up) or true (to power down)."
+      },
+      {
+        "prop_name": "RxGain",
+        "prop_title": " RxGain Rx Gain",
+        "prop_description": "Apply gain to Rx channels. RxGain is an array where each element addresses each channel of each ADAR1000. Each element must be a value between 0 and 127."
+      },
+      {
+        "prop_name": "RxPhase",
+        "prop_title": " RxPhase Rx Phase",
+        "prop_description": "Apply phase to Rx channels. RxPhase is an array where each element addresses each channel of each ADAR1000. Each element must be a value between 0 and 360."
+      },
+      {
+        "prop_name": "TxAttn",
+        "prop_title": " TxAttn Tx Attenuation",
+        "prop_description": "Attenuate Tx channels. TxAttn is an array where each element addresses each channel of each ADAR1000. Each element must be a logical true (to attenuate) or false (to not attenuate)."
+      },
+      {
+        "prop_name": "TxBeamState",
+        "prop_title": " TxBeamState Tx Beam State",
+        "prop_description": "Load Tx Position. TxBeamState is an array where each element addresses each channel of each ADAR1000. Each element must be a value between 0 and 360."
+      },
+      {
+        "prop_name": "TxPowerDown",
+        "prop_title": " TxPowerDown Tx Powerdown",
+        "prop_description": "Power down Tx channels. TxPowerDown is a logical array where each element addresses each channel of each ADAR1000. Each element must be a logical false (to power up) or true (to power down)."
+      },
+      {
+        "prop_name": "TxGain",
+        "prop_title": " TxGain Tx Gain",
+        "prop_description": "Apply gain to Tx channels. TxGain is an array where each element addresses each channel of each ADAR1000. Each element must be a value between 0 and 127."
+      },
+      {
+        "prop_name": "TxPhase",
+        "prop_title": " TxPhase Tx Phase",
+        "prop_description": "Apply phase to Tx channels. TxPhase is an array where each element addresses each channel of each ADAR1000. Each element must be a value between 0 and 360."
+      },
+      {
+        "prop_name": "RxSequencerStart",
+        "prop_title": "  RxBiasState = zeros(1, 4)",
+        "prop_description": "RxSequencerStart Rx Sequencer Start RxSequencerStart is a logical array where each element addresses each channel of each ADAR1000. Each element must be a logical false or true."
+      },
+      {
+        "prop_name": "RxSequencerStop",
+        "prop_title": " RxSequencerStop Rx Sequencer Stop",
+        "prop_description": "RxSequencerStop is a logical array where each element addresses each channel of each ADAR1000. Each element must be a logical false or true."
+      },
+      {
+        "prop_name": "TxSequencerStart",
+        "prop_title": "  TxBiasState = zeros(1, 4)",
+        "prop_description": "TxSequencerStart Tx Sequencer Start TxSequencerStart is a logical array where each element addresses each channel of each ADAR1000. Each element must be a logical false or true."
+      },
+      {
+        "prop_name": "TxSequencerStop",
+        "prop_title": " TxSequencerStop Tx Sequencer Stop",
+        "prop_description": "TxSequencerStop is a logical array where each element addresses each channel of each ADAR1000. Each element must be a logical false or true."
+      },
+      {
+        "prop_name": "Temp",
+        "prop_title": " Temp ADAR1000 Temperature",
+        "prop_description": "Get temperature of X-band Development Platform."
+      },
+      {
+        "prop_name": "TargetFrequency",
+        "prop_title": " TargetFrequency Target Frequency ",
+        "prop_description": "ADAR1000 target frequency"
+      },
+      {
+        "prop_name": "ElementSpacing",
+        "prop_title": " ElementSpacing Element Spacing ",
+        "prop_description": "ADAR1000 element spacing"
+      },
+      {
+        "prop_name": "uri",
+        "prop_title": "  URI - remote host URI",
+        "prop_description": "Hostname or IP address of remote libIIO deviceHelp for adi.Stingray/uri is inherited from superclass matlabshared.libiio.base"
+      },
+      {
+        "prop_name": "channelCount",
+        "prop_title": "  Number of channels",
+        "prop_description": "Number of enabled channelsHelp for adi.Stingray/channelCount is inherited from superclass matlabshared.libiio.base"
+      },
+      {
+        "prop_name": "DataTimeout",
+        "prop_title": "  Timeout for I/O",
+        "prop_description": "Timeout for I/O operations (in seconds) 0 = non-blocking (or default context timeout) Inf = infiniteHelp for adi.Stingray/DataTimeout is inherited from superclass matlabshared.libiio.base"
+      },
+      {
+        "prop_name": "EnabledChannels",
+        "prop_title": " EnabledChannels Enabled Channels",
+        "prop_description": "Indexs of channels to be enabled. Input should be a [1xN] vector with the indexes of channels to be enabled. Order is irrelevant"
+      },
+      {
+        "prop_name": "PowerUpDown",
+        "prop_title": " PowerUpDown StingrayControl(one-bit-adc-dac): Power Control",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "Ctrl5V",
+        "prop_title": " Ctrl5V StingrayControl(one-bit-adc-dac): Control 5V",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "PAOn",
+        "prop_title": " PAOn StingrayControl(one-bit-adc-dac): PA On/Off",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "TXRX0",
+        "prop_title": " TXRX0 XUD1aControl(one-bit-adc-dac): TXRX0",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "TXRX1",
+        "prop_title": " TXRX1 XUD1aControl(one-bit-adc-dac): TXRX1",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "TXRX2",
+        "prop_title": " TXRX2 XUD1aControl(one-bit-adc-dac): TXRX2",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "TXRX3",
+        "prop_title": " TXRX3 XUD1aControl(one-bit-adc-dac): TXRX3",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "PllOutputSel",
+        "prop_title": " PllOutputSel XUD1aControl(one-bit-adc-dac): PLL Output Select",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "RxGainMode",
+        "prop_title": " RxGainMode XUD1aControl(one-bit-adc-dac): Rx Gain Mode",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "ADF4371Name",
+        "prop_title": "adi.Stingray/ADF4371Name is a property.",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "ADF4371Frequency",
+        "prop_title": "adi.Stingray/ADF4371Frequency is a property.",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "ADF4371Phase",
+        "prop_title": "adi.Stingray/ADF4371Phase is a property.",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "MUXOutEnable",
+        "prop_title": "adi.Stingray/MUXOutEnable is a property.",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "BurstCount",
+        "prop_title": " BurstCount AXICoreTDD: Burst Count",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "CounterInt",
+        "prop_title": " CounterInt AXICoreTDD: Counter Int",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "DMAGateingMode",
+        "prop_title": " DMAGateingMode AXICoreTDD: DMA Gateing Mode",
+        "prop_description": "0 - none, 1 - rx_only, 2 - tx_only, 3 - rx_tx"
+      },
+      {
+        "prop_name": "Enable",
+        "prop_title": "adi.Stingray/Enable is a property.",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "EnableMode",
+        "prop_title": " EnableMode AXICoreTDD: Enable Mode",
+        "prop_description": "1 - rx_only, 2 - tx_only, 3 - rx_tx"
+      },
+      {
+        "prop_name": "FrameLength",
+        "prop_title": " FrameLength AXICoreTDD: Frame Length",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "Secondary",
+        "prop_title": " Secondary AXICoreTDD: Secondary",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "SyncTerminalType",
+        "prop_title": " SyncTerminalType AXICoreTDD: Sync Terminal Type",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "TxDPoff",
+        "prop_title": " TxDPoff AXICoreTDD: Tx DP Off (ms)",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "TxDPon",
+        "prop_title": " TxDPon AXICoreTDD: Tx DP On (ms) ",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "TxOff",
+        "prop_title": " TxOff AXICoreTDD: Tx Off (ms) ",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "TxOn",
+        "prop_title": " TxOn AXICoreTDD: Tx Off (ms)",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "TxVCOoff",
+        "prop_title": " TxVCOoff AXICoreTDD: Tx VCO Off (ms) ",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "TxVCOon",
+        "prop_title": " TxVCOon AXICoreTDD: Tx VCO On (ms)",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "RxDPoff",
+        "prop_title": " RxDPoff AXICoreTDD: Rx DP Off (ms)",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "RxDPon",
+        "prop_title": " RxDPon AXICoreTDD: Rx DP On (ms) ",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "RxOff",
+        "prop_title": " RxOff AXICoreTDD: Rx Off (ms) ",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "RxOn",
+        "prop_title": " RxOn AXICoreTDD: Rx On (ms) ",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "RxVCOoff",
+        "prop_title": " RxVCOoff AXICoreTDD: Rx VCO Off (ms) ",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "RxVCOon",
+        "prop_title": " RxVCOon AXICoreTDD: Rx VCO On (ms) ",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "LTC2314RFPower",
+        "prop_title": "adi.Stingray/LTC2314RFPower is a property.",
+        "prop_description": ""
+      }
+    ]
   },
   {
     "name": "adi.Phaser",
-    "dec": "",
-    "props": []
+    "dec": "    The adi.Phaser system object is an API to control the<br>    ADALM-PHASER X/Ku Band Beamforming Developer Platform.<br> <br>    rx = adi.Phaser;<br>    rx = adi.Phaser('uri','ip:192.168.2.1');<br> <br>    <a href=\"https://wiki.analog.com/resources/eval/developer-kits/x-band-dev-kit\">Stingray X/Ku Band Beamforming Developer Platform Wiki</a><br>    Documentation for adi.Phaser<br>       doc adi.Phaser<br>",
+    "props": [
+      {
+        "prop_name": "EnablePLL",
+        "prop_title": " EnablePLL Enable PLL",
+        "prop_description": "Enable onboard PLL which is the main LO source. This controls V_CTRL_1"
+      },
+      {
+        "prop_name": "EnableTxPLL",
+        "prop_title": " EnableTxPLL Enable Tx PLL",
+        "prop_description": "Enable PLL to feed the Tx LO. This controls V_CTRL_2"
+      },
+      {
+        "prop_name": "NumADAR1000s",
+        "prop_title": "adi.Phaser/NumADAR1000s is a property.",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "Mode",
+        "prop_title": " Mode Mode        ",
+        "prop_description": "Mode is a cellarray where each element addresses individual ADAR1000's. Each cell must contain a string of value 'Rx', 'Tx', or 'disabled' to set the modes."
+      },
+      {
+        "prop_name": "LNABiasOutEnable",
+        "prop_title": " LNABiasOutEnable LNA Bias Out Enable ",
+        "prop_description": "Enable output of LNA bias DAC. LNABiasOutEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "LNABiasOn",
+        "prop_title": " LNABiasOn LNA Bias On ",
+        "prop_description": "External Bias for External LNAs. LNABiasOn is an array where each element addresses individual ADAR1000's."
+      },
+      {
+        "prop_name": "BeamMemEnable",
+        "prop_title": " BeamMemEnable Beam Mem Enable",
+        "prop_description": "Enable beam memory. BeamMemEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "BiasDACEnable",
+        "prop_title": " BiasDACEnable Bias DAC Enable ",
+        "prop_description": "Enable PA and LNA bias DACs. BiasDACEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "BiasDACMode",
+        "prop_title": " BiasDACMode Bias DAC Mode ",
+        "prop_description": "External Amplifier Bias Control. BiasDACMode is a cellarray where each element addresses individual ADAR1000's. Each cell must contain a string of values 'On' or 'Off' to set the modes."
+      },
+      {
+        "prop_name": "BiasMemEnable",
+        "prop_title": " BiasMemEnable Bias Mem Enable",
+        "prop_description": "Enable bias memory. BiasMemEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "CommonMemEnable",
+        "prop_title": " CommonMemEnable Common Mem Enable",
+        "prop_description": "CommonMemEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "CommonRxBeamState",
+        "prop_title": " CommonRxBeamState Common Rx Beam State ",
+        "prop_description": "Static Rx Beam Position Load. CommonRxBeamState is an array where each element addresses individual ADAR1000's."
+      },
+      {
+        "prop_name": "CommonTxBeamState",
+        "prop_title": " CommonTxBeamState Common Tx Beam State ",
+        "prop_description": "Static Tx Beam Position Load. CommonTxBeamState is an array where each element addresses individual ADAR1000's."
+      },
+      {
+        "prop_name": "ExternalTRPin",
+        "prop_title": " ExternalTRPin External TR Pin ",
+        "prop_description": "Select Tx/Rx output driver. TxRxSwitchControl is a cellarray where each element addresses individual ADAR1000's. Each cell must contain a string of values 'Pos' or 'Neg' to set the modes."
+      },
+      {
+        "prop_name": "ExternalTRPolarity",
+        "prop_title": " ExternalTRPolarity External TR Polarity ",
+        "prop_description": "Controls Sense of Tx/Rx Switch Driver Output. ExternalTRPolarity is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "LNABiasOff",
+        "prop_title": " LNABiasOff LNA Bias Off ",
+        "prop_description": "External Bias for External LNAs. LNABiasOff is an array where each element addresses individual ADAR1000's."
+      },
+      {
+        "prop_name": "PolState",
+        "prop_title": " PolState Pol State",
+        "prop_description": "Control for External Polarity Switch Drivers. PolSwitchEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "PolSwitchEnable",
+        "prop_title": " PolSwitchEnable Pol Switch Enable ",
+        "prop_description": "Enables Switch Driver for External Polarization Switch. PolSwitchEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "RxLNABiasCurrent",
+        "prop_title": " RxLNABiasCurrent Rx LNA Bias Current",
+        "prop_description": "Set LNA bias current. RxLNABiasCurrent is an array where each element addresses individual ADAR1000's."
+      },
+      {
+        "prop_name": "RxLNAEnable",
+        "prop_title": " RxLNAEnable Rx LNA Enable",
+        "prop_description": "Enables Rx LNA. RxLNAEnable is an array where each element addresses individual ADAR1000's.  Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "RxToTxDelay1",
+        "prop_title": " RxToTxDelay1 Rx To Tx Delay1",
+        "prop_description": "LNA Bias off to TR Switch Delay. RxToTxDelay1 is an array where each element addresses individual ADAR1000's."
+      },
+      {
+        "prop_name": "RxToTxDelay2",
+        "prop_title": " RxToTxDelay2 Rx To Tx Delay2",
+        "prop_description": "TR Switch to PA Bias on Delay. RxToTxDelay2 is an array where each element addresses individual ADAR1000's."
+      },
+      {
+        "prop_name": "RxVGAEnable",
+        "prop_title": " RxVGAEnable Rx VGA Enable",
+        "prop_description": "Enable Rx Channel VGAs. RxVGAEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "RxVGABiasCurrentVM",
+        "prop_title": " RxVGABiasCurrentVM Rx VGA Bias Current VM",
+        "prop_description": "Apply Rx bias current. RxVGABiasCurrentVM is an array where each element addresses individual ADAR1000's."
+      },
+      {
+        "prop_name": "RxVMEnable",
+        "prop_title": " RxVMEnable Rx VM Enable",
+        "prop_description": "Enable Rx Channel Vector Modulators. RxVMEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "SequencerEnable",
+        "prop_title": " Sequencer  Sequencer",
+        "prop_description": "Enable sequencer. Sequencer is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "TRSwitchEnable",
+        "prop_title": " TRSwitchEnable TR Switch Enable ",
+        "prop_description": "Enables Switch Driver for External Tx/Rx Switch. TRSwitchEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "TxPABiasCurrent",
+        "prop_title": " TxPABiasCurrent Tx PA Bias Current",
+        "prop_description": "Set Tx driver bias current. TxPABiasCurrent is an array where each element addresses individual ADAR1000's."
+      },
+      {
+        "prop_name": "TxPAEnable",
+        "prop_title": " TxPAEnable Tx PA Enable",
+        "prop_description": "Enables the Tx channel drivers. TxToRxDelay1 is an array where each element addresses individual ADAR1000's.  Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "TxToRxDelay1",
+        "prop_title": " TxToRxDelay1 Tx To Rx Delay1",
+        "prop_description": "PA Bias off to TR Switch Delay. TxToRxDelay1 is an array where each element addresses individual ADAR1000's."
+      },
+      {
+        "prop_name": "TxToRxDelay2",
+        "prop_title": " TxToRxDelay2 Tx To Rx Delay2 ",
+        "prop_description": "TR Switch to LNA Bias on Delay. TxToRxDelay2 is an array where each element addresses individual ADAR1000's."
+      },
+      {
+        "prop_name": "TxVGAEnable",
+        "prop_title": " TxVGAEnable Tx VGA Enable",
+        "prop_description": "Enable Tx Channel VGAs. TxVGAEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "TxVGABiasCurrentVM",
+        "prop_title": " TxVGABiasCurrentVM Tx VGA Bias Current VM",
+        "prop_description": "Apply Tx bias current. TxVGABiasCurrentVM is an array where each element addresses individual ADAR1000's."
+      },
+      {
+        "prop_name": "TxVMEnable",
+        "prop_title": " TxVMEnable Tx VM Enable",
+        "prop_description": "Enable Tx Channel Vector Modulators. TxVMEnable is an array where each element addresses individual ADAR1000's. Each element must be a logical true (to enable) or false (to not enable)."
+      },
+      {
+        "prop_name": "TxRxSwitchControl",
+        "prop_title": " TxRxSwitchControl TxRx Switch Control",
+        "prop_description": "Set source of control for Rx and Tx switching. TxRxSwitchControl is a cellarray where each element addresses individual ADAR1000's. Each cell must contain a string of values 'spi' or 'external' to set the modes."
+      },
+      {
+        "prop_name": "DetectorEnable",
+        "prop_title": " DetectorEnable Detector Enable",
+        "prop_description": "DetectorEnable is an array where each element addresses each channel of each ADAR1000."
+      },
+      {
+        "prop_name": "DetectorPower",
+        "prop_title": " DetectorPower Detector Power",
+        "prop_description": "DetectorPower is an array where each element addresses each channel of each ADAR1000."
+      },
+      {
+        "prop_name": "PABiasOff",
+        "prop_title": " PABiasOff External Bias for External PA ",
+        "prop_description": "Apply bias off to external PA. PABiasOff is an array where each element addresses each channel of each ADAR1000."
+      },
+      {
+        "prop_name": "PABiasOn",
+        "prop_title": " PABiasOn External Bias for External PA",
+        "prop_description": "Apply bias on to external PA. PABiasOn is an array where each element addresses each channel of each ADAR1000."
+      },
+      {
+        "prop_name": "RxAttn",
+        "prop_title": " RxAttn Rx Attenuation",
+        "prop_description": "Attenuate Rx channels. RxAttn is an array where each element addresses each channel of each ADAR1000. Each element must be a logical true (to attenuate) or false (to not attenuate)."
+      },
+      {
+        "prop_name": "RxBeamState",
+        "prop_title": " RxBeamState Rx Beam State",
+        "prop_description": "Load Rx Position. RxBeamState is an array where each element addresses each channel of each ADAR1000. Each element must be a value between 0 and 360."
+      },
+      {
+        "prop_name": "RxPowerDown",
+        "prop_title": " RxPowerDown Rx Powerdown",
+        "prop_description": "Power down Rx channels. RxPowerDown is a logical array where each element addresses each channel of each ADAR1000. Each element must be a logical false (to power up) or true (to power down)."
+      },
+      {
+        "prop_name": "RxGain",
+        "prop_title": " RxGain Rx Gain",
+        "prop_description": "Apply gain to Rx channels. RxGain is an array where each element addresses each channel of each ADAR1000. Each element must be a value between 0 and 127."
+      },
+      {
+        "prop_name": "RxPhase",
+        "prop_title": " RxPhase Rx Phase",
+        "prop_description": "Apply phase to Rx channels. RxPhase is an array where each element addresses each channel of each ADAR1000. Each element must be a value between 0 and 360."
+      },
+      {
+        "prop_name": "TxAttn",
+        "prop_title": " TxAttn Tx Attenuation",
+        "prop_description": "Attenuate Tx channels. TxAttn is an array where each element addresses each channel of each ADAR1000. Each element must be a logical true (to attenuate) or false (to not attenuate)."
+      },
+      {
+        "prop_name": "TxBeamState",
+        "prop_title": " TxBeamState Tx Beam State",
+        "prop_description": "Load Tx Position. TxBeamState is an array where each element addresses each channel of each ADAR1000. Each element must be a value between 0 and 360."
+      },
+      {
+        "prop_name": "TxPowerDown",
+        "prop_title": " TxPowerDown Tx Powerdown",
+        "prop_description": "Power down Tx channels. TxPowerDown is a logical array where each element addresses each channel of each ADAR1000. Each element must be a logical false (to power up) or true (to power down)."
+      },
+      {
+        "prop_name": "TxGain",
+        "prop_title": " TxGain Tx Gain",
+        "prop_description": "Apply gain to Tx channels. TxGain is an array where each element addresses each channel of each ADAR1000. Each element must be a value between 0 and 127."
+      },
+      {
+        "prop_name": "TxPhase",
+        "prop_title": " TxPhase Tx Phase",
+        "prop_description": "Apply phase to Tx channels. TxPhase is an array where each element addresses each channel of each ADAR1000. Each element must be a value between 0 and 360."
+      },
+      {
+        "prop_name": "RxSequencerStart",
+        "prop_title": "  RxBiasState = zeros(1, 4)",
+        "prop_description": "RxSequencerStart Rx Sequencer Start RxSequencerStart is a logical array where each element addresses each channel of each ADAR1000. Each element must be a logical false or true."
+      },
+      {
+        "prop_name": "RxSequencerStop",
+        "prop_title": " RxSequencerStop Rx Sequencer Stop",
+        "prop_description": "RxSequencerStop is a logical array where each element addresses each channel of each ADAR1000. Each element must be a logical false or true."
+      },
+      {
+        "prop_name": "TxSequencerStart",
+        "prop_title": "  TxBiasState = zeros(1, 4)",
+        "prop_description": "TxSequencerStart Tx Sequencer Start TxSequencerStart is a logical array where each element addresses each channel of each ADAR1000. Each element must be a logical false or true."
+      },
+      {
+        "prop_name": "TxSequencerStop",
+        "prop_title": " TxSequencerStop Tx Sequencer Stop",
+        "prop_description": "TxSequencerStop is a logical array where each element addresses each channel of each ADAR1000. Each element must be a logical false or true."
+      },
+      {
+        "prop_name": "Temp",
+        "prop_title": " Temp ADAR1000 Temperature",
+        "prop_description": "Get temperature of X-band Development Platform."
+      },
+      {
+        "prop_name": "TargetFrequency",
+        "prop_title": " TargetFrequency Target Frequency ",
+        "prop_description": "ADAR1000 target frequency"
+      },
+      {
+        "prop_name": "ElementSpacing",
+        "prop_title": " ElementSpacing Element Spacing ",
+        "prop_description": "ADAR1000 element spacing"
+      },
+      {
+        "prop_name": "uri",
+        "prop_title": "  URI - remote host URI",
+        "prop_description": "Hostname or IP address of remote libIIO deviceHelp for adi.Phaser/uri is inherited from superclass matlabshared.libiio.base"
+      },
+      {
+        "prop_name": "channelCount",
+        "prop_title": "  Number of channels",
+        "prop_description": "Number of enabled channelsHelp for adi.Phaser/channelCount is inherited from superclass matlabshared.libiio.base"
+      },
+      {
+        "prop_name": "DataTimeout",
+        "prop_title": "  Timeout for I/O",
+        "prop_description": "Timeout for I/O operations (in seconds) 0 = non-blocking (or default context timeout) Inf = infiniteHelp for adi.Phaser/DataTimeout is inherited from superclass matlabshared.libiio.base"
+      },
+      {
+        "prop_name": "EnabledChannels",
+        "prop_title": " EnabledChannels Enabled Channels",
+        "prop_description": "Indexs of channels to be enabled. Input should be a [1xN] vector with the indexes of channels to be enabled. Order is irrelevant"
+      },
+      {
+        "prop_name": "Frequency",
+        "prop_title": " Frequency Frequency",
+        "prop_description": "Set output frequency of synthesizer in Hz. When the synthesizer is ramping this is the start frequencyHelp for adi.Phaser/Frequency is inherited from superclass adi.internal.ADF4159"
+      },
+      {
+        "prop_name": "FrequencyDeviationRange",
+        "prop_title": " FrequencyDeviationRange Frequency Deviation Range",
+        "prop_description": "Set upper bound on frequency ramp from Frequency property in Hz. This is only applicable when RampMode is not set to \"disabled\"Help for adi.Phaser/FrequencyDeviationRange is inherited from superclass adi.internal.ADF4159"
+      },
+      {
+        "prop_name": "FrequencyDeviationStep",
+        "prop_title": " FrequencyDeviationStep Frequency Deviation Step",
+        "prop_description": "Set step size in Hz of synthesizer ramp. This is only applicable when RampMode is not set to \"disabled\".Help for adi.Phaser/FrequencyDeviationStep is inherited from superclass adi.internal.ADF4159"
+      },
+      {
+        "prop_name": "FrequencyDeviationTime",
+        "prop_title": " FrequencyDeviationTime Frequency Deviation Time",
+        "prop_description": "Set time in uSeconds to reach ramp peak value. This is only applicable when RampMode is not set to \"disabled\"Help for adi.Phaser/FrequencyDeviationTime is inherited from superclass adi.internal.ADF4159"
+      },
+      {
+        "prop_name": "RampMode",
+        "prop_title": " RampMode Ramp Mode",
+        "prop_description": "Set ramp waveform. Options are: - \"disabled\" - \"continuous_sawtooth\" - \"continuous_triangular\" - \"single_sawtooth_burst\" - \"single_ramp_burst\"Help for adi.Phaser/RampMode is inherited from superclass adi.internal.ADF4159"
+      },
+      {
+        "prop_name": "Powerdown",
+        "prop_title": " Powerdown",
+        "prop_description": "When true output will be disabled. Writing to this value will also update all settings of deviceHelp for adi.Phaser/Powerdown is inherited from superclass adi.internal.ADF4159"
+      },
+      {
+        "prop_name": "DelayStartWord",
+        "prop_title": " DelayStartWord Delay Start Word",
+        "prop_description": "Set start delay of each ramp in PFD or PFD*CLK1 clock cycles. This is a 12-bit numberHelp for adi.Phaser/DelayStartWord is inherited from superclass adi.internal.ADF4159"
+      },
+      {
+        "prop_name": "DelayClockSource",
+        "prop_title": " DelayClockSource Delay Clock Source",
+        "prop_description": "Set clock use to determine ramp delay. Options are: - \"PFD\" - \"PFD*CLK1\"Help for adi.Phaser/DelayClockSource is inherited from superclass adi.internal.ADF4159"
+      },
+      {
+        "prop_name": "DelayStartEnable",
+        "prop_title": " DelayStartEnable Ramp Delay Enable",
+        "prop_description": "Enable delaying of ramp signal at start of first ramp generationHelp for adi.Phaser/DelayStartEnable is inherited from superclass adi.internal.ADF4159"
+      },
+      {
+        "prop_name": "RampDelayEnable",
+        "prop_title": " RampDelayEnable Ramp Delay Enable",
+        "prop_description": "Enable delaying of ramp signal at start of each ramp generationHelp for adi.Phaser/RampDelayEnable is inherited from superclass adi.internal.ADF4159"
+      },
+      {
+        "prop_name": "TriggerDelayEnable",
+        "prop_title": " TriggerDelayEnable Trigger Delay Enable",
+        "prop_description": "Enable ramp start delay when controlled by external triggerHelp for adi.Phaser/TriggerDelayEnable is inherited from superclass adi.internal.ADF4159"
+      },
+      {
+        "prop_name": "TriggerEnable",
+        "prop_title": " TriggerEnable Trigger Enable",
+        "prop_description": "Allow for use of external trigger on TX Data pin to start rampHelp for adi.Phaser/TriggerEnable is inherited from superclass adi.internal.ADF4159"
+      },
+      {
+        "prop_name": "SingleFullTriangleEnable",
+        "prop_title": " SingleFullTriangleEnable Single Full Triangle Enable",
+        "prop_description": "Enable sending of single full triangular wave. This is applicable when RampMode is in \"single_ramp_burst\"Help for adi.Phaser/SingleFullTriangleEnable is inherited from superclass adi.internal.ADF4159"
+      },
+      {
+        "prop_name": "BurstCount",
+        "prop_title": " BurstCount AXICoreTDD: Burst Count",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "CounterInt",
+        "prop_title": " CounterInt AXICoreTDD: Counter Int",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "DMAGateingMode",
+        "prop_title": " DMAGateingMode AXICoreTDD: DMA Gateing Mode",
+        "prop_description": "0 - none, 1 - rx_only, 2 - tx_only, 3 - rx_tx"
+      },
+      {
+        "prop_name": "Enable",
+        "prop_title": "adi.Phaser/Enable is a property.",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "EnableMode",
+        "prop_title": " EnableMode AXICoreTDD: Enable Mode",
+        "prop_description": "1 - rx_only, 2 - tx_only, 3 - rx_tx"
+      },
+      {
+        "prop_name": "FrameLength",
+        "prop_title": " FrameLength AXICoreTDD: Frame Length",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "Secondary",
+        "prop_title": " Secondary AXICoreTDD: Secondary",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "SyncTerminalType",
+        "prop_title": " SyncTerminalType AXICoreTDD: Sync Terminal Type",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "TxDPoff",
+        "prop_title": " TxDPoff AXICoreTDD: Tx DP Off (ms)",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "TxDPon",
+        "prop_title": " TxDPon AXICoreTDD: Tx DP On (ms) ",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "TxOff",
+        "prop_title": " TxOff AXICoreTDD: Tx Off (ms) ",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "TxOn",
+        "prop_title": " TxOn AXICoreTDD: Tx Off (ms)",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "TxVCOoff",
+        "prop_title": " TxVCOoff AXICoreTDD: Tx VCO Off (ms) ",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "TxVCOon",
+        "prop_title": " TxVCOon AXICoreTDD: Tx VCO On (ms)",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "RxDPoff",
+        "prop_title": " RxDPoff AXICoreTDD: Rx DP Off (ms)",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "RxDPon",
+        "prop_title": " RxDPon AXICoreTDD: Rx DP On (ms) ",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "RxOff",
+        "prop_title": " RxOff AXICoreTDD: Rx Off (ms) ",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "RxOn",
+        "prop_title": " RxOn AXICoreTDD: Rx On (ms) ",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "RxVCOoff",
+        "prop_title": " RxVCOoff AXICoreTDD: Rx VCO Off (ms) ",
+        "prop_description": ""
+      },
+      {
+        "prop_name": "RxVCOon",
+        "prop_title": " RxVCOon AXICoreTDD: Rx VCO On (ms) ",
+        "prop_description": ""
+      }
+    ]
   }
 ]
