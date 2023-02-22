@@ -45,10 +45,6 @@ tx.SamplesPerFrame = 2^10; %Number Of Samples
 tx.NCOEnables = ones(1,numel(tx.EnabledChannels));
 tx.ChannelNCOGainScales = ones(1,numel(tx.EnabledChannels)).*0.5; %MxFE0 Digital Gain Code
 
-%DDS Configuration
-tx.DataSource = 'DDS'; %'DMA' or 'DDS'
-tx.EnableCyclicBuffers = 0; %0: Don't Cycle Tx Waveform, 1: Cycle Tx Waveform
-
 %DMA Configuration
 tx.DataSource = 'DMA'; %'DMA' or 'DDS'
 tx.EnableCyclicBuffers = 1; %0: Don't Cycle Tx Waveform, 1: Cycle Tx Waveform

@@ -41,24 +41,17 @@ basebandFreq = fs_RxTxIQ/periods; %Baseband Frequency [Hz]
 
 %Setup AD9081 Tx & Rx
 tx = adi.AD9081.Tx;
-rx = adi.AD9081.Rx;
 tx.uri = uri;
-rx.uri = uri;
 
 tx.EnabledChannels = [1 2 3 4];%Enabled Tx Channels, Only Needed for DMA
-rx.EnabledChannels = [1 2 3 4];%Enabled Rx Channels
 
 tx.SamplesPerFrame = 2^12; %Number Of Samples: 4096
-rx.SamplesPerFrame = 2^12; %Number Of Samples: 4096
 
 tx.NCOEnables = ones(1,4);
-tx.ChannelNCOGainScales = ones(1,4).*0.5; %MxFE0 Digital Gain Code
 
 tx.MainNCOFrequencies = ones(1,4)*interFreq; %NCO Frequency
-rx.MainNCOFrequencies = ones(1,4)*550e6; %NCO Frequency
 
 tx.MainNCOPhases = zeros(1,4); %NCO Phase
-rx.MainNCOPhases = zeros(1,4); %NCO Phase
 
 tx.DataSource = 'DMA'; %'DMA' or 'DDS'
 tx.EnableCyclicBuffers = 1; %0: Don't Cycle Tx Waveform, 1: Cycle Tx Waveform
