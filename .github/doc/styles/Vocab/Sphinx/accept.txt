@@ -6,6 +6,9 @@ Verilog
 datapaths
 Zynq
 Vivado
+Stingray
+ADALM
+PHASER
 Walkthrough
 Workflow
 util
