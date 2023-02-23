@@ -10,10 +10,10 @@
 
 <center>
 <div class="dark-logo">
-<img src="https://raw.githubusercontent.com/analogdevicesinc/RFMicrowaveToolbox/master/CI/doc/rfm_300.png" alt="RFuW Toolbox" width="80%">
+<img src="https://raw.githubusercontent.com/analogdevicesinc/RFMicrowaveToolbox/main/CI/doc/rfm_300.png" alt="RFuW Toolbox" width="80%">
 </div>
 <div class="light-logo">
-<img src="https://raw.githubusercontent.com/analogdevicesinc/RFMicrowaveToolbox/master/CI/doc/rfm_w_300.png" alt="RFuW Toolbox" width="80%">
+<img src="https://raw.githubusercontent.com/analogdevicesinc/RFMicrowaveToolbox/main/CI/doc/rfm_w_300.png" alt="RFuW Toolbox" width="80%">
 </div>
 </center>
 
