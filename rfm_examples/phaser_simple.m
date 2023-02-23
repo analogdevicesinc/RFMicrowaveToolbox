@@ -17,7 +17,7 @@ bf();
 
 % Put device in Rx mode
 bf.TxRxSwitchControl = {'spi','spi'};
-bf.Mode(:) = {'Rx'};
+bf.Mode(:) = {'Disabled'};
 bf.BeamMemEnable(:) = false;
 bf.BiasMemEnable(:) = false;
 bf.PolState(:) = false;
@@ -34,7 +34,7 @@ bf.RxVGABiasCurrentVM(:) = 22;
 bf.LNABiasOutEnable(:) = false;
 
 % Fire them up
-bf.RxEnable(:) = true;
+bf.Mode(:) = {'Rx'};
 
 %% Set up transceiver
 rx = adi.AD9361.Rx('uri', plutoURI);
