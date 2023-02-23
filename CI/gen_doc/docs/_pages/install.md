@@ -11,7 +11,6 @@ The simulation models for the different components can be used in either MATLAB 
 
 - [DSP System Toolbox](https://www.mathworks.com/products/dsp-system.html)
 - [Signal Processing Toolbox](https://www.mathworks.com/products/signal.html)
-- [Fixed-Point Designer](https://www.mathworks.com/products/fixed-point-designer.html)
 - [(Optional) Simulink](https://www.mathworks.com/products/simulink.html)
 
 
@@ -31,25 +30,16 @@ The base dependencies for the toolbox requires libiio and the libiio MATLAB bind
     - Signal Processing Toolbox™
 
 
-### HDL Generation Support
 
-To leverage HDL-Coder and the reference designs with the toolbox requires the following components:
+## RF and Microwave Toolbox Install
 
-- Xilinx Vivado 2019.1
-- Xilinx SDK 2019.1
-- Simulink
-- [HDL-Coder™](https://www.mathworks.com/products/hdl-coder.html)
-- [HDL Coder™ Support Package for Xilinx Zynq Platform](https://www.mathworks.com/matlabcentral/fileexchange/40447-hdl-coder-support-package-for-xilinx-zynq-platform)
-
-## Transceiver Toolbox Install
-
-The Transceiver Toolbox itself can be installed either from:
+The RF and Microwave Toolbox itself can be installed either from:
 
 - [MATLAB's Add-On Explorer](https://www.mathworks.com/products/matlab/add-on-explorer.html) 
-- [GitHub Releases page](https://github.com/analogdevicesinc/TransceiverToolbox/releases).
+- [GitHub Releases page](https://github.com/analogdevicesinc/RFMicrowaveToolbox/releases).
 
 !!! warning "MATLAB Versions"
-    Before installing Transceiver Toolbox check the [Release Page](https://github.com/analogdevicesinc/TransceiverToolbox/releases) to check for the lasted supported of MATLAB. The latest version is the one which is available in [Add-on Explorer](https://www.mathworks.com/products/matlab/add-on-explorer.html), since Add-On Explorer does not currently support hosting multiple versions. If you have an older release of MATLAB, download the MLTBX installer from matching release on the [Release Page](https://github.com/analogdevicesinc/TransceiverToolbox/releases).
+    Before installing RF and Microwave Toolbox check the [Release Page](https://github.com/analogdevicesinc/RFMicrowaveToolbox/releases) to check for the latest supported version of MATLAB. The latest version is the one which is available in [Add-on Explorer](https://www.mathworks.com/products/matlab/add-on-explorer.html), since Add-On Explorer does not currently support hosting multiple versions. If you have an older release of MATLAB, download the MLTBX installer from matching release on the [Release Page](https://github.com/analogdevicesinc/RFMicrowaveToolbox/releases).
 
 
 ### Add-On Explorer Walkthrough
@@ -63,7 +53,7 @@ Search for the toolbox:
 <!-- ![Add-On Explorer](assets/trx_search_wbox.png) -->
 <img class="screenshot" src="../assets/trx_search_wbox.png">
 
-Select Transceiver Toolbox from results:
+Select RF and Microwave Toolbox from results:
 
 <!-- ![Add-On Explorer](assets/trx_search_find_wbox.png) -->
 <img class="screenshot" src="../assets/trx_search_find_wbox.png">
