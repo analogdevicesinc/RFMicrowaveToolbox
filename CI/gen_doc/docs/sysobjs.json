@@ -295,173 +295,173 @@
       },
       {
         "prop_name": "PowerUpDown",
-        "prop_title": " PowerUpDown StingrayControl(one-bit-adc-dac): Power Control",
-        "prop_description": ""
+        "prop_title": " PowerUpDown Power Control",
+        "prop_description": "Pulse to sequence the first RF power rails in ADAR1000-EVAL1Z board power treeHelp for adi.Stingray/PowerUpDown is inherited from superclass adi.internal.StingrayControl"
       },
       {
         "prop_name": "Ctrl5V",
-        "prop_title": " Ctrl5V StingrayControl(one-bit-adc-dac): Control 5V",
-        "prop_description": ""
+        "prop_title": " Ctrl5V Control 5V",
+        "prop_description": "Pulse +5V in ADAR1000-EVAL1Z board power treeHelp for adi.Stingray/Ctrl5V is inherited from superclass adi.internal.StingrayControl"
       },
       {
         "prop_name": "PAOn",
-        "prop_title": " PAOn StingrayControl(one-bit-adc-dac): PA On/Off",
-        "prop_description": ""
+        "prop_title": " PAOn PA On/Off",
+        "prop_description": "Enable/disable PA in ADAR1000-EVAL1Z board power treeHelp for adi.Stingray/PAOn is inherited from superclass adi.internal.StingrayControl"
       },
       {
         "prop_name": "TXRX0",
-        "prop_title": " TXRX0 XUD1aControl(one-bit-adc-dac): TXRX0",
-        "prop_description": ""
+        "prop_title": " TXRX0 TXRX0",
+        "prop_description": "Select Channel A for XUD1A Up and Down converter Usage: Channel A in Tx Mode - Set TXRX0 to 0, RxGainMode to 0 Channel A in Rx Low Gain Mode - Set TXRX0 to 1, RxGainMode to 0 Channel A in Rx High Gain Mode - Set TXRX0 to 1, RxGainMode to 1Help for adi.Stingray/TXRX0 is inherited from superclass adi.internal.XUD1aControl"
       },
       {
         "prop_name": "TXRX1",
-        "prop_title": " TXRX1 XUD1aControl(one-bit-adc-dac): TXRX1",
-        "prop_description": ""
+        "prop_title": " TXRX1 TXRX1",
+        "prop_description": "Select Channel B for XUD1A Up and Down converter Usage: Channel B in Tx Mode - Set TXRX1 to 0, RxGainMode to 0 Channel B in Rx Low Gain Mode - Set TXRX1 to 1, RxGainMode to 0 Channel B in Rx High Gain Mode - Set TXRX1 to 1, RxGainMode to 1Help for adi.Stingray/TXRX1 is inherited from superclass adi.internal.XUD1aControl"
       },
       {
         "prop_name": "TXRX2",
-        "prop_title": " TXRX2 XUD1aControl(one-bit-adc-dac): TXRX2",
-        "prop_description": ""
+        "prop_title": " TXRX2 TXRX2",
+        "prop_description": "Select Channel C for XUD1A Up and Down converter Usage: Channel C in Tx Mode - Set TXRX2 to 0, RxGainMode to 0 Channel C in Rx Low Gain Mode - Set TXRX2 to 1, RxGainMode to 0 Channel C in Rx High Gain Mode - Set TXRX2 to 1, RxGainMode to 1Help for adi.Stingray/TXRX2 is inherited from superclass adi.internal.XUD1aControl"
       },
       {
         "prop_name": "TXRX3",
-        "prop_title": " TXRX3 XUD1aControl(one-bit-adc-dac): TXRX3",
-        "prop_description": ""
+        "prop_title": " TXRX3 TXRX3",
+        "prop_description": "Select Channel D for XUD1A Up and Down converter Usage: Channel D in Tx Mode - Set TXRX3 to 0, RxGainMode to 0 Channel D in Rx Low Gain Mode - Set TXRX3 to 1, RxGainMode to 0 Channel D in Rx High Gain Mode - Set TXRX3 to 1, RxGainMode to 1Help for adi.Stingray/TXRX3 is inherited from superclass adi.internal.XUD1aControl"
       },
       {
         "prop_name": "PllOutputSel",
-        "prop_title": " PllOutputSel XUD1aControl(one-bit-adc-dac): PLL Output Select",
-        "prop_description": ""
+        "prop_title": " PllOutputSel PLL Output Select",
+        "prop_description": "Configure ADF4371 output frequency 1: 8-16 GHz 0: 16-32 GHzHelp for adi.Stingray/PllOutputSel is inherited from superclass adi.internal.XUD1aControl"
       },
       {
         "prop_name": "RxGainMode",
-        "prop_title": " RxGainMode XUD1aControl(one-bit-adc-dac): Rx Gain Mode",
-        "prop_description": ""
+        "prop_title": " RxGainMode Rx Gain Mode",
+        "prop_description": "For usage, see usage of TXRX[0-3]Help for adi.Stingray/RxGainMode is inherited from superclass adi.internal.XUD1aControl"
       },
       {
         "prop_name": "ADF4371Name",
-        "prop_title": "adi.Stingray/ADF4371Name is a property.",
-        "prop_description": ""
+        "prop_title": " ADF4371Name ADF4371 Name",
+        "prop_description": "Configure programmable divider for ADF4371 Options: 'RF16x' or 'RF32x'Help for adi.Stingray/ADF4371Name is inherited from superclass adi.internal.ADF4371"
       },
       {
         "prop_name": "ADF4371Frequency",
-        "prop_title": "adi.Stingray/ADF4371Frequency is a property.",
-        "prop_description": ""
+        "prop_title": " ADF4371Frequency ADF4371 Frequency ",
+        "prop_description": "Configure ADF4371 output frequency Allowed range: 'RF16x': >= 8GHz, <= 16 GHz 'RF32x': >= 16GHz, <= 32 GHzHelp for adi.Stingray/ADF4371Frequency is inherited from superclass adi.internal.ADF4371"
       },
       {
         "prop_name": "ADF4371Phase",
-        "prop_title": "adi.Stingray/ADF4371Phase is a property.",
-        "prop_description": ""
+        "prop_title": " ADF4371Frequency ADF4371 phase ",
+        "prop_description": "Configure ADF4371 output phase in milli-degrees Range: 0-359999Help for adi.Stingray/ADF4371Phase is inherited from superclass adi.internal.ADF4371"
       },
       {
         "prop_name": "MUXOutEnable",
-        "prop_title": "adi.Stingray/MUXOutEnable is a property.",
-        "prop_description": ""
+        "prop_title": " MUXOutEnable MUXOut Enable ",
+        "prop_description": "Enable output multiplexer on the ADF4371Help for adi.Stingray/MUXOutEnable is inherited from superclass adi.internal.ADF4371"
       },
       {
         "prop_name": "BurstCount",
-        "prop_title": " BurstCount AXICoreTDD: Burst Count",
-        "prop_description": ""
+        "prop_title": " BurstCount Burst Count",
+        "prop_description": "Configure number of bursts in TDD controllerHelp for adi.Stingray/BurstCount is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "CounterInt",
-        "prop_title": " CounterInt AXICoreTDD: Counter Int",
-        "prop_description": ""
+        "prop_title": " CounterInt Counter Int",
+        "prop_description": "Configure TDD internal counter start valueHelp for adi.Stingray/CounterInt is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "DMAGateingMode",
-        "prop_title": " DMAGateingMode AXICoreTDD: DMA Gateing Mode",
-        "prop_description": "0 - none, 1 - rx_only, 2 - tx_only, 3 - rx_tx"
+        "prop_title": " DMAGateingMode DMA Gateing Mode",
+        "prop_description": "Configure TDD DMA gate 0 - none, 1 - rx_only, 2 - tx_only, 3 - rx_txHelp for adi.Stingray/DMAGateingMode is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "Enable",
-        "prop_title": "adi.Stingray/Enable is a property.",
-        "prop_description": ""
+        "prop_title": "  Enable Enable TDD",
+        "prop_description": "Enable or disable the TDD engineHelp for adi.Stingray/Enable is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "EnableMode",
-        "prop_title": " EnableMode AXICoreTDD: Enable Mode",
-        "prop_description": "1 - rx_only, 2 - tx_only, 3 - rx_tx"
+        "prop_title": " EnableMode Enable Mode",
+        "prop_description": "Configure TDD controller RX/TX mode 1 - rx_only, 2 - tx_only, 3 - rx_txHelp for adi.Stingray/EnableMode is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "FrameLength",
-        "prop_title": " FrameLength AXICoreTDD: Frame Length",
-        "prop_description": ""
+        "prop_title": " FrameLength Frame Length",
+        "prop_description": "TDD Frame LengthHelp for adi.Stingray/FrameLength is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "Secondary",
-        "prop_title": " Secondary AXICoreTDD: Secondary",
-        "prop_description": ""
+        "prop_title": " Secondary Secondary",
+        "prop_description": "Enable secondary times. Allows one signal to go high twice at two times within a single frame.Help for adi.Stingray/Secondary is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "SyncTerminalType",
-        "prop_title": " SyncTerminalType AXICoreTDD: Sync Terminal Type",
-        "prop_description": ""
+        "prop_title": " SyncTerminalType Sync Terminal Type",
+        "prop_description": "Sync Terminal TypeHelp for adi.Stingray/SyncTerminalType is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "TxDPoff",
-        "prop_title": " TxDPoff AXICoreTDD: Tx DP Off (ms)",
-        "prop_description": ""
+        "prop_title": " TxDPoff Tx DP Off (ms)",
+        "prop_description": "TDD: TX DMA port timing parameters in ms. Format [primary_off secondary_off]Help for adi.Stingray/TxDPoff is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "TxDPon",
-        "prop_title": " TxDPon AXICoreTDD: Tx DP On (ms) ",
-        "prop_description": ""
+        "prop_title": " TxDPon Tx DP On (ms)",
+        "prop_description": "TDD: TX DMA port timing parameters in ms. Format [primary_on secondary_on]Help for adi.Stingray/TxDPon is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "TxOff",
-        "prop_title": " TxOff AXICoreTDD: Tx Off (ms) ",
-        "prop_description": ""
+        "prop_title": " TxOff Tx Off (ms)",
+        "prop_description": "TDD: TX RF port timing parameters in ms. Format [primary_off secondary_off]Help for adi.Stingray/TxOff is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "TxOn",
-        "prop_title": " TxOn AXICoreTDD: Tx Off (ms)",
-        "prop_description": ""
+        "prop_title": " TxOn Tx Off (ms)",
+        "prop_description": "TDD: TX RF port timing parameters in ms. Format [primary_on secondary_on]Help for adi.Stingray/TxOn is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "TxVCOoff",
-        "prop_title": " TxVCOoff AXICoreTDD: Tx VCO Off (ms) ",
-        "prop_description": ""
+        "prop_title": " TxVCOoff Tx VCO Off (ms)",
+        "prop_description": "TDD: TX VCO port timing parameters in ms. Format [primary_off secondary_off]Help for adi.Stingray/TxVCOoff is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "TxVCOon",
-        "prop_title": " TxVCOon AXICoreTDD: Tx VCO On (ms)",
-        "prop_description": ""
+        "prop_title": " TxVCOon Tx VCO On (ms)",
+        "prop_description": "TDD: TX VCO port timing parameters in ms. Format [primary_on secondary_on]Help for adi.Stingray/TxVCOon is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "RxDPoff",
-        "prop_title": " RxDPoff AXICoreTDD: Rx DP Off (ms)",
-        "prop_description": ""
+        "prop_title": " RxDPoff Rx DP Off (ms)",
+        "prop_description": "TDD: RX DMA port timing parameters in ms. Format [primary_off secondary_off]Help for adi.Stingray/RxDPoff is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "RxDPon",
-        "prop_title": " RxDPon AXICoreTDD: Rx DP On (ms) ",
-        "prop_description": ""
+        "prop_title": " RxDPon Rx DP On (ms)",
+        "prop_description": "TDD: RX DMA port timing parameters in ms. Format [primary_on secondary_on]Help for adi.Stingray/RxDPon is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "RxOff",
-        "prop_title": " RxOff AXICoreTDD: Rx Off (ms) ",
-        "prop_description": ""
+        "prop_title": " RxOff Rx Off (ms)",
+        "prop_description": "TDD: RX RF port timing parameters in ms. Format [primary_off secondary_off]Help for adi.Stingray/RxOff is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "RxOn",
-        "prop_title": " RxOn AXICoreTDD: Rx On (ms) ",
-        "prop_description": ""
+        "prop_title": " RxOn Rx On (ms) ",
+        "prop_description": "TDD: RX RF port timing parameters in ms. Format [primary_on secondary_on]Help for adi.Stingray/RxOn is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "RxVCOoff",
-        "prop_title": " RxVCOoff AXICoreTDD: Rx VCO Off (ms) ",
-        "prop_description": ""
+        "prop_title": " RxVCOoff Rx VCO Off (ms) ",
+        "prop_description": "TDD: RX VCO port timing parameters in ms. Format [primary_off secondary_off]Help for adi.Stingray/RxVCOoff is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "RxVCOon",
-        "prop_title": " RxVCOon AXICoreTDD: Rx VCO On (ms) ",
-        "prop_description": ""
+        "prop_title": " RxVCOon Rx VCO On (ms)",
+        "prop_description": "TDD: RX VCO port timing parameters in ms. Format [primary_on secondary_on]Help for adi.Stingray/RxVCOon is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "LTC2314RFPower",
-        "prop_title": "adi.Stingray/LTC2314RFPower is a property.",
-        "prop_description": ""
+        "prop_title": " LTC2314RFPower LTC2314 RFPower",
+        "prop_description": "RF power level measured from on-board RF detector, LTC2314Help for adi.Stingray/LTC2314RFPower is inherited from superclass adi.internal.LTC2314"
       }
     ]
   },
@@ -836,103 +836,103 @@
       },
       {
         "prop_name": "BurstCount",
-        "prop_title": " BurstCount AXICoreTDD: Burst Count",
-        "prop_description": ""
+        "prop_title": " BurstCount Burst Count",
+        "prop_description": "Configure number of bursts in TDD controllerHelp for adi.Phaser/BurstCount is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "CounterInt",
-        "prop_title": " CounterInt AXICoreTDD: Counter Int",
-        "prop_description": ""
+        "prop_title": " CounterInt Counter Int",
+        "prop_description": "Configure TDD internal counter start valueHelp for adi.Phaser/CounterInt is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "DMAGateingMode",
-        "prop_title": " DMAGateingMode AXICoreTDD: DMA Gateing Mode",
-        "prop_description": "0 - none, 1 - rx_only, 2 - tx_only, 3 - rx_tx"
+        "prop_title": " DMAGateingMode DMA Gateing Mode",
+        "prop_description": "Configure TDD DMA gate 0 - none, 1 - rx_only, 2 - tx_only, 3 - rx_txHelp for adi.Phaser/DMAGateingMode is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "Enable",
-        "prop_title": "adi.Phaser/Enable is a property.",
-        "prop_description": ""
+        "prop_title": "  Enable Enable TDD",
+        "prop_description": "Enable or disable the TDD engineHelp for adi.Phaser/Enable is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "EnableMode",
-        "prop_title": " EnableMode AXICoreTDD: Enable Mode",
-        "prop_description": "1 - rx_only, 2 - tx_only, 3 - rx_tx"
+        "prop_title": " EnableMode Enable Mode",
+        "prop_description": "Configure TDD controller RX/TX mode 1 - rx_only, 2 - tx_only, 3 - rx_txHelp for adi.Phaser/EnableMode is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "FrameLength",
-        "prop_title": " FrameLength AXICoreTDD: Frame Length",
-        "prop_description": ""
+        "prop_title": " FrameLength Frame Length",
+        "prop_description": "TDD Frame LengthHelp for adi.Phaser/FrameLength is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "Secondary",
-        "prop_title": " Secondary AXICoreTDD: Secondary",
-        "prop_description": ""
+        "prop_title": " Secondary Secondary",
+        "prop_description": "Enable secondary times. Allows one signal to go high twice at two times within a single frame.Help for adi.Phaser/Secondary is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "SyncTerminalType",
-        "prop_title": " SyncTerminalType AXICoreTDD: Sync Terminal Type",
-        "prop_description": ""
+        "prop_title": " SyncTerminalType Sync Terminal Type",
+        "prop_description": "Sync Terminal TypeHelp for adi.Phaser/SyncTerminalType is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "TxDPoff",
-        "prop_title": " TxDPoff AXICoreTDD: Tx DP Off (ms)",
-        "prop_description": ""
+        "prop_title": " TxDPoff Tx DP Off (ms)",
+        "prop_description": "TDD: TX DMA port timing parameters in ms. Format [primary_off secondary_off]Help for adi.Phaser/TxDPoff is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "TxDPon",
-        "prop_title": " TxDPon AXICoreTDD: Tx DP On (ms) ",
-        "prop_description": ""
+        "prop_title": " TxDPon Tx DP On (ms)",
+        "prop_description": "TDD: TX DMA port timing parameters in ms. Format [primary_on secondary_on]Help for adi.Phaser/TxDPon is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "TxOff",
-        "prop_title": " TxOff AXICoreTDD: Tx Off (ms) ",
-        "prop_description": ""
+        "prop_title": " TxOff Tx Off (ms)",
+        "prop_description": "TDD: TX RF port timing parameters in ms. Format [primary_off secondary_off]Help for adi.Phaser/TxOff is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "TxOn",
-        "prop_title": " TxOn AXICoreTDD: Tx Off (ms)",
-        "prop_description": ""
+        "prop_title": " TxOn Tx Off (ms)",
+        "prop_description": "TDD: TX RF port timing parameters in ms. Format [primary_on secondary_on]Help for adi.Phaser/TxOn is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "TxVCOoff",
-        "prop_title": " TxVCOoff AXICoreTDD: Tx VCO Off (ms) ",
-        "prop_description": ""
+        "prop_title": " TxVCOoff Tx VCO Off (ms)",
+        "prop_description": "TDD: TX VCO port timing parameters in ms. Format [primary_off secondary_off]Help for adi.Phaser/TxVCOoff is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "TxVCOon",
-        "prop_title": " TxVCOon AXICoreTDD: Tx VCO On (ms)",
-        "prop_description": ""
+        "prop_title": " TxVCOon Tx VCO On (ms)",
+        "prop_description": "TDD: TX VCO port timing parameters in ms. Format [primary_on secondary_on]Help for adi.Phaser/TxVCOon is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "RxDPoff",
-        "prop_title": " RxDPoff AXICoreTDD: Rx DP Off (ms)",
-        "prop_description": ""
+        "prop_title": " RxDPoff Rx DP Off (ms)",
+        "prop_description": "TDD: RX DMA port timing parameters in ms. Format [primary_off secondary_off]Help for adi.Phaser/RxDPoff is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "RxDPon",
-        "prop_title": " RxDPon AXICoreTDD: Rx DP On (ms) ",
-        "prop_description": ""
+        "prop_title": " RxDPon Rx DP On (ms)",
+        "prop_description": "TDD: RX DMA port timing parameters in ms. Format [primary_on secondary_on]Help for adi.Phaser/RxDPon is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "RxOff",
-        "prop_title": " RxOff AXICoreTDD: Rx Off (ms) ",
-        "prop_description": ""
+        "prop_title": " RxOff Rx Off (ms)",
+        "prop_description": "TDD: RX RF port timing parameters in ms. Format [primary_off secondary_off]Help for adi.Phaser/RxOff is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "RxOn",
-        "prop_title": " RxOn AXICoreTDD: Rx On (ms) ",
-        "prop_description": ""
+        "prop_title": " RxOn Rx On (ms) ",
+        "prop_description": "TDD: RX RF port timing parameters in ms. Format [primary_on secondary_on]Help for adi.Phaser/RxOn is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "RxVCOoff",
-        "prop_title": " RxVCOoff AXICoreTDD: Rx VCO Off (ms) ",
-        "prop_description": ""
+        "prop_title": " RxVCOoff Rx VCO Off (ms) ",
+        "prop_description": "TDD: RX VCO port timing parameters in ms. Format [primary_off secondary_off]Help for adi.Phaser/RxVCOoff is inherited from superclass adi.internal.AXICoreTDD"
       },
       {
         "prop_name": "RxVCOon",
-        "prop_title": " RxVCOon AXICoreTDD: Rx VCO On (ms) ",
-        "prop_description": ""
+        "prop_title": " RxVCOon Rx VCO On (ms)",
+        "prop_description": "TDD: RX VCO port timing parameters in ms. Format [primary_on secondary_on]Help for adi.Phaser/RxVCOon is inherited from superclass adi.internal.AXICoreTDD"
       }
     ]
   }

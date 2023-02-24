@@ -1,8 +1,24 @@
 classdef ADF4371 < adi.common.Attribute & adi.common.Rx
+    % ADF4371 Wideband Synthesizer with Integrated VCO
+    %
+    % IIO Driver: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-pll/adf4371
     properties
+        %ADF4371Name ADF4371 Name
+        %   Configure programmable divider for ADF4371
+        %   Options: 'RF16x' or 'RF32x'
         ADF4371Name = 'RF16x'
+        %ADF4371Frequency ADF4371 Frequency 
+        %   Configure ADF4371 output frequency
+        %   Allowed range:
+        %   'RF16x': >= 8GHz, <= 16 GHz
+        %   'RF32x': >= 16GHz, <= 32 GHz
         ADF4371Frequency = 15000000000
+        %ADF4371Frequency ADF4371 phase 
+        %   Configure ADF4371 output phase in milli-degrees
+        %   Range: 0-359999
         ADF4371Phase = 359999
+        %MUXOutEnable MUXOut Enable 
+        %   Enable output multiplexer on the ADF4371
         MUXOutEnable = true
         % ADF4371FrequencyDeviationRange = 500e6/4;
         % ADF4371FrequencyDeviationTime = 1e3;

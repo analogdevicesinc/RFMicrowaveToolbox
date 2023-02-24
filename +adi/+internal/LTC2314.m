@@ -1,5 +1,10 @@
 classdef LTC2314 < adi.common.Attribute & adi.common.Rx
+    % LTC2314 Serial Sampling A/D Converter
+    %
+    
     properties
+        %LTC2314RFPower LTC2314 RFPower
+        %   RF power level measured from on-board RF detector, LTC2314
         LTC2314RFPower
     end
 

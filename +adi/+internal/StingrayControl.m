@@ -1,10 +1,19 @@
 classdef StingrayControl < adi.common.Attribute
+    % Power tree for ADAR1000-EVAL1Z board
+    %
+    % See: https://wiki.analog.com/resources/eval/user-guides/stingray/userguide#board_power_control
+
     properties
-        %PowerUpDown StingrayControl(one-bit-adc-dac): Power Control
+        %PowerUpDown Power Control
+        %   Pulse to sequence the first RF power rails
+        %   in ADAR1000-EVAL1Z board power tree
         PowerUpDown = false
-        %Ctrl5V StingrayControl(one-bit-adc-dac): Control 5V
+        %Ctrl5V Control 5V
+        %   Pulse +5V in ADAR1000-EVAL1Z board power tree
         Ctrl5V = false
-        %PAOn StingrayControl(one-bit-adc-dac): PA On/Off
+        %PAOn PA On/Off
+        %   Enable/disable PA
+        %   in ADAR1000-EVAL1Z board power tree
         PAOn = false
     end
     

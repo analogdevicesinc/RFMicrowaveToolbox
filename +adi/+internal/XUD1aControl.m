@@ -1,16 +1,44 @@
 classdef XUD1aControl < adi.common.Attribute
+    % ADXUD1AEBZ quad channel Up and Down converter
+    %
+    % https://wiki.analog.com/resources/eval/user-guides/xud1a/user-guide
+    
     properties
-        %TXRX0 XUD1aControl(one-bit-adc-dac): TXRX0
+        %TXRX0 TXRX0
+        %   Select Channel A for XUD1A Up and Down converter
+        %   Usage:
+        %   Channel A in Tx Mode - Set TXRX0 to 0, RxGainMode to 0
+        %   Channel A in Rx Low Gain Mode - Set TXRX0 to 1, RxGainMode to 0
+        %   Channel A in Rx High Gain Mode - Set TXRX0 to 1, RxGainMode to 1
         TXRX0
-        %TXRX1 XUD1aControl(one-bit-adc-dac): TXRX1
+        %TXRX1 TXRX1
+        %   Select Channel B for XUD1A Up and Down converter
+        %   Usage:
+        %   Channel B in Tx Mode - Set TXRX1 to 0, RxGainMode to 0
+        %   Channel B in Rx Low Gain Mode - Set TXRX1 to 1, RxGainMode to 0
+        %   Channel B in Rx High Gain Mode - Set TXRX1 to 1, RxGainMode to 1
         TXRX1
-        %TXRX2 XUD1aControl(one-bit-adc-dac): TXRX2
+        %TXRX2 TXRX2
+        %   Select Channel C for XUD1A Up and Down converter
+        %   Usage:
+        %   Channel C in Tx Mode - Set TXRX2 to 0, RxGainMode to 0
+        %   Channel C in Rx Low Gain Mode - Set TXRX2 to 1, RxGainMode to 0
+        %   Channel C in Rx High Gain Mode - Set TXRX2 to 1, RxGainMode to 1
         TXRX2
-        %TXRX3 XUD1aControl(one-bit-adc-dac): TXRX3
+        %TXRX3 TXRX3
+        %   Select Channel D for XUD1A Up and Down converter
+        %   Usage:
+        %   Channel D in Tx Mode - Set TXRX3 to 0, RxGainMode to 0
+        %   Channel D in Rx Low Gain Mode - Set TXRX3 to 1, RxGainMode to 0
+        %   Channel D in Rx High Gain Mode - Set TXRX3 to 1, RxGainMode to 1
         TXRX3
-        %PllOutputSel XUD1aControl(one-bit-adc-dac): PLL Output Select
+        %PllOutputSel PLL Output Select
+        %   Configure ADF4371 output frequency
+        %   1: 8-16 GHz
+        %   0: 16-32 GHz
         PllOutputSel
-        %RxGainMode XUD1aControl(one-bit-adc-dac): Rx Gain Mode
+        %RxGainMode Rx Gain Mode
+        %   For usage, see usage of TXRX[0-3]
         RxGainMode
     end
     
