@@ -1,46 +1,84 @@
 classdef AXICoreTDD < adi.common.Attribute
+    % ADF4371 Wideband Synthesizer with Integrated VCO
+    %
+    % IIO Driver: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-pll/adf4371
+
     properties
-        %BurstCount AXICoreTDD: Burst Count
+        %BurstCount Burst Count
+        %   Configure number of bursts in TDD controller
         BurstCount
-        %CounterInt AXICoreTDD: Counter Int
+        %CounterInt Counter Int
+        %   Configure TDD internal counter start value
         CounterInt
-        %DMAGateingMode AXICoreTDD: DMA Gateing Mode
-        % 0 - none, 1 - rx_only, 2 - tx_only, 3 - rx_tx
-        DMAGateingMode = 0; 
+        %DMAGateingMode DMA Gateing Mode
+        %   Configure TDD DMA gate
+        %   0 - none, 1 - rx_only, 2 - tx_only, 3 - rx_tx
+        DMAGateingMode = 0;
+        % Enable Enable TDD
+        %   Enable or disable the TDD engine
         Enable
-        %EnableMode AXICoreTDD: Enable Mode
-        % 1 - rx_only, 2 - tx_only, 3 - rx_tx
+        %EnableMode Enable Mode
+        %   Configure TDD controller RX/TX mode
+        %   1 - rx_only, 2 - tx_only, 3 - rx_tx
         EnableMode = 3;
-        %FrameLength AXICoreTDD: Frame Length
+        %FrameLength Frame Length
+        %   TDD Frame Length
         FrameLength
-        %Secondary AXICoreTDD: Secondary
+        %Secondary Secondary
+        %   Enable secondary times. Allows one signal to go high
+        %   twice at two times within a single frame.
         Secondary
-        %SyncTerminalType AXICoreTDD: Sync Terminal Type
+        %SyncTerminalType Sync Terminal Type
+        %   Sync Terminal Type
         SyncTerminalType
         
-        %TxDPoff AXICoreTDD: Tx DP Off (ms)
+        %TxDPoff Tx DP Off (ms)
+        %   TDD: TX DMA port timing parameters in ms.
+        %   Format [primary_off secondary_off]
         TxDPoff = [0 0];
-        %TxDPon AXICoreTDD: Tx DP On (ms) 
+        %TxDPon Tx DP On (ms)
+        %   TDD: TX DMA port timing parameters in ms.
+        %   Format [primary_on secondary_on]
         TxDPon = [0 0];
-        %TxOff AXICoreTDD: Tx Off (ms) 
+        %TxOff Tx Off (ms)
+        %   TDD: TX RF port timing parameters in ms.
+        %   Format [primary_off secondary_off]
         TxOff = [0 0];
-        %TxOn AXICoreTDD: Tx Off (ms)
+        %TxOn Tx Off (ms)
+        %   TDD: TX RF port timing parameters in ms.
+        %   Format [primary_on secondary_on]
         TxOn = [0 0];
-        %TxVCOoff AXICoreTDD: Tx VCO Off (ms) 
+        %TxVCOoff Tx VCO Off (ms)
+        %   TDD: TX VCO port timing parameters in ms.
+        %   Format [primary_off secondary_off]
         TxVCOoff = [0 0];
-        %TxVCOon AXICoreTDD: Tx VCO On (ms)
+        %TxVCOon Tx VCO On (ms)
+        %   TDD: TX VCO port timing parameters in ms.
+        %   Format [primary_on secondary_on]
         TxVCOon = [0 0];
-        %RxDPoff AXICoreTDD: Rx DP Off (ms)
+        %RxDPoff Rx DP Off (ms)
+        %   TDD: RX DMA port timing parameters in ms.
+        %   Format [primary_off secondary_off]
         RxDPoff = [0 0];
-        %RxDPon AXICoreTDD: Rx DP On (ms) 
+        %RxDPon Rx DP On (ms)
+        %   TDD: RX DMA port timing parameters in ms.
+        %   Format [primary_on secondary_on]
         RxDPon = [0 0];
-        %RxOff AXICoreTDD: Rx Off (ms) 
+        %RxOff Rx Off (ms)
+        %   TDD: RX RF port timing parameters in ms.
+        %   Format [primary_off secondary_off]
         RxOff = [0 0];
-        %RxOn AXICoreTDD: Rx On (ms) 
+        %RxOn Rx On (ms) 
+        %   TDD: RX RF port timing parameters in ms.
+        %   Format [primary_on secondary_on]
         RxOn = [0 0];
-        %RxVCOoff AXICoreTDD: Rx VCO Off (ms) 
+        %RxVCOoff Rx VCO Off (ms) 
+        %   TDD: RX VCO port timing parameters in ms.
+        %   Format [primary_off secondary_off]
         RxVCOoff = [0 0];
-        %RxVCOon AXICoreTDD: Rx VCO On (ms) 
+        %RxVCOon Rx VCO On (ms)
+        %   TDD: RX VCO port timing parameters in ms.
+        %   Format [primary_on secondary_on]
         RxVCOon = [0 0];
     end
     
