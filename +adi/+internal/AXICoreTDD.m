@@ -1,7 +1,7 @@
 classdef AXICoreTDD < adi.common.Attribute
     % ADF4371 Wideband Synthesizer with Integrated VCO
     %
-    % IIO Driver: https://wiki.analog.com/resources/tools-software/linux-drivers/iio-pll/adf4371
+    % Reference https://wiki.analog.com/resources/fpga/docs/axi_tdd
 
     properties
         %BurstCount Burst Count
