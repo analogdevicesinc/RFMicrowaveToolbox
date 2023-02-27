@@ -5,15 +5,6 @@
 
 The toolbox has different dependencies based on the features required. These are broken down into the base dependencies for running models, data stream and control, and HDL code generation.
 
-### Simulation Models
-
-The simulation models for the different components can be used in either MATLAB or Simulink through the MATLAB System block. To run the available models requires the following toolboxes from MathWorks:
-
-- [DSP System Toolbox](https://www.mathworks.com/products/dsp-system.html)
-- [Signal Processing Toolbox](https://www.mathworks.com/products/signal.html)
-- [(Optional) Simulink](https://www.mathworks.com/products/simulink.html)
-
-
 ### Data Streaming with Hardware
 
 The base dependencies for the toolbox requires libiio and the libiio MATLAB bindings. There are three options for this install with different required MathWorks Toolboxes:
