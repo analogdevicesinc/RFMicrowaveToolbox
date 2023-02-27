@@ -6,8 +6,8 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <link href="../../assets/images/favicon.png" rel="icon"/>
-<meta content="mkdocs-1.4.2, mkdocs-material-9.0.14" name="generator"/>
-<title>Receiving and Sending Data - Analog Devices, Inc. RF and Microwave Toolbox</title>
+<meta content="mkdocs-1.4.2, mkdocs-material-9.0.15" name="generator"/>
+<title>Streaming - Analog Devices, Inc. RF and Microwave Toolbox</title>
 <link href="../../assets/stylesheets/main.113286f1.min.css" rel="stylesheet"/>
 <link href="../../assets/stylesheets/palette.a0c5b2b5.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -47,7 +47,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Receiving and Sending Data
+              Streaming
             
           </span>
 </div>
@@ -200,14 +200,15 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
+<p>{% include 'header.tmpl' %}</p>
 <h1 id="receiving-and-sending-data">Receiving and Sending Data</h1>
 <p>Remote data streaming to and from hardware is made available through <a href="https://www.mathworks.com/help/matlab/matlab_prog/what-are-system-objects.html">system object interfaces</a>, which are unique for each component or platform. The hardware interfacing system objects provide a since class to both configure a given platform and move data back and forth from the device.</p>
 <p>Command and control of hardware from MATLAB is accomplished by leveraging the <a href="https://wiki.analog.com/software/linux/docs/iio/iio">IIO drivers</a> built into the target platform's kernel and <a href="https://wiki.analog.com/resources/tools-software/linux-software/libiio">libiio</a> which provides remote backends to control drivers across different backends. Backends can be Ethernet, serial, or USB based. Below is a diagram of the different components in the stack for an FMComms based systems, but will be nearly identical for all libiio-based systems.</p>
 <p><img alt="MATLAB libiio Stack" src="assets/MATLAB_libiio_Stack.png"/></p>
 <p>Since libiio is cross-platform it can be used from Windows, Linux, or macOS based systems. It is also a lower level library independent of MATLAB, so when moving toward production or untethered systems similar APIs that are used in MATLAB can be used in C,C++,Python, or other languages.</p>
 <h2 id="connecting-and-configuration">Connecting and Configuration</h2>
-<p>Connecting to hardware is done by setting the <strong>uri</strong> property of the system object interface. The <strong>uri</strong> for libiio always has the convention "<em>&lt; backend &gt;:&lt; address &gt;</em>", where <em>backend</em> can be ip,usb, or serial. <em>address</em> will be specific to the backend. This is documented in the <a href="https://analogdevicesinc.github.io/libiio/master/libiio/group__Context.html#gafdcee40508700fa395370b6c636e16fe">libiio API</a>.</p>
-<p>Below is a basic example of setting up an AD9361 receiver and the Stingray class in an X-band development kit using an Ethernet/IP backend where the address of the target system is 192.168.2.1:
+<p>Connecting to hardware is done by setting the <strong>uri</strong> property of the system object interface. The <strong>uri</strong> for libiio always has the convention "<em>&lt; backend &gt;:&lt; address &gt;</em>", where <em>backend</em> can be ip, usb, or serial. <em>address</em> will be specific to the backend. This is documented in the <a href="https://analogdevicesinc.github.io/libiio/master/libiio/group__Context.html#gafdcee40508700fa395370b6c636e16fe">libiio API</a>.</p>
+<p>Below is a basic example of setting up an AD9081 receiver and the Stingray class in an X-band development kit using an Ethernet/IP backend:
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
