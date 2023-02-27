@@ -1,4 +1,4 @@
-
+{% include 'header.tmpl' %}
 # Receiving and Sending Data
 
 Remote data streaming to and from hardware is made available through [system object interfaces](https://www.mathworks.com/help/matlab/matlab_prog/what-are-system-objects.html), which are unique for each component or platform. The hardware interfacing system objects provide a since class to both configure a given platform and move data back and forth from the device.
@@ -11,9 +11,9 @@ Since libiio is cross-platform it can be used from Windows, Linux, or macOS base
 
 ## Connecting and Configuration
 
-Connecting to hardware is done by setting the **uri** property of the system object interface. The **uri** for libiio always has the convention "*< backend >:< address >*", where *backend* can be ip,usb, or serial. *address* will be specific to the backend. This is documented in the [libiio API](https://analogdevicesinc.github.io/libiio/master/libiio/group__Context.html#gafdcee40508700fa395370b6c636e16fe).
+Connecting to hardware is done by setting the **uri** property of the system object interface. The **uri** for libiio always has the convention "*< backend >:< address >*", where *backend* can be ip, usb, or serial. *address* will be specific to the backend. This is documented in the [libiio API](https://analogdevicesinc.github.io/libiio/master/libiio/group__Context.html#gafdcee40508700fa395370b6c636e16fe).
 
-Below is a basic example of setting up an AD9361 receiver and the Stingray class in an X-band development kit using an Ethernet/IP backend where the address of the target system is 192.168.2.1:
+Below is a basic example of setting up an AD9081 receiver and the Stingray class in an X-band development kit using an Ethernet/IP backend:
 ```linenums="1"
 uri = 'ip:192.168.1.211';
 
