@@ -42,14 +42,11 @@ GITTAG := $(shell git describe --tags HEAD)
 .ONESHELL:
 
 doc_ml:
-	cd ../.. ; \
 	cd docs ; \
-	cp ../../scripts/ports.json . ; \
-	cp ../../scripts/read_ports_json.py . ; \
-	python3 read_ports_json.py ; \
 	MATLAB=ON python3 gen_all_doc.py ; \
 	cd .. ; \
 	mkdocs build -d doc
+	mv doc ../../
 
 doc:
 	cd docs ; \
