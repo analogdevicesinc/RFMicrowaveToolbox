@@ -23,7 +23,16 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
     properties (Hidden)
         iioDevices
     end
-    
+
+    properties (Hidden, Logical)
+        %EnableReadCheckOnWrite Enable Read Check On Write
+        %   When false any attributes that are written to the device are not
+        %   read back to verify the write was successful. This can improve
+        %   performance but may result in unexpected behavior.
+        EnableReadCheckOnWrite = true;
+    end
+
+
     properties (Hidden, Constant, Logical)
         ComplexData = false;
     end
@@ -444,10 +453,12 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                                 value, isOutput, obj.iioDevices{devIndx});
                         elseif strcmpi(AttrClass, 'int32') || strcmpi(AttrClass, 'int64')
                             obj.setAttributeLongLong(channel, attr, ...
-                                values(r, c), isOutput, Tol, obj.iioDevices{devIndx});
+                                values(r, c), isOutput, Tol, obj.iioDevices{devIndx},...
+                                obj.EnableReadCheckOnWrite);
                         elseif strcmpi(AttrClass, 'double')
                             obj.setAttributeDouble(channel, attr, ...
-                                values(r, c), isOutput, Tol, obj.iioDevices{devIndx});
+                                values(r, c), isOutput, Tol, obj.iioDevices{devIndx},...
+                                obj.EnableReadCheckOnWrite);
                         end
                     end
                 end
