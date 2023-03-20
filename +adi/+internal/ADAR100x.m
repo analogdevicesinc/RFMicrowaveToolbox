@@ -306,9 +306,13 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         %   each channel of each ADAR1000. Each element must be a logical
         %   false or true.
         TxSequencerStop = false(1, 4)
+    end
+
+    properties(Dependent)
         %Temp ADAR1000 Temperature
-        %   Get temperature of X-band Development Platform.
-        Temp = 0
+        %   Get temperature of ADAR1000 devices. This is a read-only property
+        %   and only provides data after connected to hardware.
+        Temp
     end
 
     properties
@@ -385,7 +389,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             end
         end
         
-        function result = getAllChipsChannelAttribute(obj, attr, isOutput, AttrClass)
+        function result = getAllChipsChannelAttribute(obj, attr, isOutput, AttrClass, channelName)
             if strcmpi(AttrClass, 'logical')
                 result = false(size(obj.ElementToChipChannelMap));
             elseif strcmpi(AttrClass, 'raw')
@@ -399,7 +403,11 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                 for c = 1:size(obj.ElementToChipChannelMap,2)
                     devIndx = obj.ElementToChipMap(r,c);
                     chanIndex = obj.ElementToChipChannelMap(r,c);
-                    channel = sprintf('voltage%d', chanIndex-1);
+                    if nargin < 5
+                        channel = sprintf('voltage%d', chanIndex-1);
+                    else
+                        channel = channelName;
+                    end
                     if strcmpi(AttrClass, 'logical')
                         result(r, c) = obj.getAttributeBool(channel, attr, isOutput, obj.iioDevices{devIndx});
                     elseif strcmpi(AttrClass, 'raw')
@@ -1104,9 +1112,10 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         end
         
         function result = get.Temp(obj)
-            result = zeros(size(obj.SubarrayToChipMap));
-            if ~isempty(obj.iioDevices)
-                    result = obj.getAllChipsDeviceAttributeRAW('temp0', false);
+            if obj.ConnectedToDevice
+                result = obj.getAllChipsChannelAttribute('raw', false, 'int32', 'temp0');
+            else
+                result = nan(size(obj.SubarrayToChipMap));
             end
         end
     end
