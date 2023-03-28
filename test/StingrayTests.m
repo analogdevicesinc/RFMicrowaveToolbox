@@ -10,6 +10,7 @@ classdef StingrayTests < HardwareTests
             % Setup Stingray
             testCase.sray = adi.Stingray;
             testCase.sray.uri = testCase.uri;
+            testCase.sray.EnableReadCheckOnWrite = false;
             testCase.sray();
         end        
     end
@@ -57,14 +58,14 @@ classdef StingrayTests < HardwareTests
             rvalues = testCase.sray.BeamMemEnable;
             testCase.verifyEqual(rvalues,values);
         end
-        %{
+        
         function testBiasDACEnable(testCase)
             values = logical(randi([0 1], size(testCase.sray.SubarrayToChipMap)));
             testCase.sray.BiasDACEnable = values;
             rvalues = testCase.sray.BiasDACEnable;
             testCase.verifyEqual(rvalues,values);
         end
-        %}
+        
         function testBiasDACMode(testCase)
             values = cell(size(testCase.sray.SubarrayToChipMap));
             values(:) = {'Toggle'};            
@@ -73,14 +74,15 @@ classdef StingrayTests < HardwareTests
             rvalues = testCase.sray.BiasDACMode;
             testCase.verifyEqual(rvalues,values);
         end
-        %{
+        
         function testBiasMemEnable(testCase)
             values = logical(randi([0 1], size(testCase.sray.SubarrayToChipMap)));
             testCase.sray.BiasMemEnable = values;
+            pause(2);
             rvalues = testCase.sray.BiasMemEnable;
             testCase.verifyEqual(rvalues,values);
         end
-        %}
+        
         function testCommonMemEnable(testCase)
             values = logical(randi([0 1], size(testCase.sray.SubarrayToChipMap)));
             testCase.sray.CommonMemEnable = values;
@@ -281,14 +283,14 @@ classdef StingrayTests < HardwareTests
     
     % Channel Attribute Tests
     methods (Test)
-        %{
+        
         function testDetectorEnable(testCase)
             values = logical(randi([0 1], size(testCase.sray.ElementToChipChannelMap)));
             testCase.sray.DetectorEnable = values;
             rvalues = testCase.sray.DetectorEnable;
             testCase.verifyEqual(rvalues,values);
         end
-        %}
+        
         function testPABiasOff(testCase)
             values = randi([60 100], size(testCase.sray.ElementToChipChannelMap))*...
                 testCase.sray.BIAS_CODE_TO_VOLTAGE_SCALE;
