@@ -283,41 +283,41 @@ classdef StingrayTests < HardwareTests
     methods (Test)
         %{
         function testDetectorEnable(testCase)
-            values = logical(randi([0 1], size(testCase.sray.SubarrayToChipMap)));
+            values = logical(randi([0 1], size(testCase.sray.ElementToChipChannelMap)));
             testCase.sray.DetectorEnable = values;
             rvalues = testCase.sray.DetectorEnable;
             testCase.verifyEqual(rvalues,values);
         end
         %}
         function testPABiasOff(testCase)
-            values = randi([60 100], size(testCase.sray.SubarrayToChipMap))*...
+            values = randi([60 100], size(testCase.sray.ElementToChipChannelMap))*...
                 testCase.sray.BIAS_CODE_TO_VOLTAGE_SCALE;
             testCase.sray.PABiasOff = values;
             rvalues = testCase.sray.PABiasOff;
             testCase.verifyEqual(rvalues,values);
-            testCase.sray.PABiasOff = 100*ones(size(testCase.sray.SubarrayToChipMap))*...
+            testCase.sray.PABiasOff = 100*ones(size(testCase.sray.ElementToChipChannelMap))*...
                 testCase.sray.BIAS_CODE_TO_VOLTAGE_SCALE;
         end
         
         function testPABiasOn(testCase)
-            values = randi([60 100], size(testCase.sray.SubarrayToChipMap))*...
+            values = randi([60 100], size(testCase.sray.ElementToChipChannelMap))*...
                 testCase.sray.BIAS_CODE_TO_VOLTAGE_SCALE;
             testCase.sray.PABiasOn = values;
             rvalues = testCase.sray.PABiasOn;
             testCase.verifyEqual(rvalues,values);
-            testCase.sray.PABiasOn = 100*ones(size(testCase.sray.SubarrayToChipMap))*...
+            testCase.sray.PABiasOn = 100*ones(size(testCase.sray.ElementToChipChannelMap))*...
                 testCase.sray.BIAS_CODE_TO_VOLTAGE_SCALE;
         end
         
         function testRxAttn(testCase)
-            values = logical(randi([0 1], size(testCase.sray.SubarrayToChipMap)));
+            values = logical(randi([0 1], size(testCase.sray.ElementToChipChannelMap)));
             testCase.sray.RxAttn = values;
             rvalues = testCase.sray.RxAttn;
             testCase.verifyEqual(rvalues,values);
         end        
         
         function testRxBeamState(testCase)
-            tmp_size = size(testCase.sray.SubarrayToChipMap);
+            tmp_size = size(testCase.sray.ElementToChipChannelMap);
             values = repmat(randi([0 120], 1, tmp_size(1)), tmp_size(2), 1).';
             testCase.sray.RxBeamState = values;
             rvalues = testCase.sray.RxBeamState;
@@ -325,37 +325,37 @@ classdef StingrayTests < HardwareTests
         end
         
         function testRxPowerDown(testCase)
-            tmp_size = size(testCase.sray.SubarrayToChipMap);
+            tmp_size = size(testCase.sray.ElementToChipChannelMap);
             values = repmat(logical(randi([0 1], 1, tmp_size(1))), tmp_size(2), 1).';
             testCase.sray.RxPowerDown = values;
             rvalues = testCase.sray.RxPowerDown;
             testCase.verifyEqual(rvalues,values);
-            testCase.sray.RxPowerDown = false(size(testCase.sray.SubarrayToChipMap));
+            testCase.sray.RxPowerDown = false(size(testCase.sray.ElementToChipChannelMap));
         end
-        %{
+        
         function testRxGain(testCase)
-            values = randi([0 127], size(testCase.sray.SubarrayToChipMap));
+            values = randi([0 127], size(testCase.sray.ElementToChipChannelMap));
             testCase.sray.RxGain = values;
             rvalues = testCase.sray.RxGain;
             testCase.verifyEqual(rvalues,values);
         end
-        %}
+        
         function testRxPhase(testCase)
-            values = randi([0 127], size(testCase.sray.SubarrayToChipMap));
+            values = randi([0 127], size(testCase.sray.ElementToChipChannelMap));
             testCase.sray.RxPhase = values;
             rvalues = testCase.sray.RxPhase;
             testCase.verifyEqual(rvalues,values, "AbsTol", 4);
         end
         
         function testTxAttn(testCase)
-            values = logical(randi([0 1], size(testCase.sray.SubarrayToChipMap)));
+            values = logical(randi([0 1], size(testCase.sray.ElementToChipChannelMap)));
             testCase.sray.TxAttn = values;
             rvalues = testCase.sray.TxAttn;
             testCase.verifyEqual(rvalues,values);
         end        
         
         function testTxBeamState(testCase)
-            tmp_size = size(testCase.sray.SubarrayToChipMap);
+            tmp_size = size(testCase.sray.ElementToChipChannelMap);
             values = repmat(randi([0 120], 1, tmp_size(1)), tmp_size(2), 1).';
             testCase.sray.TxBeamState = values;
             rvalues = testCase.sray.TxBeamState;
@@ -363,30 +363,30 @@ classdef StingrayTests < HardwareTests
         end
         
         function testTxPowerDown(testCase)
-            tmp_size = size(testCase.sray.SubarrayToChipMap);
+            tmp_size = size(testCase.sray.ElementToChipChannelMap);
             values = repmat(logical(randi([0 1], 1, tmp_size(1))), tmp_size(2), 1).';
             testCase.sray.TxPowerDown = values;
             rvalues = testCase.sray.TxPowerDown;
             testCase.verifyEqual(rvalues,values);
-            testCase.sray.TxPowerDown = false(size(testCase.sray.SubarrayToChipMap));
+            testCase.sray.TxPowerDown = false(size(testCase.sray.ElementToChipChannelMap));
         end
-        %{
+        
         function testTxGain(testCase)
-            values = randi([0 127], size(testCase.sray.SubarrayToChipMap));
+            values = randi([0 127], size(testCase.sray.ElementToChipChannelMap));
             testCase.sray.TxGain = values;
             rvalues = testCase.sray.TxGain;
             testCase.verifyEqual(rvalues,values);
         end
-        %}
+        
         function testTxPhase(testCase)
-            values = randi([0 127], size(testCase.sray.SubarrayToChipMap));
+            values = randi([0 127], size(testCase.sray.ElementToChipChannelMap));
             testCase.sray.TxPhase = values;
             rvalues = testCase.sray.TxPhase;
             testCase.verifyEqual(rvalues,values, "AbsTol", 4);
         end
         %{
         function testRxBiasState(testCase)
-            tmp_size = size(testCase.sray.SubarrayToChipMap);
+            tmp_size = size(testCase.sray.ElementToChipChannelMap);
             values = repmat(logical(randi([0 1], 1, tmp_size(2))), tmp_size(1), 1);
             testCase.sray.RxBiasState = values;
             rvalues = testCase.sray.RxBiasState;
@@ -394,21 +394,21 @@ classdef StingrayTests < HardwareTests
         end
         %}
         function testRxSequencerStart(testCase)
-            tmp_size = size(testCase.sray.SubarrayToChipMap);
+            tmp_size = size(testCase.sray.ElementToChipChannelMap);
             values = repmat(logical(randi([0 1], 1, tmp_size(1))), tmp_size(2), 1).';
             testCase.sray.RxSequencerStart = values;
             rvalues = testCase.sray.RxSequencerStart;
             testCase.verifyEqual(rvalues,values);
-            testCase.sray.RxSequencerStart = false(size(testCase.sray.SubarrayToChipMap));
+            testCase.sray.RxSequencerStart = false(size(testCase.sray.ElementToChipChannelMap));
         end
         
         function testRxSequencerStop(testCase)
-            tmp_size = size(testCase.sray.SubarrayToChipMap);
+            tmp_size = size(testCase.sray.ElementToChipChannelMap);
             values = repmat(logical(randi([0 1], 1, tmp_size(1))), tmp_size(2), 1).';
             testCase.sray.RxSequencerStop = values;
             rvalues = testCase.sray.RxSequencerStop;
             testCase.verifyEqual(rvalues,values);
-            testCase.sray.RxSequencerStop = false(size(testCase.sray.SubarrayToChipMap));
+            testCase.sray.RxSequencerStop = false(size(testCase.sray.ElementToChipChannelMap));
         end
         %{
         function testTxBiasState(testCase)
@@ -420,21 +420,21 @@ classdef StingrayTests < HardwareTests
         end
         %}
         function testTxSequencerStart(testCase)
-            tmp_size = size(testCase.sray.SubarrayToChipMap);
+            tmp_size = size(testCase.sray.ElementToChipChannelMap);
             values = repmat(logical(randi([0 1], 1, tmp_size(1))), tmp_size(2), 1).';
             testCase.sray.TxSequencerStart = values;
             rvalues = testCase.sray.TxSequencerStart;
             testCase.verifyEqual(rvalues,values);
-            testCase.sray.TxSequencerStart = false(size(testCase.sray.SubarrayToChipMap));
+            testCase.sray.TxSequencerStart = false(size(testCase.sray.ElementToChipChannelMap));
         end
         
         function testTxSequencerStop(testCase)
-            tmp_size = size(testCase.sray.SubarrayToChipMap);
+            tmp_size = size(testCase.sray.ElementToChipChannelMap);
             values = repmat(logical(randi([0 1], 1, tmp_size(1))), tmp_size(2), 1).';
             testCase.sray.TxSequencerStop = values;
             rvalues = testCase.sray.TxSequencerStop;
             testCase.verifyEqual(rvalues,values);
-            testCase.sray.TxSequencerStop = false(size(testCase.sray.SubarrayToChipMap));
+            testCase.sray.TxSequencerStop = false(size(testCase.sray.ElementToChipChannelMap));
         end
     end
 end
