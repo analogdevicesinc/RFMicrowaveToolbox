@@ -83,42 +83,42 @@ classdef AXICoreTDD < adi.common.Attribute
     end
     
     properties(Hidden)
-        AXICoreTDDDevPtrNames = {'axi-core-tdd'};
-        AXICoreTDDDevPtr
+        AXICoreTDDDeviceName = 'axi-core-tdd';
+        AXICoreTDDDevice
     end
         
     % Get/Set Methods for Device Attributes
     methods
         function result = get.BurstCount(obj)
             result = 0;
-            if ~isempty(obj.AXICoreTDDDevPtr)
-                result = str2double(obj.getDeviceAttributeRAW('burst_count', 128, obj.AXICoreTDDDevPtr));
+            if ~isempty(obj.AXICoreTDDDevice)
+                result = str2double(obj.getDeviceAttributeRAW('burst_count', 128, obj.AXICoreTDDDevice));
             end
         end
         
         function set.BurstCount(obj, value)
             if obj.ConnectedToDevice
-                obj.setDeviceAttributeRAW('burst_count', num2str(value), obj.AXICoreTDDDevPtr);
+                obj.setDeviceAttributeRAW('burst_count', num2str(value), obj.AXICoreTDDDevice);
             end
         end
         
         function result = get.CounterInt(obj)
             result = 0;
-            if ~isempty(obj.AXICoreTDDDevPtr)
-                result = str2double(obj.getDeviceAttributeRAW('counter_int', 128, obj.AXICoreTDDDevPtr));
+            if ~isempty(obj.AXICoreTDDDevice)
+                result = str2double(obj.getDeviceAttributeRAW('counter_int', 128, obj.AXICoreTDDDevice));
             end
         end
         
         function set.CounterInt(obj, value)
             if obj.ConnectedToDevice
-                obj.setDeviceAttributeRAW('counter_int', num2str(value), obj.AXICoreTDDDevPtr);
+                obj.setDeviceAttributeRAW('counter_int', num2str(value), obj.AXICoreTDDDevice);
             end
         end
         
         function result = get.DMAGateingMode(obj)
             result = 0;
-            if ~isempty(obj.AXICoreTDDDevPtr)
-                ResultStr = obj.getDeviceAttributeRAW('dma_gateing_mode', 128, obj.AXICoreTDDDevPtr);
+            if ~isempty(obj.AXICoreTDDDevice)
+                ResultStr = obj.getDeviceAttributeRAW('dma_gateing_mode', 128, obj.AXICoreTDDDevice);
                 switch ResultStr
                     case "none"
                         result = 0;
@@ -147,27 +147,27 @@ classdef AXICoreTDD < adi.common.Attribute
                     case 3
                         ValueStr = 'rx_tx';
                 end
-                obj.setDeviceAttributeRAW('dma_gateing_mode', ValueStr, obj.AXICoreTDDDevPtr);
+                obj.setDeviceAttributeRAW('dma_gateing_mode', ValueStr, obj.AXICoreTDDDevice);
             end
         end
         
         function result = get.Enable(obj)
             result = 0;
-            if ~isempty(obj.AXICoreTDDDevPtr)
-                result = str2double(obj.getDeviceAttributeRAW('en', 128, obj.AXICoreTDDDevPtr));
+            if ~isempty(obj.AXICoreTDDDevice)
+                result = str2double(obj.getDeviceAttributeRAW('en', 128, obj.AXICoreTDDDevice));
             end
         end
         
         function set.Enable(obj, value)
             if obj.ConnectedToDevice
-                obj.setDeviceAttributeRAW('en', num2str(value), obj.AXICoreTDDDevPtr);
+                obj.setDeviceAttributeRAW('en', num2str(value), obj.AXICoreTDDDevice);
             end
         end
         
         function result = get.EnableMode(obj)
             result = 3;
-            if ~isempty(obj.AXICoreTDDDevPtr)
-                ResultStr = obj.getDeviceAttributeRAW('en_mode', 128, obj.AXICoreTDDDevPtr);
+            if ~isempty(obj.AXICoreTDDDevice)
+                ResultStr = obj.getDeviceAttributeRAW('en_mode', 128, obj.AXICoreTDDDevice);
                 switch ResultStr
                     case "rx_only"
                         result = 1;
@@ -192,46 +192,46 @@ classdef AXICoreTDD < adi.common.Attribute
                     case 3
                         ValueStr = 'rx_tx';
                 end
-                obj.setDeviceAttributeRAW('en_mode', ValueStr, obj.AXICoreTDDDevPtr);
+                obj.setDeviceAttributeRAW('en_mode', ValueStr, obj.AXICoreTDDDevice);
             end
         end
         
         function result = get.FrameLength(obj)
             result = 0;
-            if ~isempty(obj.AXICoreTDDDevPtr)
-                result = str2double(obj.getDeviceAttributeRAW('frame_length_ms', 128, obj.AXICoreTDDDevPtr));
+            if ~isempty(obj.AXICoreTDDDevice)
+                result = str2double(obj.getDeviceAttributeRAW('frame_length_ms', 128, obj.AXICoreTDDDevice));
             end
         end
         
         function set.FrameLength(obj, value)
             if obj.ConnectedToDevice
-                obj.setDeviceAttributeRAW('frame_length_ms', num2str(value), obj.AXICoreTDDDevPtr);
+                obj.setDeviceAttributeRAW('frame_length_ms', num2str(value), obj.AXICoreTDDDevice);
             end
         end
         
         function result = get.Secondary(obj)
             result = 0;
-            if ~isempty(obj.AXICoreTDDDevPtr)
-                result = str2double(obj.getDeviceAttributeRAW('secondary', 128, obj.AXICoreTDDDevPtr));
+            if ~isempty(obj.AXICoreTDDDevice)
+                result = str2double(obj.getDeviceAttributeRAW('secondary', 128, obj.AXICoreTDDDevice));
             end
         end
         
         function set.Secondary(obj, value)
             if obj.ConnectedToDevice
-                obj.setDeviceAttributeRAW('secondary', num2str(value), obj.AXICoreTDDDevPtr);
+                obj.setDeviceAttributeRAW('secondary', num2str(value), obj.AXICoreTDDDevice);
             end
         end
         
         function result = get.SyncTerminalType(obj)
             result = 0;
-            if ~isempty(obj.AXICoreTDDDevPtr)
-                result = str2double(obj.getDeviceAttributeRAW('sync_terminal_type', 128, obj.AXICoreTDDDevPtr));
+            if ~isempty(obj.AXICoreTDDDevice)
+                result = str2double(obj.getDeviceAttributeRAW('sync_terminal_type', 128, obj.AXICoreTDDDevice));
             end
         end
         
         function set.SyncTerminalType(obj, value)
             if obj.ConnectedToDevice
-                obj.setDeviceAttributeRAW('sync_terminal_type', num2str(value), obj.AXICoreTDDDevPtr);
+                obj.setDeviceAttributeRAW('sync_terminal_type', num2str(value), obj.AXICoreTDDDevice);
             end
         end
     end
@@ -240,211 +240,202 @@ classdef AXICoreTDD < adi.common.Attribute
     methods
         function result = get.TxDPoff(obj)
             result = [0 0];
-            if ~isempty(obj.AXICoreTDDDevPtr)
-                result(1) = str2double(obj.getAttributeRAW('data0', 'dp_off_ms', true, obj.AXICoreTDDDevPtr));
-                result(2) = str2double(obj.getAttributeRAW('data1', 'dp_off_ms', true, obj.AXICoreTDDDevPtr));
+            if ~isempty(obj.AXICoreTDDDevice)
+                result(1) = str2double(obj.getAttributeRAW('data0', 'dp_off_ms', true, obj.AXICoreTDDDevice));
+                result(2) = str2double(obj.getAttributeRAW('data1', 'dp_off_ms', true, obj.AXICoreTDDDevice));
             end
         end
         
         function set.TxDPoff(obj, value)
             validateattributes(value, {'double', 'single', 'uint32'}, {'size', [1 2]});
             if obj.ConnectedToDevice
-                obj.setAttributeRAW('data0', 'dp_off_ms', num2str(value(1)), true, obj.AXICoreTDDDevPtr);
-                obj.setAttributeRAW('data1', 'dp_off_ms', num2str(value(2)), true, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data0', 'dp_off_ms', num2str(value(1)), true, obj.AXICoreTDDDevice);
+                obj.setAttributeRAW('data1', 'dp_off_ms', num2str(value(2)), true, obj.AXICoreTDDDevice);
             end
         end
         
         function result = get.TxDPon(obj)
             result = [0 0];
-            if ~isempty(obj.AXICoreTDDDevPtr)
-                result(1) = str2double(obj.getAttributeRAW('data0', 'dp_on_ms', true, obj.AXICoreTDDDevPtr));
-                result(2) = str2double(obj.getAttributeRAW('data1', 'dp_on_ms', true, obj.AXICoreTDDDevPtr));
+            if ~isempty(obj.AXICoreTDDDevice)
+                result(1) = str2double(obj.getAttributeRAW('data0', 'dp_on_ms', true, obj.AXICoreTDDDevice));
+                result(2) = str2double(obj.getAttributeRAW('data1', 'dp_on_ms', true, obj.AXICoreTDDDevice));
             end
         end
         
         function set.TxDPon(obj, value)
             validateattributes(value, {'double', 'single', 'uint32'}, {'size', [1 2]});
             if obj.ConnectedToDevice
-                obj.setAttributeRAW('data0', 'dp_on_ms', num2str(value(1)), true, obj.AXICoreTDDDevPtr);
-                obj.setAttributeRAW('data1', 'dp_on_ms', num2str(value(2)), true, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data0', 'dp_on_ms', num2str(value(1)), true, obj.AXICoreTDDDevice);
+                obj.setAttributeRAW('data1', 'dp_on_ms', num2str(value(2)), true, obj.AXICoreTDDDevice);
             end
         end
         
         function result = get.TxOff(obj)
             result = [0 0];
-            if ~isempty(obj.AXICoreTDDDevPtr)
-                result(1) = str2double(obj.getAttributeRAW('data0', 'off_ms', true, obj.AXICoreTDDDevPtr));
-                result(2) = str2double(obj.getAttributeRAW('data1', 'off_ms', true, obj.AXICoreTDDDevPtr));
+            if ~isempty(obj.AXICoreTDDDevice)
+                result(1) = str2double(obj.getAttributeRAW('data0', 'off_ms', true, obj.AXICoreTDDDevice));
+                result(2) = str2double(obj.getAttributeRAW('data1', 'off_ms', true, obj.AXICoreTDDDevice));
             end
         end
         
         function set.TxOff(obj, value)
             validateattributes(value, {'double', 'single', 'uint32'}, {'size', [1 2]});
             if obj.ConnectedToDevice
-                obj.setAttributeRAW('data0', 'off_ms', num2str(value(1)), true, obj.AXICoreTDDDevPtr);
-                obj.setAttributeRAW('data1', 'off_ms', num2str(value(2)), true, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data0', 'off_ms', num2str(value(1)), true, obj.AXICoreTDDDevice);
+                obj.setAttributeRAW('data1', 'off_ms', num2str(value(2)), true, obj.AXICoreTDDDevice);
             end
         end
         
         function result = get.TxOn(obj)
             result = [0 0];
-            if ~isempty(obj.AXICoreTDDDevPtr)
-                result(1) = str2double(obj.getAttributeRAW('data0', 'on_ms', true, obj.AXICoreTDDDevPtr));
-                result(2) = str2double(obj.getAttributeRAW('data1', 'on_ms', true, obj.AXICoreTDDDevPtr));
+            if ~isempty(obj.AXICoreTDDDevice)
+                result(1) = str2double(obj.getAttributeRAW('data0', 'on_ms', true, obj.AXICoreTDDDevice));
+                result(2) = str2double(obj.getAttributeRAW('data1', 'on_ms', true, obj.AXICoreTDDDevice));
             end
         end
         
         function set.TxOn(obj, value)
             validateattributes(value, {'double', 'single', 'uint32'}, {'size', [1 2]});
             if obj.ConnectedToDevice
-                obj.setAttributeRAW('data0', 'on_ms', num2str(value(1)), true, obj.AXICoreTDDDevPtr);
-                obj.setAttributeRAW('data1', 'on_ms', num2str(value(2)), true, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data0', 'on_ms', num2str(value(1)), true, obj.AXICoreTDDDevice);
+                obj.setAttributeRAW('data1', 'on_ms', num2str(value(2)), true, obj.AXICoreTDDDevice);
             end
         end
         
         function result = get.TxVCOoff(obj)
             result = [0 0];
-            if ~isempty(obj.AXICoreTDDDevPtr)
-                result(1) = str2double(obj.getAttributeRAW('data0', 'vco_off_ms', true, obj.AXICoreTDDDevPtr));
-                result(2) = str2double(obj.getAttributeRAW('data1', 'vco_off_ms', true, obj.AXICoreTDDDevPtr));
+            if ~isempty(obj.AXICoreTDDDevice)
+                result(1) = str2double(obj.getAttributeRAW('data0', 'vco_off_ms', true, obj.AXICoreTDDDevice));
+                result(2) = str2double(obj.getAttributeRAW('data1', 'vco_off_ms', true, obj.AXICoreTDDDevice));
             end
         end
         
         function set.TxVCOoff(obj, value)
             validateattributes(value, {'double', 'single', 'uint32'}, {'size', [1 2]});
             if obj.ConnectedToDevice
-                obj.setAttributeRAW('data0', 'vco_off_ms', num2str(value(1)), true, obj.AXICoreTDDDevPtr);
-                obj.setAttributeRAW('data1', 'vco_off_ms', num2str(value(2)), true, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data0', 'vco_off_ms', num2str(value(1)), true, obj.AXICoreTDDDevice);
+                obj.setAttributeRAW('data1', 'vco_off_ms', num2str(value(2)), true, obj.AXICoreTDDDevice);
             end
         end
         
         function result = get.TxVCOon(obj)
             result = [0 0];
-            if ~isempty(obj.AXICoreTDDDevPtr)
-                result(1) = str2double(obj.getAttributeRAW('data0', 'vco_on_ms', true, obj.AXICoreTDDDevPtr));
-                result(2) = str2double(obj.getAttributeRAW('data1', 'vco_on_ms', true, obj.AXICoreTDDDevPtr));
+            if ~isempty(obj.AXICoreTDDDevice)
+                result(1) = str2double(obj.getAttributeRAW('data0', 'vco_on_ms', true, obj.AXICoreTDDDevice));
+                result(2) = str2double(obj.getAttributeRAW('data1', 'vco_on_ms', true, obj.AXICoreTDDDevice));
             end
         end
         
         function set.TxVCOon(obj, value)
             validateattributes(value, {'double', 'single', 'uint32'}, {'size', [1 2]});
             if obj.ConnectedToDevice
-                obj.setAttributeRAW('data0', 'vco_on_ms', num2str(value(1)), true, obj.AXICoreTDDDevPtr);
-                obj.setAttributeRAW('data1', 'vco_on_ms', num2str(value(2)), true, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data0', 'vco_on_ms', num2str(value(1)), true, obj.AXICoreTDDDevice);
+                obj.setAttributeRAW('data1', 'vco_on_ms', num2str(value(2)), true, obj.AXICoreTDDDevice);
             end
         end
         
         function result = get.RxDPoff(obj)
             result = [0 0];
-            if ~isempty(obj.AXICoreTDDDevPtr)
-                result(1) = str2double(obj.getAttributeRAW('data0', 'dp_off_ms', false, obj.AXICoreTDDDevPtr));
-                result(2) = str2double(obj.getAttributeRAW('data1', 'dp_off_ms', false, obj.AXICoreTDDDevPtr));
+            if ~isempty(obj.AXICoreTDDDevice)
+                result(1) = str2double(obj.getAttributeRAW('data0', 'dp_off_ms', false, obj.AXICoreTDDDevice));
+                result(2) = str2double(obj.getAttributeRAW('data1', 'dp_off_ms', false, obj.AXICoreTDDDevice));
             end
         end
         
         function set.RxDPoff(obj, value)
             validateattributes(value, {'double', 'single', 'uint32'}, {'size', [1 2]});
             if obj.ConnectedToDevice
-                obj.setAttributeRAW('data0', 'dp_off_ms', num2str(value(1)), false, obj.AXICoreTDDDevPtr);
-                obj.setAttributeRAW('data1', 'dp_off_ms', num2str(value(2)), false, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data0', 'dp_off_ms', num2str(value(1)), false, obj.AXICoreTDDDevice);
+                obj.setAttributeRAW('data1', 'dp_off_ms', num2str(value(2)), false, obj.AXICoreTDDDevice);
             end
         end
         
         function result = get.RxDPon(obj)
             result = [0 0];
-            if ~isempty(obj.AXICoreTDDDevPtr)
-                result(1) = str2double(obj.getAttributeRAW('data0', 'dp_on_ms', false, obj.AXICoreTDDDevPtr));
-                result(2) = str2double(obj.getAttributeRAW('data1', 'dp_on_ms', false, obj.AXICoreTDDDevPtr));
+            if ~isempty(obj.AXICoreTDDDevice)
+                result(1) = str2double(obj.getAttributeRAW('data0', 'dp_on_ms', false, obj.AXICoreTDDDevice));
+                result(2) = str2double(obj.getAttributeRAW('data1', 'dp_on_ms', false, obj.AXICoreTDDDevice));
             end
         end
         
         function set.RxDPon(obj, value)
             validateattributes(value, {'double', 'single', 'uint32'}, {'size', [1 2]});
             if obj.ConnectedToDevice
-                obj.setAttributeRAW('data0', 'dp_on_ms', num2str(value(1)), false, obj.AXICoreTDDDevPtr);
-                obj.setAttributeRAW('data1', 'dp_on_ms', num2str(value(2)), false, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data0', 'dp_on_ms', num2str(value(1)), false, obj.AXICoreTDDDevice);
+                obj.setAttributeRAW('data1', 'dp_on_ms', num2str(value(2)), false, obj.AXICoreTDDDevice);
             end
         end
         
         function result = get.RxOff(obj)
             result = [0 0];
-            if ~isempty(obj.AXICoreTDDDevPtr)
-                result(1) = str2double(obj.getAttributeRAW('data0', 'off_ms', false, obj.AXICoreTDDDevPtr));
-                result(2) = str2double(obj.getAttributeRAW('data1', 'off_ms', false, obj.AXICoreTDDDevPtr));
+            if ~isempty(obj.AXICoreTDDDevice)
+                result(1) = str2double(obj.getAttributeRAW('data0', 'off_ms', false, obj.AXICoreTDDDevice));
+                result(2) = str2double(obj.getAttributeRAW('data1', 'off_ms', false, obj.AXICoreTDDDevice));
             end
         end
         
         function set.RxOff(obj, value)
             validateattributes(value, {'double', 'single', 'uint32'}, {'size', [1 2]});
             if obj.ConnectedToDevice
-                obj.setAttributeRAW('data0', 'off_ms', num2str(value(1)), false, obj.AXICoreTDDDevPtr);
-                obj.setAttributeRAW('data1', 'off_ms', num2str(value(2)), false, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data0', 'off_ms', num2str(value(1)), false, obj.AXICoreTDDDevice);
+                obj.setAttributeRAW('data1', 'off_ms', num2str(value(2)), false, obj.AXICoreTDDDevice);
             end
         end
         
         function result = get.RxOn(obj)
             result = [0 0];
-            if ~isempty(obj.AXICoreTDDDevPtr)
-                result(1) = str2double(obj.getAttributeRAW('data0', 'on_ms', false, obj.AXICoreTDDDevPtr));
-                result(2) = str2double(obj.getAttributeRAW('data1', 'on_ms', false, obj.AXICoreTDDDevPtr));
+            if ~isempty(obj.AXICoreTDDDevice)
+                result(1) = str2double(obj.getAttributeRAW('data0', 'on_ms', false, obj.AXICoreTDDDevice));
+                result(2) = str2double(obj.getAttributeRAW('data1', 'on_ms', false, obj.AXICoreTDDDevice));
             end
         end
         
         function set.RxOn(obj, value)
             validateattributes(value, {'double', 'single', 'uint32'}, {'size', [1 2]});
             if obj.ConnectedToDevice
-                obj.setAttributeRAW('data0', 'on_ms', num2str(value(1)), false, obj.AXICoreTDDDevPtr);
-                obj.setAttributeRAW('data1', 'on_ms', num2str(value(2)), false, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data0', 'on_ms', num2str(value(1)), false, obj.AXICoreTDDDevice);
+                obj.setAttributeRAW('data1', 'on_ms', num2str(value(2)), false, obj.AXICoreTDDDevice);
             end
         end
         
         function result = get.RxVCOoff(obj)
             result = [0 0];
-            if ~isempty(obj.AXICoreTDDDevPtr)
-                result(1) = str2double(obj.getAttributeRAW('data0', 'vco_off_ms', false, obj.AXICoreTDDDevPtr));
-                result(2) = str2double(obj.getAttributeRAW('data1', 'vco_off_ms', false, obj.AXICoreTDDDevPtr));
+            if ~isempty(obj.AXICoreTDDDevice)
+                result(1) = str2double(obj.getAttributeRAW('data0', 'vco_off_ms', false, obj.AXICoreTDDDevice));
+                result(2) = str2double(obj.getAttributeRAW('data1', 'vco_off_ms', false, obj.AXICoreTDDDevice));
             end
         end
         
         function set.RxVCOoff(obj, value)
             validateattributes(value, {'double', 'single', 'uint32'}, {'size', [1 2]});
             if obj.ConnectedToDevice
-                obj.setAttributeRAW('data0', 'vco_off_ms', num2str(value(1)), false, obj.AXICoreTDDDevPtr);
-                obj.setAttributeRAW('data1', 'vco_off_ms', num2str(value(2)), false, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data0', 'vco_off_ms', num2str(value(1)), false, obj.AXICoreTDDDevice);
+                obj.setAttributeRAW('data1', 'vco_off_ms', num2str(value(2)), false, obj.AXICoreTDDDevice);
             end
         end
         
         function result = get.RxVCOon(obj)
             result = [0 0];
-            if ~isempty(obj.AXICoreTDDDevPtr)
-                result(1) = str2double(obj.getAttributeRAW('data0', 'vco_on_ms', false, obj.AXICoreTDDDevPtr));
-                result(2) = str2double(obj.getAttributeRAW('data1', 'vco_on_ms', false, obj.AXICoreTDDDevPtr));
+            if ~isempty(obj.AXICoreTDDDevice)
+                result(1) = str2double(obj.getAttributeRAW('data0', 'vco_on_ms', false, obj.AXICoreTDDDevice));
+                result(2) = str2double(obj.getAttributeRAW('data1', 'vco_on_ms', false, obj.AXICoreTDDDevice));
             end
         end
         
         function set.RxVCOon(obj, value)
             validateattributes(value, {'double', 'single', 'uint32'}, {'size', [1 2]});
             if obj.ConnectedToDevice
-                obj.setAttributeRAW('data0', 'vco_on_ms', num2str(value(1)), false, obj.AXICoreTDDDevPtr);
-                obj.setAttributeRAW('data1', 'vco_on_ms', num2str(value(2)), false, obj.AXICoreTDDDevPtr);
+                obj.setAttributeRAW('data0', 'vco_on_ms', num2str(value(1)), false, obj.AXICoreTDDDevice);
+                obj.setAttributeRAW('data1', 'vco_on_ms', num2str(value(2)), false, obj.AXICoreTDDDevice);
             end
         end
     end
     
     methods (Hidden, Access = protected)
         function setupInit(obj)
-            numDevs = obj.iio_context_get_devices_count(obj.iioCtx);
-            for dn = 1:length(obj.AXICoreTDDDevPtrNames)
-                for k = 1:numDevs
-                    devPtr = obj.iio_context_get_device(obj.iioCtx, k-1);
-                    name = obj.iio_device_get_name(devPtr);
-                    if strcmpi(obj.AXICoreTDDDevPtrNames{dn},name)
-                        obj.AXICoreTDDDevPtr = devPtr;
-                    end
-                end
-                if isempty(obj.AXICoreTDDDevPtr)
-                   error('%s not found',obj.AXICoreTDDDevPtrNames{dn});
-                end
+            obj.AXICoreTDDDevice = obj.getDev(obj.AXICoreTDDDeviceName);
+            if isempty(obj.AXICoreTDDDevice)
+               error('%s not found',obj.AXICoreTDDDeviceName);
             end
         end
     end

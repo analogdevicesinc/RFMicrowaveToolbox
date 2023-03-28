@@ -111,15 +111,7 @@ classdef ADF4371 < adi.common.Attribute & adi.common.Rx
     
     methods (Hidden, Access = protected)
         function setupInit(obj)
-            numDevs = obj.iio_context_get_devices_count(obj.iioCtx);
-            obj.ADF4371Device = cell(1,length(obj.ADF4371DeviceName));            
-            for k = 1:numDevs
-                devPtr = obj.iio_context_get_device(obj.iioCtx, k-1);
-                name = obj.iio_device_get_name(devPtr);
-                if strcmpi(obj.ADF4371DeviceName,name)
-                    obj.ADF4371Device = devPtr;
-                end
-            end
+            obj.ADF4371Device = obj.getDev(obj.ADF4371DeviceName);
             if isempty(obj.ADF4371Device)
                error('%s not found',obj.ADF4371DeviceName);
             end            
