@@ -332,7 +332,7 @@ classdef StingrayTests < HardwareTests
             testCase.sray.RxPowerDown = values;
             rvalues = testCase.sray.RxPowerDown;
             testCase.verifyEqual(rvalues,values);
-            testCase.sray.RxPowerDown = false(size(testCase.sray.ElementToChipChannelMap));
+            testCase.sray.RxPowerDown = true(size(testCase.sray.ElementToChipChannelMap));
         end
         
         function testRxGain(testCase)
@@ -370,7 +370,7 @@ classdef StingrayTests < HardwareTests
             testCase.sray.TxPowerDown = values;
             rvalues = testCase.sray.TxPowerDown;
             testCase.verifyEqual(rvalues,values);
-            testCase.sray.TxPowerDown = false(size(testCase.sray.ElementToChipChannelMap));
+            testCase.sray.TxPowerDown = true(size(testCase.sray.ElementToChipChannelMap));
         end
         
         function testTxGain(testCase)
