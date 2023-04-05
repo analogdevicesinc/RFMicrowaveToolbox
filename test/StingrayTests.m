@@ -21,7 +21,7 @@ classdef StingrayTests < HardwareTests
         end
     end
     
-    % Device Attribute Tests
+    % ADAR1000 Device Attribute Tests
     methods (Test)
         function testMode(testCase)
             values = cell(size(testCase.sray.SubarrayToChipMap));
@@ -281,7 +281,7 @@ classdef StingrayTests < HardwareTests
         end
     end
     
-    % Channel Attribute Tests
+    % ADAR1000 Channel Attribute Tests
     methods (Test)
         
         function testDetectorEnable(testCase)
@@ -437,6 +437,85 @@ classdef StingrayTests < HardwareTests
             rvalues = testCase.sray.TxSequencerStop;
             testCase.verifyEqual(rvalues,values);
             testCase.sray.TxSequencerStop = false(size(testCase.sray.ElementToChipChannelMap));
+        end
+    end
+
+    % XUD1a tests
+    methods (Test)
+        function testSelectChannelSetMode(testCase)
+            SelectChannelSetMode = [...
+                "A_Tx", "A_RxLG", "A_RxHG", ...
+                "B_Tx", "B_RxLG", "B_RxHG", ...
+                "C_Tx", "C_RxLG", "C_RxHG", ...
+                "D_Tx", "D_RxLG", "D_RxHG"];
+            index = randi(numel(SelectChannelSetMode));
+            testCase.sray.SelectChannelSetMode = SelectChannelSetMode(index);
+
+            % check Tx/Rx selected
+            % check Rx set to Low Gain/High Gain
+            switch index
+                case {1, 2, 3}
+                    TxRxValue = testCase.sray.TXRX0;
+                case {4, 5, 6}
+                    TxRxValue = testCase.sray.TXRX1;
+                case {7, 8, 9}
+                    TxRxValue = testCase.sray.TXRX2;
+                case {10, 11, 12}
+                    TxRxValue = testCase.sray.TXRX3;
+            end
+            RxGainModeValue = testCase.sray.RxGainMode;
+
+            if any([1, 4, 7, 10] == index)
+                testCase.verifyEqual(TxRxValue, 0);
+                testCase.verifyEqual(RxGainModeValue, 0);
+            else
+                testCase.verifyEqual(TxRxValue, 1);
+                if contains(SelectChannelSetMode(index), 'LG')
+                    testCase.verifyEqual(RxGainModeValue, 0);
+                else
+                    testCase.verifyEqual(RxGainModeValue, 1);
+                end
+            end
+        end
+
+        function testPllOutputSel(testCase)
+            value = randi(2)-1;
+            testCase.sray.PllOutputSel = value;
+            rvalue = testCase.sray.PllOutputSel;
+            testCase.verifyEqual(rvalue,value);
+            testCase.sray.PllOutputSel = 1;
+        end
+    end
+
+    % ADF4371 tests
+    methods (Test)
+        function testADF4371Name(testCase)
+            ADF4371Name = ["RF16x", "RF32x"];
+            index = randi(numel(ADF4371Name));
+            value = ADF4371Name(index);
+            testCase.sray.ADF4371Name = value;
+            rvalue = testCase.sray.ADF4371Name;
+            testCase.verifyEqual(rvalue,value);
+            testCase.sray.ADF4371Name = "RF16x";
+        end
+
+        function testADF4371Frequency(testCase)
+            freq_a = 8000;
+            freq_b = 16000;
+            freq = (freq_b-freq_a).*rand(1,1) + freq_a;
+            ADF4371Frequency = freq*1e6;
+            testCase.sray.ADF4371Frequency = ADF4371Frequency;
+            rvalue = testCase.sray.ADF4371Frequency;
+            testCase.verifyEqual(rvalue,ADF4371Frequency);
+            testCase.sray.ADF4371Frequency = 15000000000;
+        end
+
+        function testADF4371Phase(testCase)
+            value = randi(359999);
+            testCase.sray.ADF4371Phase = value;
+            rvalue = testCase.sray.ADF4371Phase;
+            testCase.verifyEqual(rvalue,value);
+            testCase.sray.ADF4371Phase = 359999;
         end
     end
 end
