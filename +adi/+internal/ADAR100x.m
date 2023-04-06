@@ -450,7 +450,8 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
 
                         if strcmpi(AttrClass, 'logical')
                             obj.setAttributeBool(channel, attr, ...
-                                values(r, c), isOutput, obj.iioDevices{devIndx});
+                                values(r, c), isOutput, obj.iioDevices{devIndx},...
+                                obj.EnableReadCheckOnWrite);
                         elseif strcmpi(AttrClass, 'raw')
                             if iscell(values)
                                 value = values{r,c};
@@ -458,7 +459,8 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                                 value = values(r, c);
                             end
                             obj.setAttributeRAW(channel, attr, ...
-                                value, isOutput, obj.iioDevices{devIndx});
+                                value, isOutput, obj.iioDevices{devIndx},...
+                                obj.EnableReadCheckOnWrite);
                         elseif strcmpi(AttrClass, 'int32') || strcmpi(AttrClass, 'int64')
                             obj.setAttributeLongLong(channel, attr, ...
                                 values(r, c), isOutput, Tol, obj.iioDevices{devIndx},...
@@ -525,7 +527,18 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                     end
                 end
             end
-        end        
+        end
+
+        function setAllChipsDeviceAttributeLongLong(obj, attr, values)
+            if obj.ConnectedToDevice
+                for r = 1:size(obj.SubarrayToChipMap,1)
+                    for c = 1:size(obj.SubarrayToChipMap,2)
+                        devIndx = obj.SubarrayToChipMap(r,c);
+                        obj.setDeviceAttributeLongLong(attr, values(r,c), obj.iioDevices{devIndx});
+                    end
+                end
+            end
+        end
     end
     
     methods
@@ -675,6 +688,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         function set.Mode(obj, values)
             RxEnableMat = zeros(size(obj.SubarrayToChipMap));
             TxEnableMat = zeros(size(obj.SubarrayToChipMap));
+            TRspiMat = zeros(size(obj.SubarrayToChipMap));
 
             for r = 1:size(obj.SubarrayToChipMap,1)
                 for c = 1:size(obj.SubarrayToChipMap,2)
@@ -688,18 +702,24 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                     else
                         if strcmpi(values{r,c}, 'Tx')
                             RxEnableMat(r,c) = false;
-                            TxEnableMat(r,c) = true;                        
+                            TxEnableMat(r,c) = true;
+                            TRspiMat(r,c) = true;
                         else
                             RxEnableMat(r,c) = true;
                             TxEnableMat(r,c) = false;
+                            TRspiMat(r,c) = false;
                         end
                     end
                 end
             end
+            % write to rx_en/tx_ex attributes
             values_tmp = RxEnableMat>0;
             setAllChipsDeviceAttributeRAW(obj, 'rx_en', values_tmp, true);
             values_tmp = TxEnableMat>0;
             setAllChipsDeviceAttributeRAW(obj, 'tx_en', values_tmp, true);
+
+            % write to tr_spi attributes
+            setAllChipsDeviceAttributeLongLong(obj, 'tr_spi', TRspiMat);
             obj.Mode = values;
         end
                 
@@ -1171,6 +1191,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             values = obj.Mode;
             RxEnableMat = zeros(size(obj.SubarrayToChipMap));
             TxEnableMat = zeros(size(obj.SubarrayToChipMap));
+            TRspiMat = ones(size(obj.SubarrayToChipMap));
 
             for r = 1:size(obj.SubarrayToChipMap,1)
                 for c = 1:size(obj.SubarrayToChipMap,2)
@@ -1185,9 +1206,11 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                         if strcmpi(values{r,c}, 'Tx')
                             RxEnableMat(r,c) = false;
                             TxEnableMat(r,c) = true;
+                            TRspiMat(r,c) = true;
                         else
                             RxEnableMat(r,c) = true;
                             TxEnableMat(r,c) = false;
+                            TRspiMat(r,c) = false;
                         end
                     end
                 end
@@ -1196,6 +1219,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             setAllChipsDeviceAttributeRAW(obj, 'rx_en', values_tmp, true);
             values_tmp = TxEnableMat>0;
             setAllChipsDeviceAttributeRAW(obj, 'tx_en', values_tmp, true);
+            setAllChipsDeviceAttributeLongLong(obj, 'tr_spi', TRspiMat);
             setAllChipsDeviceAttributeRAW(obj, 'beam_mem_enable', obj.BeamMemEnable, true);
 
             setAllChipsDeviceAttributeRAW(obj, 'bias_ctrl', obj.CellArrayToArray(obj.BiasDACMode, {'Toggle','On'}, [1,0]), true);
@@ -1231,12 +1255,12 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             setAllChipsChannelAttribute(obj, obj.RxAttn, 'attenuation', false, 'logical');
             setAllChipsChannelAttribute(obj, obj.RxBeamState, 'beam_pos_load', false, 'int32');
             setAllChipsChannelAttribute(obj, obj.RxPowerDown, 'powerdown', false, 'logical');
-            setAllChipsChannelAttribute(obj, obj.RxGain, 'hardwaregain', false, 'double', 128);warning('FIXME LATER')
+            setAllChipsChannelAttribute(obj, obj.RxGain, 'hardwaregain', false, 'double', 128);
             setAllChipsChannelAttribute(obj, obj.RxPhase, 'phase', false, 'double', 4);
             setAllChipsChannelAttribute(obj, obj.TxAttn, 'attenuation', true, 'logical');
             setAllChipsChannelAttribute(obj, obj.TxBeamState, 'beam_pos_load', true, 'int32');
             setAllChipsChannelAttribute(obj, obj.TxPowerDown, 'powerdown', true, 'logical');
-            setAllChipsChannelAttribute(obj, obj.TxGain, 'hardwaregain', true, 'double',128);warning('FIXME LATER')
+            setAllChipsChannelAttribute(obj, obj.TxGain, 'hardwaregain', true, 'double',128);
             setAllChipsChannelAttribute(obj, obj.TxPhase, 'phase', true, 'double', 4);
             setAllChipsChannelAttribute(obj, obj.RxSequencerStart, 'sequence_start', false, 'logical');
             setAllChipsChannelAttribute(obj, obj.RxSequencerStop, 'sequence_end', false, 'logical');
