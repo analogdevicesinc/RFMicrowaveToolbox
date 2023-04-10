@@ -1,5 +1,5 @@
-classdef AXICoreTDD < adi.common.Attribute
-    % ADF4371 Wideband Synthesizer with Integrated VCO
+classdef AXICoreTDD < adi.common.Attribute & adi.common.Rx
+    % AXICoreTDD
     %
     % Reference https://wiki.analog.com/resources/fpga/docs/axi_tdd
 
