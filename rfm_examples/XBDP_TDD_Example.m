@@ -110,9 +110,9 @@ sray.TxOn = [0 0] ; %MxFE TX Enable Frame Start
 sray.TxOff = [100e-3 0]; %MxFE TX Enable Frame Stop
 sray.TxDPon = [0 0] ; %MxFE TX Datapath Frame Start
 sray.TxDPoff = [100e-3 0] ; %MxFE TX Datapath Frame Stop
-sray.RxOn = [101e-5 0]; %MxFE RX Enable Frame Start
+sray.RxOn = [101e-3 0]; %MxFE RX Enable Frame Start
 sray.RxOff = [1 0]; %MxFE RX Enable Frame Stop
-sray.RxDPon = [101e-5 0] ; %MxFE RX Datapath Frame Start
+sray.RxDPon = [101e-3 0] ; %MxFE RX Datapath Frame Start
 sray.RxDPoff = [1 0] ; %MxFE RX Datapath Frame Stop
 
 %units are in ms. Settings configure a 1 kHz PRF with 10% duty cycle

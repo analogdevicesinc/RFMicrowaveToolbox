@@ -1,5 +1,5 @@
 % Analog Devices, Inc. High Speed Converter Toolbox
-% Version 21.2.1 (R2021b)
+% Version 21.2.2 (R2021b)
 %
 % ==== Table of Contents (TOC) ====
 %
