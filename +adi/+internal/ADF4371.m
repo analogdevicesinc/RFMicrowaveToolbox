@@ -6,7 +6,7 @@ classdef ADF4371 < adi.common.Attribute & adi.common.Rx
         %ADF4371Name ADF4371 Name
         %   Configure programmable divider for ADF4371
         %   Options: 'RF16x' or 'RF32x'
-        ADF4371Name = 'RF16x'
+        ADF4371Name (1,1) string {mustBeMember(ADF4371Name, ["RF16x", "RF32x"])} = "RF16x";
         %ADF4371Frequency ADF4371 Frequency 
         %   Configure ADF4371 output frequency
         %   Allowed range:
@@ -46,7 +46,6 @@ classdef ADF4371 < adi.common.Attribute & adi.common.Rx
         
     methods
         function set.ADF4371Name(obj, value)
-            obj.ADF4371Name = value;
             if obj.ConnectedToDevice                
                 switch value
                     % inverted logic to enable the correct channel
@@ -66,6 +65,7 @@ classdef ADF4371 < adi.common.Attribute & adi.common.Rx
                         error('Invalid setting chosen for ADF4371Name');
                 end
             end
+            obj.ADF4371Name = value;
         end
 
         function set.ADF4371Frequency(obj, value)
@@ -111,15 +111,7 @@ classdef ADF4371 < adi.common.Attribute & adi.common.Rx
     
     methods (Hidden, Access = protected)
         function setupInit(obj)
-            numDevs = obj.iio_context_get_devices_count(obj.iioCtx);
-            obj.ADF4371Device = cell(1,length(obj.ADF4371DeviceName));            
-            for k = 1:numDevs
-                devPtr = obj.iio_context_get_device(obj.iioCtx, k-1);
-                name = obj.iio_device_get_name(devPtr);
-                if strcmpi(obj.ADF4371DeviceName,name)
-                    obj.ADF4371Device = devPtr;
-                end
-            end
+            obj.ADF4371Device = obj.getDev(obj.ADF4371DeviceName);
             if isempty(obj.ADF4371Device)
                error('%s not found',obj.ADF4371DeviceName);
             end            

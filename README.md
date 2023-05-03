@@ -12,14 +12,15 @@ As with many open source packages, we use [GitHub](https://github.com/analogdevi
 
 | MATLAB Release |  Installer Package  |
 |:--------------:|:-------------------:|
-| R2021b         | <a href="http://swdownloads.analog.com/cse/toolboxes/trx/master/AnalogDevicesRFMicrowaveToolbox_v21.2.2.mltbx"><img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" data-canonical-src="https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" height="40" /></a>|
+| R2022a         | <a href="http://swdownloads.analog.com/cse/toolboxes/trx/master/AnalogDevicesRFMicrowaveToolbox_v22.1.1.mltbx"><img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" data-canonical-src="https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" height="40" /></a>|
 
 If you use it, and like it - please let us know. If you use it, and hate it - please let us know that too.
 
 ## Supported Tools and Releases
 
 We provide support across two releases of MATLAB. This does not mean older releases will not work but they are not maintained. Currently supported tools are:
-- Bug fixes and new features: MATLAB R2021b
+- Bug fixes and new features: MATLAB R2022a with 2021_R2 Kuiper 
+- Bug fixes: MATLAB R2021b with 2021_R1 Kuiper
 
 ## Support and Documentation
 
