@@ -507,7 +507,7 @@ classdef StingrayTests < HardwareTests
             testCase.sray.ADF4371Frequency = ADF4371Frequency;
             rvalue = testCase.sray.ADF4371Frequency;
             testCase.verifyEqual(rvalue,ADF4371Frequency);
-            testCase.sray.ADF4371Frequency = 15000000000;
+            testCase.sray.ADF4371Frequency = uint64(15000000000);
         end
 
         function testADF4371Phase(testCase)
