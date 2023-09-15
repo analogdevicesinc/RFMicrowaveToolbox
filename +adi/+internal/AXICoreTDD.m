@@ -12,15 +12,20 @@ classdef AXICoreTDD < adi.common.Attribute & adi.common.Rx
         CounterInt
         %DMAGateingMode DMA Gateing Mode
         %   Configure TDD DMA gate
-        %   0 - none, 1 - rx_only, 2 - tx_only, 3 - rx_tx
-        DMAGateingMode = 0;
+        %   - none
+        %   - rx_only
+        %   - tx_only
+        %   - rx_tx
+        DMAGateingMode = 'none';
         % Enable Enable TDD
         %   Enable or disable the TDD engine
         Enable
         %EnableMode Enable Mode
-        %   Configure TDD controller RX/TX mode
-        %   1 - rx_only, 2 - tx_only, 3 - rx_tx
-        EnableMode = 3;
+        %   Configure TDD controller RX/TX mode. Options are:
+        %   - rx_only
+        %   - tx_only
+        %   - rx_tx
+        EnableMode = 'rx_only';
         %FrameLength Frame Length
         %   TDD Frame Length
         FrameLength
@@ -87,10 +92,16 @@ classdef AXICoreTDD < adi.common.Attribute & adi.common.Rx
         AXICoreTDDDevPtr
     end
         
+    properties(Constant, Hidden)
+        EnableModeSet = matlab.system.StringSet({ ...
+            'rx_only', 'tx_only', 'rx_tx'});
+        DMAGateingModeSet = matlab.system.StringSet({ ...
+            'none','rx_only', 'tx_only', 'rx_tx'});
+    end
     % Get/Set Methods for Device Attributes
     methods
         function result = get.BurstCount(obj)
-            result = 0;
+            result = nan;
             if ~isempty(obj.AXICoreTDDDevPtr)
                 result = str2double(obj.getDeviceAttributeRAW('burst_count', 128, obj.AXICoreTDDDevPtr));
             end
@@ -103,7 +114,7 @@ classdef AXICoreTDD < adi.common.Attribute & adi.common.Rx
         end
         
         function result = get.CounterInt(obj)
-            result = 0;
+            result = nan;
             if ~isempty(obj.AXICoreTDDDevPtr)
                 result = str2double(obj.getDeviceAttributeRAW('counter_int', 128, obj.AXICoreTDDDevPtr));
             end
@@ -116,43 +127,20 @@ classdef AXICoreTDD < adi.common.Attribute & adi.common.Rx
         end
         
         function result = get.DMAGateingMode(obj)
-            result = 0;
+            result = nan;
             if ~isempty(obj.AXICoreTDDDevPtr)
-                ResultStr = obj.getDeviceAttributeRAW('dma_gateing_mode', 128, obj.AXICoreTDDDevPtr);
-                switch ResultStr
-                    case "none"
-                        result = 0;
-                    case "rx_only"
-                        result = 1;
-                    case "tx_only"
-                        result = 2;
-                    case "rx_tx"
-                        result = 3;
-                end
+                result = obj.getDeviceAttributeRAW('dma_gateing_mode', 128, obj.AXICoreTDDDevPtr);
             end
         end
         
         function set.DMAGateingMode(obj, value)
-            validateattributes( value, { 'double', 'single', 'uint32'}, ...
-                { 'real', 'nonnegative','scalar', 'finite', 'nonnan', 'nonempty','integer','>=',0,'<=',3}, ...
-                '', 'DMAGateingMode');
             if obj.ConnectedToDevice
-                switch value
-                    case 0
-                        ValueStr = 'none';
-                    case 1
-                        ValueStr = 'rx_only';
-                    case 2
-                        ValueStr = 'rx_only';
-                    case 3
-                        ValueStr = 'rx_tx';
-                end
-                obj.setDeviceAttributeRAW('dma_gateing_mode', ValueStr, obj.AXICoreTDDDevPtr);
+                obj.setDeviceAttributeRAW('dma_gateing_mode', value, obj.AXICoreTDDDevPtr);
             end
         end
         
         function result = get.Enable(obj)
-            result = 0;
+            result = nan;
             if ~isempty(obj.AXICoreTDDDevPtr)
                 result = str2double(obj.getDeviceAttributeRAW('en', 128, obj.AXICoreTDDDevPtr));
             end
@@ -165,39 +153,20 @@ classdef AXICoreTDD < adi.common.Attribute & adi.common.Rx
         end
         
         function result = get.EnableMode(obj)
-            result = 3;
-            if ~isempty(obj.AXICoreTDDDevPtr)
-                ResultStr = obj.getDeviceAttributeRAW('en_mode', 128, obj.AXICoreTDDDevPtr);
-                switch ResultStr
-                    case "rx_only"
-                        result = 1;
-                    case "tx_only"
-                        result = 2;
-                    case "rx_tx"
-                        result = 3;
-                end
+            result = nan;
+            if obj.ConnectedToDevice
+                result= obj.getDeviceAttributeRAW('en_mode', 128, obj.AXICoreTDDDevPtr);
             end
         end
         
         function set.EnableMode(obj, value)
-            validateattributes( value, { 'double', 'single', 'uint32'}, ...
-                { 'real', 'nonnegative','scalar', 'finite', 'nonnan', 'nonempty','integer','>=',1,'<=',3}, ...
-                '', 'EnableMode');
             if obj.ConnectedToDevice
-                switch value
-                    case 1
-                        ValueStr = 'rx_only';
-                    case 2
-                        ValueStr = 'rx_only';
-                    case 3
-                        ValueStr = 'rx_tx';
-                end
-                obj.setDeviceAttributeRAW('en_mode', ValueStr, obj.AXICoreTDDDevPtr);
+                obj.setDeviceAttributeRAW('en_mode', value, obj.AXICoreTDDDevPtr);
             end
         end
         
         function result = get.FrameLength(obj)
-            result = 0;
+            result = nan;
             if ~isempty(obj.AXICoreTDDDevPtr)
                 result = str2double(obj.getDeviceAttributeRAW('frame_length_ms', 128, obj.AXICoreTDDDevPtr));
             end
@@ -210,7 +179,7 @@ classdef AXICoreTDD < adi.common.Attribute & adi.common.Rx
         end
         
         function result = get.Secondary(obj)
-            result = 0;
+            result = nan;
             if ~isempty(obj.AXICoreTDDDevPtr)
                 result = str2double(obj.getDeviceAttributeRAW('secondary', 128, obj.AXICoreTDDDevPtr));
             end
@@ -223,7 +192,7 @@ classdef AXICoreTDD < adi.common.Attribute & adi.common.Rx
         end
         
         function result = get.SyncTerminalType(obj)
-            result = 0;
+            result = nan;
             if ~isempty(obj.AXICoreTDDDevPtr)
                 result = str2double(obj.getDeviceAttributeRAW('sync_terminal_type', 128, obj.AXICoreTDDDevPtr));
             end
@@ -239,7 +208,7 @@ classdef AXICoreTDD < adi.common.Attribute & adi.common.Rx
     % Get/Set Methods for Channel Attributes
     methods
         function result = get.TxDPoff(obj)
-            result = [0 0];
+            result = [nan nan];
             if ~isempty(obj.AXICoreTDDDevPtr)
                 result(1) = str2double(obj.getAttributeRAW('data0', 'dp_off_ms', true, obj.AXICoreTDDDevPtr));
                 result(2) = str2double(obj.getAttributeRAW('data1', 'dp_off_ms', true, obj.AXICoreTDDDevPtr));
@@ -255,7 +224,7 @@ classdef AXICoreTDD < adi.common.Attribute & adi.common.Rx
         end
         
         function result = get.TxDPon(obj)
-            result = [0 0];
+            result = [nan nan];
             if ~isempty(obj.AXICoreTDDDevPtr)
                 result(1) = str2double(obj.getAttributeRAW('data0', 'dp_on_ms', true, obj.AXICoreTDDDevPtr));
                 result(2) = str2double(obj.getAttributeRAW('data1', 'dp_on_ms', true, obj.AXICoreTDDDevPtr));
@@ -271,7 +240,7 @@ classdef AXICoreTDD < adi.common.Attribute & adi.common.Rx
         end
         
         function result = get.TxOff(obj)
-            result = [0 0];
+            result = [nan nan];
             if ~isempty(obj.AXICoreTDDDevPtr)
                 result(1) = str2double(obj.getAttributeRAW('data0', 'off_ms', true, obj.AXICoreTDDDevPtr));
                 result(2) = str2double(obj.getAttributeRAW('data1', 'off_ms', true, obj.AXICoreTDDDevPtr));
@@ -287,7 +256,7 @@ classdef AXICoreTDD < adi.common.Attribute & adi.common.Rx
         end
         
         function result = get.TxOn(obj)
-            result = [0 0];
+            result = [nan nan];
             if ~isempty(obj.AXICoreTDDDevPtr)
                 result(1) = str2double(obj.getAttributeRAW('data0', 'on_ms', true, obj.AXICoreTDDDevPtr));
                 result(2) = str2double(obj.getAttributeRAW('data1', 'on_ms', true, obj.AXICoreTDDDevPtr));
@@ -303,7 +272,7 @@ classdef AXICoreTDD < adi.common.Attribute & adi.common.Rx
         end
         
         function result = get.TxVCOoff(obj)
-            result = [0 0];
+            result = [nan nan];
             if ~isempty(obj.AXICoreTDDDevPtr)
                 result(1) = str2double(obj.getAttributeRAW('data0', 'vco_off_ms', true, obj.AXICoreTDDDevPtr));
                 result(2) = str2double(obj.getAttributeRAW('data1', 'vco_off_ms', true, obj.AXICoreTDDDevPtr));
@@ -319,7 +288,7 @@ classdef AXICoreTDD < adi.common.Attribute & adi.common.Rx
         end
         
         function result = get.TxVCOon(obj)
-            result = [0 0];
+            result = [nan nan];
             if ~isempty(obj.AXICoreTDDDevPtr)
                 result(1) = str2double(obj.getAttributeRAW('data0', 'vco_on_ms', true, obj.AXICoreTDDDevPtr));
                 result(2) = str2double(obj.getAttributeRAW('data1', 'vco_on_ms', true, obj.AXICoreTDDDevPtr));
@@ -335,7 +304,7 @@ classdef AXICoreTDD < adi.common.Attribute & adi.common.Rx
         end
         
         function result = get.RxDPoff(obj)
-            result = [0 0];
+            result = [nan nan];
             if ~isempty(obj.AXICoreTDDDevPtr)
                 result(1) = str2double(obj.getAttributeRAW('data0', 'dp_off_ms', false, obj.AXICoreTDDDevPtr));
                 result(2) = str2double(obj.getAttributeRAW('data1', 'dp_off_ms', false, obj.AXICoreTDDDevPtr));
@@ -351,7 +320,7 @@ classdef AXICoreTDD < adi.common.Attribute & adi.common.Rx
         end
         
         function result = get.RxDPon(obj)
-            result = [0 0];
+            result = [nan nan];
             if ~isempty(obj.AXICoreTDDDevPtr)
                 result(1) = str2double(obj.getAttributeRAW('data0', 'dp_on_ms', false, obj.AXICoreTDDDevPtr));
                 result(2) = str2double(obj.getAttributeRAW('data1', 'dp_on_ms', false, obj.AXICoreTDDDevPtr));
@@ -367,7 +336,7 @@ classdef AXICoreTDD < adi.common.Attribute & adi.common.Rx
         end
         
         function result = get.RxOff(obj)
-            result = [0 0];
+            result = [nan nan];
             if ~isempty(obj.AXICoreTDDDevPtr)
                 result(1) = str2double(obj.getAttributeRAW('data0', 'off_ms', false, obj.AXICoreTDDDevPtr));
                 result(2) = str2double(obj.getAttributeRAW('data1', 'off_ms', false, obj.AXICoreTDDDevPtr));
@@ -383,7 +352,7 @@ classdef AXICoreTDD < adi.common.Attribute & adi.common.Rx
         end
         
         function result = get.RxOn(obj)
-            result = [0 0];
+            result = [nan nan];
             if ~isempty(obj.AXICoreTDDDevPtr)
                 result(1) = str2double(obj.getAttributeRAW('data0', 'on_ms', false, obj.AXICoreTDDDevPtr));
                 result(2) = str2double(obj.getAttributeRAW('data1', 'on_ms', false, obj.AXICoreTDDDevPtr));
@@ -399,7 +368,7 @@ classdef AXICoreTDD < adi.common.Attribute & adi.common.Rx
         end
         
         function result = get.RxVCOoff(obj)
-            result = [0 0];
+            result = [nan nan];
             if ~isempty(obj.AXICoreTDDDevPtr)
                 result(1) = str2double(obj.getAttributeRAW('data0', 'vco_off_ms', false, obj.AXICoreTDDDevPtr));
                 result(2) = str2double(obj.getAttributeRAW('data1', 'vco_off_ms', false, obj.AXICoreTDDDevPtr));
@@ -415,7 +384,7 @@ classdef AXICoreTDD < adi.common.Attribute & adi.common.Rx
         end
         
         function result = get.RxVCOon(obj)
-            result = [0 0];
+            result = [nan nan];
             if ~isempty(obj.AXICoreTDDDevPtr)
                 result(1) = str2double(obj.getAttributeRAW('data0', 'vco_on_ms', false, obj.AXICoreTDDDevPtr));
                 result(2) = str2double(obj.getAttributeRAW('data1', 'vco_on_ms', false, obj.AXICoreTDDDevPtr));
