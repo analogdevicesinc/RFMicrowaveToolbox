@@ -46,7 +46,7 @@ node {
         unstash "builtSources"
         uploadArtifactory('RFMicrowaveToolbox','*.mltbx')
     }
-    if (env.BRANCH_NAME == 'master') {
+    if (env.BRANCH_NAME == 'main) {
         stage('Deploy Production') {
             unstash "builtSources"
             uploadFTP('RFMicrowaveToolbox','*.mltbx')
