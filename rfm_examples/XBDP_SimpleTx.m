@@ -70,8 +70,8 @@ txPhaseCalOffsets = zeros(size(sray.TxGain));
 sray.TxAttn(:) = 1; %1: Attenuation Off, 0: Attenuation On
 sray.SteerTx(0,0,txPhaseCalOffsets); %Broadside
 sray.TxGain(:) = 127; %127: Highest Gain, 0: Lowest Gain, Decimal Value
-sray.LatchTxSettings; %Latch settings to devices
 sray(); %Stingray Constructor
+sray.LatchTxSettings; %Latch settings to devices
 
 %Setup ADXUD1AEBZ, %Tx Mode
 sray.TXRX0 = 1; %0: RX, 1: TX

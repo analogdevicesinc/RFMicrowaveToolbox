@@ -49,8 +49,8 @@ sray.Mode(:) = {'Rx'}; %set mode, 'Rx', 'Tx, 'Disabled'
 sray.RxAttn(:) = 1; %1: Attenuation Off, 0: Attenuation On
 sray.SteerRx(0,0,rxPhaseCalOffsets); %Broadside
 sray.RxGain(:) = 127; %127: Highest Gain, 0: Lowest Gain, Decimal Value
-sray.LatchRxSettings; %Latch SPI settings to devices
 sray(); %constructor to write properties to hardware
+sray.LatchRxSettings; %Latch SPI settings to devices
 
 %Setup ADXUD1AEBZ, %Rx High Gain Mode
 sray.TXRX0        = 0; %0: RX, 1: TX

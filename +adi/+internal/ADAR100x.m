@@ -968,10 +968,16 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
     
     methods
         function LatchRxSettings(obj)
+            if ~obj.ConnectedToDevice
+                error('LatchRxSettings() needs to be called after establishing connection to hardware!\n');
+            end
             setAllChipsDeviceAttributeRAW(obj, 'rx_load_spi', (true(size(obj.SubarrayToChipMap))), true);
         end
         
         function LatchTxSettings(obj)
+            if ~obj.ConnectedToDevice
+                error('LatchTxSettings() needs to be called after establishing connection to hardware!\n');
+            end
             setAllChipsDeviceAttributeRAW(obj, 'tx_load_spi', (true(size(obj.SubarrayToChipMap))), true);
         end
     end
