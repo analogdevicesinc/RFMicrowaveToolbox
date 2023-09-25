@@ -1,7 +1,7 @@
 @Library('tfc-lib') _
 
 dockerConfig = getDockerConfig(['MATLAB','Vivado'], matlabHSPro=false)
-dockerConfig.add("-e MLRELEASE=R2021b")
+dockerConfig.add("-e MLRELEASE=R2022a")
 dockerHost = 'docker'
 
 ////////////////////////////
@@ -46,7 +46,7 @@ node {
         unstash "builtSources"
         uploadArtifactory('RFMicrowaveToolbox','*.mltbx')
     }
-    if (env.BRANCH_NAME == 'master') {
+    if (env.BRANCH_NAME == 'main') {
         stage('Deploy Production') {
             unstash "builtSources"
             uploadFTP('RFMicrowaveToolbox','*.mltbx')
