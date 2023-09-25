@@ -30,7 +30,7 @@ classdef XUD1aControl < adi.common.Attribute
         %   Configure ADF4371 output frequency
         %   1: 8-16 GHz
         %   0: 16-32 GHz
-        PllOutputSel
+        PllOutputSel = 1;
     end
 
     properties (Hidden)
@@ -40,31 +40,31 @@ classdef XUD1aControl < adi.common.Attribute
         %   Channel A in Tx Mode - Set TXRX0 to 0, RxGainMode to 0
         %   Channel A in Rx Low Gain Mode - Set TXRX0 to 1, RxGainMode to 0
         %   Channel A in Rx High Gain Mode - Set TXRX0 to 1, RxGainMode to 1
-        TXRX0
+        TXRX0 = 1;
         %TXRX1 TXRX1
         %   Select Channel B for XUD1A Up and Down converter
         %   Usage:
         %   Channel B in Tx Mode - Set TXRX1 to 0, RxGainMode to 0
         %   Channel B in Rx Low Gain Mode - Set TXRX1 to 1, RxGainMode to 0
         %   Channel B in Rx High Gain Mode - Set TXRX1 to 1, RxGainMode to 1
-        TXRX1
+        TXRX1 = 0;
         %TXRX2 TXRX2
         %   Select Channel C for XUD1A Up and Down converter
         %   Usage:
         %   Channel C in Tx Mode - Set TXRX2 to 0, RxGainMode to 0
         %   Channel C in Rx Low Gain Mode - Set TXRX2 to 1, RxGainMode to 0
         %   Channel C in Rx High Gain Mode - Set TXRX2 to 1, RxGainMode to 1
-        TXRX2
+        TXRX2 = 0;
         %TXRX3 TXRX3
         %   Select Channel D for XUD1A Up and Down converter
         %   Usage:
         %   Channel D in Tx Mode - Set TXRX3 to 0, RxGainMode to 0
         %   Channel D in Rx Low Gain Mode - Set TXRX3 to 1, RxGainMode to 0
         %   Channel D in Rx High Gain Mode - Set TXRX3 to 1, RxGainMode to 1
-        TXRX3
+        TXRX3 = 0;
         %RxGainMode Rx Gain Mode
         %   For usage, see usage of TXRX[0-3]
-        RxGainMode
+        RxGainMode = 0;
     end
     
     properties(Hidden)
@@ -74,43 +74,45 @@ classdef XUD1aControl < adi.common.Attribute
         
     methods
         function set.SelectChannelSetMode(obj, value)
-            switch value
-                case "A_Tx"
-                    obj.TXRX0 = 0;
-                    obj.RxGainMode = 0;
-                case "A_RxLG"
-                    obj.TXRX0 = 1;
-                    obj.RxGainMode = 0;
-                case "A_RxHG"
-                    obj.TXRX0 = 1;
-                    obj.RxGainMode = 1;
-                case "B_Tx"
-                    obj.TXRX1 = 0;
-                    obj.RxGainMode = 0;
-                case "B_RxLG"
-                    obj.TXRX1 = 1;
-                    obj.RxGainMode = 0;
-                case "B_RxHG"
-                    obj.TXRX1 = 1;
-                    obj.RxGainMode = 1;
-                case "C_Tx"
-                    obj.TXRX2 = 0;
-                    obj.RxGainMode = 0;
-                case "C_RxLG"
-                    obj.TXRX2 = 1;
-                    obj.RxGainMode = 0;
-                case "C_RxHG"
-                    obj.TXRX2 = 1;
-                    obj.RxGainMode = 1;
-                case "D_Tx"
-                    obj.TXRX3 = 0;
-                    obj.RxGainMode = 0;
-                case "D_RxLG"
-                    obj.TXRX3 = 1;
-                    obj.RxGainMode = 0;
-                case "D_RxHG"
-                    obj.TXRX3 = 1;
-                    obj.RxGainMode = 1;
+            if obj.ConnectedToDevice
+                switch value
+                    case "A_Tx"
+                        obj.TXRX0 = 0;
+                        obj.RxGainMode = 0;
+                    case "A_RxLG"
+                        obj.TXRX0 = 1;
+                        obj.RxGainMode = 0;
+                    case "A_RxHG"
+                        obj.TXRX0 = 1;
+                        obj.RxGainMode = 1;
+                    case "B_Tx"
+                        obj.TXRX1 = 0;
+                        obj.RxGainMode = 0;
+                    case "B_RxLG"
+                        obj.TXRX1 = 1;
+                        obj.RxGainMode = 0;
+                    case "B_RxHG"
+                        obj.TXRX1 = 1;
+                        obj.RxGainMode = 1;
+                    case "C_Tx"
+                        obj.TXRX2 = 0;
+                        obj.RxGainMode = 0;
+                    case "C_RxLG"
+                        obj.TXRX2 = 1;
+                        obj.RxGainMode = 0;
+                    case "C_RxHG"
+                        obj.TXRX2 = 1;
+                        obj.RxGainMode = 1;
+                    case "D_Tx"
+                        obj.TXRX3 = 0;
+                        obj.RxGainMode = 0;
+                    case "D_RxLG"
+                        obj.TXRX3 = 1;
+                        obj.RxGainMode = 0;
+                    case "D_RxHG"
+                        obj.TXRX3 = 1;
+                        obj.RxGainMode = 1;
+                end
             end
         end
 
@@ -122,7 +124,9 @@ classdef XUD1aControl < adi.common.Attribute
         end
         
         function set.RxGainMode(obj, value)
-            obj.setAttributeRAW('voltage0', 'raw', num2str(value), true, obj.XUD1aCtrlDevice);
+            if obj.ConnectedToDevice
+                obj.setAttributeRAW('voltage0', 'raw', num2str(value), true, obj.XUD1aCtrlDevice);
+            end
         end
         
         function result = get.TXRX0(obj)
@@ -133,7 +137,9 @@ classdef XUD1aControl < adi.common.Attribute
         end
         
         function set.TXRX0(obj, value)
-            obj.setAttributeRAW('voltage1', 'raw', num2str(value), true, obj.XUD1aCtrlDevice);
+            if obj.ConnectedToDevice
+                obj.setAttributeRAW('voltage1', 'raw', num2str(value), true, obj.XUD1aCtrlDevice);
+            end
         end
         
         function result = get.TXRX1(obj)
@@ -144,7 +150,9 @@ classdef XUD1aControl < adi.common.Attribute
         end
         
         function set.TXRX1(obj, value)
-            obj.setAttributeRAW('voltage2', 'raw', num2str(value), true, obj.XUD1aCtrlDevice);
+            if obj.ConnectedToDevice
+                obj.setAttributeRAW('voltage2', 'raw', num2str(value), true, obj.XUD1aCtrlDevice);
+            end
         end
         
         function result = get.TXRX2(obj)
@@ -155,7 +163,9 @@ classdef XUD1aControl < adi.common.Attribute
         end
         
         function set.TXRX2(obj, value)
-            obj.setAttributeRAW('voltage3', 'raw', num2str(value), true, obj.XUD1aCtrlDevice);
+            if obj.ConnectedToDevice
+                obj.setAttributeRAW('voltage3', 'raw', num2str(value), true, obj.XUD1aCtrlDevice);
+            end
         end
         
         function result = get.TXRX3(obj)
@@ -166,7 +176,9 @@ classdef XUD1aControl < adi.common.Attribute
         end
         
         function set.TXRX3(obj, value)
-            obj.setAttributeRAW('voltage4', 'raw', num2str(value), true, obj.XUD1aCtrlDevice);
+            if obj.ConnectedToDevice
+                obj.setAttributeRAW('voltage4', 'raw', num2str(value), true, obj.XUD1aCtrlDevice);
+            end
         end
         
         function result = get.PllOutputSel(obj)
@@ -177,16 +189,15 @@ classdef XUD1aControl < adi.common.Attribute
         end
         
         function set.PllOutputSel(obj, value)
-            obj.setAttributeRAW('voltage5', 'raw', num2str(value), true, obj.XUD1aCtrlDevice);
+            if obj.ConnectedToDevice
+                obj.setAttributeRAW('voltage5', 'raw', num2str(value), true, obj.XUD1aCtrlDevice);
+            end
         end
     end
     
     methods (Hidden, Access = protected)
         function setupInit(obj)
             obj.XUD1aCtrlDevice = obj.getDev(obj.XUD1aCtrlDeviceName);
-            if isempty(obj.XUD1aCtrlDevice)
-               error('%s not found',obj.XUD1aCtrlDeviceName);
-            end
 
             % Set defaults
             obj.setAttributeRAW('voltage1', 'raw', num2str(1), true, obj.XUD1aCtrlDevice);

@@ -31,7 +31,9 @@ classdef StingrayControl < adi.common.Attribute
         end
         
         function set.PowerUpDown(obj, value)
-            obj.setAttributeRAW('voltage5', 'raw', num2str(value), true, obj.SRayCtrlDevice);
+            if obj.ConnectedToDevice
+                obj.setAttributeRAW('voltage5', 'raw', num2str(value), true, obj.SRayCtrlDevice);
+            end
         end
         
         function result = get.Ctrl5V(obj)
@@ -42,7 +44,9 @@ classdef StingrayControl < adi.common.Attribute
         end
         
         function set.Ctrl5V(obj, value)
-            obj.setAttributeRAW('voltage4', 'raw', num2str(value), true, obj.SRayCtrlDevice);
+            if obj.ConnectedToDevice
+                obj.setAttributeRAW('voltage4', 'raw', num2str(value), true, obj.SRayCtrlDevice);
+            end
         end
         
         function result = get.PAOn(obj)
@@ -53,16 +57,15 @@ classdef StingrayControl < adi.common.Attribute
         end
         
         function set.PAOn(obj, value)
-            obj.setAttributeRAW('voltage0', 'raw', num2str(value), true, obj.SRayCtrlDevice);
+            if obj.ConnectedToDevice
+                obj.setAttributeRAW('voltage0', 'raw', num2str(value), true, obj.SRayCtrlDevice);
+            end
         end
     end
     
     methods (Hidden, Access = protected)
         function setupInit(obj)
             obj.SRayCtrlDevice = obj.getDev(obj.SRayCtrlDeviceName);
-            if isempty(obj.SRayCtrlDevice)
-               error('%s not found',obj.SRayCtrlDeviceName);
-            end
         end
     end
 end
