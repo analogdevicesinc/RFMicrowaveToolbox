@@ -1,4 +1,4 @@
-classdef XUD1aControl < adi.common.Attribute
+classdef XUD1aControl < adi.common.Attribute & adi.common.Rx
     % ADXUD1AEBZ quad channel Up and Down converter
     %
     % https://wiki.analog.com/resources/eval/user-guides/xud1a/user-guide
