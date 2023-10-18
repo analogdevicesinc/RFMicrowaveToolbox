@@ -68,9 +68,9 @@ sray.uri = uri;
 sray.Mode(:) = {'Tx'}; %set mode, 'Rx', 'Tx, 'Disabled'
 txPhaseCalOffsets = zeros(size(sray.TxGain));
 sray.TxAttn(:) = 1; %1: Attenuation Off, 0: Attenuation On
-sray.SteerTx(0,0,txPhaseCalOffsets); %Broadside
 sray.TxGain(:) = 127; %127: Highest Gain, 0: Lowest Gain, Decimal Value
 sray(); %Stingray Constructor
+sray.SteerTx(0,0,txPhaseCalOffsets); %Broadside
 sray.LatchTxSettings; %Latch settings to devices
 
 %Setup ADXUD1AEBZ, %Tx Mode

@@ -3,7 +3,7 @@ classdef Version
     %   BSP Version information
     properties(Constant)
         MATLAB = 'R2022a';
-        Release = '22.1.1';
+        Release = '22.1.2';
         AppName = 'Analog Devices, Inc. RF Microwave Toolbox';
         ToolboxName = 'RFMicrowaveToolbox';
         ToolboxNameShort = 'rfuw';
