@@ -1,5 +1,5 @@
 % Analog Devices, Inc. RF and Microwave Toolbox
-% Version 22.1.1 (R2022a)
+% Version 22.1.2 (R2022a)
 %
 % ==== Table of Contents (TOC) ====
 %
