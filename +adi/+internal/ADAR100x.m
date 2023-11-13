@@ -46,7 +46,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
     end
     
     properties
-        %Mode Mode        
+        %Mode ADAR1000 Mode        
         %   Mode is a cellarray where each element addresses individual ADAR1000's. 
         %   Each cell must contain a string of value
         %   'Rx', 'Tx', or 'disabled' to set the modes.
@@ -110,7 +110,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         %   External Bias for External LNAs. LNABiasOff is an array 
         %   where each element addresses individual ADAR1000's.
         LNABiasOff = -2
-        %PolState Pol State
+        %PolState ADAR1000 Switch Polarity
         %   Control for External Polarity Switch Drivers.
         %   PolSwitchEnable is an array where each element addresses 
         %   individual ADAR1000's. Each element must be a logical 
@@ -968,16 +968,10 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
     
     methods
         function LatchRxSettings(obj)
-            if ~obj.ConnectedToDevice
-                error('LatchRxSettings() needs to be called after establishing connection to hardware!\n');
-            end
             setAllChipsDeviceAttributeRAW(obj, 'rx_load_spi', (true(size(obj.SubarrayToChipMap))), true);
         end
         
         function LatchTxSettings(obj)
-            if ~obj.ConnectedToDevice
-                error('LatchTxSettings() needs to be called after establishing connection to hardware!\n');
-            end
             setAllChipsDeviceAttributeRAW(obj, 'tx_load_spi', (true(size(obj.SubarrayToChipMap))), true);
         end
     end

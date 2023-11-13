@@ -4,23 +4,23 @@ classdef ADF4159 < adi.common.Attribute & adi.common.Rx
     % IIO Driver: https://wiki.analog.com/resources/tools-software/linux-drivers
 
     properties
-        %Frequency Frequency
+        %Frequency LO Output Frequency
         %   Set output frequency of synthesizer in Hz. When the synthesizer
         %   is ramping this is the start frequency
         Frequency = 1e9;
-        %FrequencyDeviationRange Frequency Deviation Range
+        %FrequencyDeviationRange LO Chirp Frequency BW
         %   Set upper bound on frequency ramp from Frequency property in Hz.
         %   This is only applicable when RampMode is not set to "disabled"
         FrequencyDeviationRange = 1e6;
-        %FrequencyDeviationStep Frequency Deviation Step
+        %FrequencyDeviationStep LO Chirp Frequency Steps
         %   Set step size in Hz of synthesizer ramp. This is only
         %   applicable when RampMode is not set to "disabled".
         FrequencyDeviationStep = 500e6 / 4 / 1000;
-        %FrequencyDeviationTime Frequency Deviation Time
+        %FrequencyDeviationTime LO Chirp Time
         %   Set time in uSeconds to reach ramp peak value. This is only
         %   applicable when RampMode is not set to "disabled"
         FrequencyDeviationTime = 0;
-        %RampMode Ramp Mode
+        %RampMode LO Chirp Ramp Mode
         %   Set ramp waveform. Options are:
         %   - "disabled"
         %   - "continuous_sawtooth"
@@ -31,18 +31,18 @@ classdef ADF4159 < adi.common.Attribute & adi.common.Rx
     end
 
     properties(Logical)
-        %Powerdown
+        %Powerdown ADF4159 PLL Powerdown
         %   When true output will be disabled. Writing to this value will
         %   also update all settings of device
         Powerdown = false;
     end
 
     properties% Advanced
-        %DelayStartWord Delay Start Word
+        %DelayStartWord LO Ramp Delay Start
         %   Set start delay of each ramp in PFD or PFD*CLK1 clock cycles.
         %   This is a 12-bit number
         DelayStartWord = 0;
-        %DelayClockSource Delay Clock Source
+        %DelayClockSource LO Ramp Delay Clock Selection
         %   Set clock use to determine ramp delay. Options are:
         %   - "PFD"
         %   - "PFD*CLK1"
@@ -50,19 +50,19 @@ classdef ADF4159 < adi.common.Attribute & adi.common.Rx
     end
 
     properties(Logical)%Advanced
-        %DelayStartEnable Ramp Delay Enable
+        %DelayStartEnable LO Ramp Start Delay Enable
         %   Enable delaying of ramp signal at start of first ramp generation
         DelayStartEnable = false;
-        %RampDelayEnable Ramp Delay Enable
+        %RampDelayEnable LO Ramp Delay Enable
         %   Enable delaying of ramp signal at start of each ramp generation
         RampDelayEnable = false;
-        %TriggerDelayEnable Trigger Delay Enable
+        %TriggerDelayEnable LO Ramp Trigger Delay Enable
         %   Enable ramp start delay when controlled by external trigger
         TriggerDelayEnable = false;
-        %TriggerEnable Trigger Enable
+        %TriggerEnable LO Ramp Trigger Enable
         %   Allow for use of external trigger on TX Data pin to start ramp
         TriggerEnable = false;
-        %SingleFullTriangleEnable Single Full Triangle Enable
+        %SingleFullTriangleEnable LO Ramp Full Triangle Enable
         %   Enable sending of single full triangular wave. This is
         %   applicable when RampMode is in "single_ramp_burst"
         SingleFullTriangleEnable = false;
@@ -91,8 +91,14 @@ classdef ADF4159 < adi.common.Attribute & adi.common.Rx
             obj.FrequencyDeviationStep = rvalue;
         end
         function set.FrequencyDeviationTime(obj,value)
-            setAttributeLongLong(obj, 'altvoltage0', 'frequency_deviation_time', int64(value), true, 40, obj.iioDeviceADF4159);
+            setAttributeLongLong(obj, 'altvoltage0', 'frequency_deviation_time', int64(value), true, 40, obj.iioDeviceADF4159, false);
             rvalue = obj.getAttributeLongLong('altvoltage0', 'frequency_deviation_time',true, obj.iioDeviceADF4159);
+            if rvalue ~= value
+                disp(['[', 8, 'Warning: Requested FrequencyDeviationTime is not possible for the given value of FrequencyDeviationStep.]', 8])
+                fprintf('    You requested %d us, but %d us is the closest available FrequencyDeviationTime.\n', value, rvalue)
+                fprintf('    FrequencyDeviationTime has been changed to %d us.\n', rvalue)
+                fprintf('    For a value closer to the %d us, try choosing a different FrequencyDeviationStep.\n', value)
+            end
             obj.FrequencyDeviationTime = rvalue;
         end
         function set.RampMode(obj,value)
