@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <toc>
    <tocitem target="index.html">Analog Devices, Inc RF and Microwave Toolbox
-	<tocitem target="install/index.html">Install</tocitem>
 	<tocitem target="streaming/index.html">Streaming</tocitem>
 	<tocitem target="examples/index.html">Examples</tocitem>
 	<tocitem target="support/index.html">Support</tocitem>
+	<tocitem target="install/index.html">Install</tocitem>
       <tocitem target="objects/index.html">Hardware Interface APIs
           <tocitem target="sysobjects/adi.Stingray/index.html">adi.Stingray</tocitem>
           <tocitem target="sysobjects/adi.Phaser/index.html">adi.Phaser</tocitem>
