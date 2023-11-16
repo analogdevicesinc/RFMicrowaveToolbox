@@ -9,4 +9,6 @@
 %
 % Boards and Platforms
 % -----------------------
-%   <a href="matlab:help adi.Stingray          ">ADAR1000</a>       - X-Band Phased Array Development Platform
+%   <a href="matlab:help adi.Phaser            ">Phaser</a>         - Receive only X-Band Phased Array Development Kit
+%   <a href="matlab:help adi.PhaserTDD         ">PhaserTDD</a>      - TDD controller for Phaser development kit
+%   <a href="matlab:help adi.Stingray          ">Stingray</a>       - X-Band Phased Array Development Platform
