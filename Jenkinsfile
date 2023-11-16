@@ -41,7 +41,7 @@ stage("Hardware Streaming Tests") {
 
 //////////////////////////////////////////////////////
 
-node {
+node('baremetal || lab_b5') {
     stage('Deploy Development') {
         unstash "builtSources"
         uploadArtifactory('RFMicrowaveToolbox','*.mltbx')
