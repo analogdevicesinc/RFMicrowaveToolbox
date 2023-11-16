@@ -93,6 +93,10 @@ classdef ADF4159 < adi.common.Attribute & adi.common.Rx
         function set.FrequencyDeviationTime(obj,value)
             setAttributeLongLong(obj, 'altvoltage0', 'frequency_deviation_time', int64(value), true, 40, obj.iioDeviceADF4159);
             rvalue = obj.getAttributeLongLong('altvoltage0', 'frequency_deviation_time',true, obj.iioDeviceADF4159);
+            if value ~= rvalue
+                warning(['Requested FrequencyDeviationTime is not supported by hardware', ...
+                    ' and has been set to %d'], rvalue);
+            end
             obj.FrequencyDeviationTime = rvalue;
         end
         function set.RampMode(obj,value)
