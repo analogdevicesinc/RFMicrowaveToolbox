@@ -1,5 +1,5 @@
-classdef AXICorePhaserTDD < adi.common.Attribute & adi.common.Rx
-    % AXICorePhaserTDD
+classdef AXICorePlutoTDD < adi.common.Attribute & adi.common.Rx
+    % AXICorePlutoTDD
     %   TDD Controller for PlutoSDR and Phaser (CN0566) kit
     %
     % Reference https://wiki.analog.com/resources/fpga/docs/axi_tdd

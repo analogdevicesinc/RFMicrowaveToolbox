@@ -1,19 +1,19 @@
-classdef PhaserTDD < adi.internal.AXICorePhaserTDD
-    % adi.PhaserTDD Analog Devices Inc. ADALM-PHASER development platform
+classdef PlutoTDD < adi.internal.AXICorePlutoTDD
+    % adi.PlutoTDD Analog Devices Inc. ADALM-PHASER development platform
     % TDD Engine Controller
-    %   The adi.PhaserTDD system object is an API to control the
+    %   The adi.PlutoTDD system object is an API to control the
     %   ADALM-PHASER X/Ku Band Beamforming Developer Platform TDD Engine
     %
-    %   rx = adi.PhaserTDD;
-    %   rx = adi.PhaserTDD('uri','ip:192.168.2.1');
+    %   rx = adi.PlutoTDD;
+    %   rx = adi.PlutoTDD('uri','ip:192.168.2.1');
     %
     %   <a href="https://wiki.analog.com/resources/eval/developer-kits/x-band-dev-kit">Stingray X/Ku Band Beamforming Developer Platform Wiki</a>
 
     properties(Nontunable, Hidden)
         kernelBuffersCount = 0;
         dataTypeStr = 'int16';
-        iioDriverName = 'adar1000';
-        devName = 'adar1000';
+        iioDriverName = 'TDDPluto';
+        devName = 'TDDPluto';
         SamplesPerFrame = 0;
         SkipInit = false;
     end
@@ -32,9 +32,9 @@ classdef PhaserTDD < adi.internal.AXICorePhaserTDD
 
     methods
         %% Constructor
-        function obj = PhaserTDD(varargin)
+        function obj = PlutoTDD(varargin)
             coder.allowpcode('plain');
-            obj = obj@adi.internal.AXICorePhaserTDD(varargin{:});
+            obj = obj@adi.internal.AXICorePlutoTDD(varargin{:});
         end
         % Destructor
         function delete(obj)
