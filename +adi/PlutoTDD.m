@@ -55,7 +55,7 @@ classdef PlutoTDD < adi.internal.AXICorePlutoTDD
 
         function setupInit(obj)
             % AXI-Core-TDD
-            setupInit@adi.internal.AXICoreTDD(obj);
+            setupInit@adi.internal.AXICorePlutoTDD(obj);
         end
 
         function v = stepImpl(~)
