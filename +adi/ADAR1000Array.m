@@ -1,14 +1,9 @@
 classdef ADAR1000Array < adi.internal.ADAR100x
     %ADAR1000Array Beamformer
-    properties (Nontunable)
-    end
-    
-    properties(Dependent)
-        ArrayMap
-    end
-    
     properties(Nontunable, Hidden)
-        ArrayMapInternal = [1,2,3,4;5,6,7,8];
+        ElementToChipChannelMap = [3,4,1,2, 3,4,1,2]; % channel attributes
+        ElementToChipMap = [2,2,2,2, 1,1,1,1]; % channel attributes
+        SubarrayToChipMap = [2, 1]; % device attributes
     end
     
     properties(Hidden)
@@ -23,13 +18,6 @@ classdef ADAR1000Array < adi.internal.ADAR100x
         end
         % Destructor
         function delete(obj)
-        end
-        % Sets
-        function set.ArrayMap(obj,value)
-            obj.ArrayMapInternal = value;
-        end
-        function value = get.ArrayMap(obj)
-            value = obj.ArrayMapInternal;
         end
     end
 end
