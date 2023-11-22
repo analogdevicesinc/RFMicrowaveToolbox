@@ -11,6 +11,8 @@ path = os.path.split(path)
 path = os.path.split(path[0])[0]
 
 files = glob.glob(os.path.join(path, "+adi", "**/*"))
+files += glob.glob(os.path.join(path, "+adi", "*"))
+files = list(set(files))
 if len(files) == 0:
     print("No files found")
     print("Did you clone all the submodules?")
