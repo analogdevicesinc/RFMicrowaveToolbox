@@ -1,5 +1,7 @@
 @Library('tfc-lib') _
 
+flags = gitParseFlags()
+
 dockerConfig = getDockerConfig(['MATLAB','Vivado'], matlabHSPro=false)
 dockerConfig.add("-e MLRELEASE=R2022a")
 dockerHost = 'docker'
@@ -12,10 +14,11 @@ stage("Build Toolbox") {
     dockerParallelBuild(packages, dockerHost, dockerConfig) { 
         branchName ->
         withEnv(['PACKAGE='+branchName]) {
+            sh 'rm -rf doc || true'
             checkout scm
             sh 'git submodule update --init'
-	    sh 'pip3 install -r ./CI/gen_doc/requirements_doc.txt'
-	    sh 'make -C ./CI/gen_doc doc_ml'
+            sh 'pip3 install -r ./CI/gen_doc/requirements_doc.txt'
+            sh 'make -C ./CI/gen_doc doc_ml'
             sh 'python3 CI/scripts/rename_common.py'
             sh 'make -C ./CI/scripts gen_tlbx'
             archiveArtifacts artifacts: '*.mltbx'
