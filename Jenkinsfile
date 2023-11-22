@@ -26,15 +26,16 @@ stage("Build Toolbox") {
 
 /////////////////////////////////////////////////////
 
-classNames = ['ADAR3002']
+boardNames = ['NonHW']
 
-stage("Hardware Streaming Tests") {
-    dockerParallelBuild(classNames, dockerHost, dockerConfig) { 
+cstage("NonHW Tests", "", flags) {
+    dockerParallelBuild(boardNames, dockerHost, dockerConfig) { 
         branchName ->
-        withEnv(['HW='+branchName]) {
-            unstash "builtSources"
-            sh 'echo ${HW}'
-            // sh 'make -C ./CI/scripts test_streaming'
+        withEnv(['BOARD='+branchName]) {
+            cstage("NonHW", branchName, flags) {
+                unstash "builtSources"
+                sh 'make -C ./CI/scripts run_NonHWTests'
+            }
         }
     }
 }
