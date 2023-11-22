@@ -1,6 +1,8 @@
 classdef ADAR1000 < adi.internal.ADAR100x
     properties(Nontunable, Hidden)
-        ArrayMapInternal = [1,2,3,4];
+        ElementToChipChannelMap = [1,2,3,4]; % channel attributes
+        ElementToChipMap = [1,1,1,1]; % channel attributes
+        SubarrayToChipMap = 1; % device attributes
     end
     
     properties(Hidden)
