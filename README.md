@@ -3,6 +3,7 @@
 Toolbox created by ADI to be used with MATLAB and Simulink with ADI RF and Microwave products.
 
 License : [![License](https://img.shields.io/badge/license-LGPL2-blue.svg)](https://github.com/analogdevicesinc/RFMicrowaveToolbox/blob/master/LICENSE)
+Phaser Examples License : [![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://github.com/analogdevicesinc/RFMicrowaveToolbox/blob/master/rfm_examples/phaser_generic/LICENSE_phaser_generic.md)
 Latest Release : [![GitHub release](https://img.shields.io/github/release/analogdevicesinc/RFMicrowaveToolbox.svg)](https://github.com/analogdevicesinc/RFMicrowaveToolbox/releases/latest)
 Downloads :  [![Github All Releases](https://img.shields.io/github/downloads/analogdevicesinc/RFMicrowaveToolbox/total.svg)](https://github.com/analogdevicesinc/RFMicrowaveToolbox/releases/latest)
 
