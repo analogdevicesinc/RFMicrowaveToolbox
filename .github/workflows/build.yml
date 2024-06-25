@@ -38,7 +38,7 @@ jobs:
       - name: Save generated .mltbx file
         uses: actions/upload-artifact@v3
         with:
-          name: TransceiverToolboxInstaller
+          name: RFuWToolboxInstaller
           path: toolbox
 
       - name: Post development build to GH releases page
