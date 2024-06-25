@@ -17,12 +17,12 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'Transceiver Toolbox'
+project = 'RF and Microwave Toolbox'
 copyright = '2022, Travis F. Collins'
 author = 'Travis F. Collins'
 
 # The full version, including alpha/beta/rc tags
-release = '22.1.1'
+release = '23.2.1'
 
 
 # -- General configuration ---------------------------------------------------

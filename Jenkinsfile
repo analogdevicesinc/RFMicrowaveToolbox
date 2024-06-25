@@ -3,7 +3,7 @@
 flags = gitParseFlags()
 
 dockerConfig = getDockerConfig(['MATLAB','Vivado'], matlabHSPro=false)
-dockerConfig.add("-e MLRELEASE=R2022a")
+dockerConfig.add("-e MLRELEASE=R2023b")
 dockerHost = 'docker'
 
 ////////////////////////////

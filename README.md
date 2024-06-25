@@ -2,7 +2,7 @@
 
 Toolbox created by ADI to be used with MATLAB and Simulink with ADI RF and Microwave products.
 
-License : [![License](https://img.shields.io/badge/license-LGPL2-blue.svg)](https://github.com/analogdevicesinc/RFMicrowaveToolbox/blob/master/LICENSE)
+License : [![License](https://img.shields.io/badge/license-ADI_BSD-blue.svg)](https://github.com/analogdevicesinc/RFMicrowaveToolbox/blob/master/LICENSE)
 Phaser Examples License : [![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://github.com/analogdevicesinc/RFMicrowaveToolbox/blob/master/rfm_examples/phaser_generic/LICENSE_phaser_generic.md)
 Latest Release : [![GitHub release](https://img.shields.io/github/release/analogdevicesinc/RFMicrowaveToolbox.svg)](https://github.com/analogdevicesinc/RFMicrowaveToolbox/releases/latest)
 Downloads :  [![Github All Releases](https://img.shields.io/github/downloads/analogdevicesinc/RFMicrowaveToolbox/total.svg)](https://github.com/analogdevicesinc/RFMicrowaveToolbox/releases/latest)
@@ -13,7 +13,7 @@ As with many open source packages, we use [GitHub](https://github.com/analogdevi
 
 | MATLAB Release |  Installer Package  |
 |:--------------:|:-------------------:|
-| R2022a         | <a href="http://swdownloads.analog.com/cse/toolboxes/trx/master/AnalogDevicesRFMicrowaveToolbox_v22.1.3.mltbx"><img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" data-canonical-src="https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" height="40" /></a>|
+| R2023b         | <a href="https://github.com/analogdevicesinc/RFMicrowaveToolbox/releases/download/v23.2.1/AnalogDevicesRFMicrowaveToolboxToolbox_v23.2.1.mltbx"><img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" data-canonical-src="https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" height="40" /></a>|
 
 If you use it, and like it - please let us know. If you use it, and hate it - please let us know that too.
 
@@ -21,11 +21,11 @@ If you use it, and like it - please let us know. If you use it, and hate it - pl
 
 We provide support across two releases of MATLAB. This does not mean older releases will not work but they are not maintained. Currently supported tools are:
 - Bug fixes and new features: MATLAB R2022a with 2021_R2 Kuiper 
-- Bug fixes: MATLAB R2021b with 2021_R1 Kuiper
+- Bug fixes: MATLAB R2023b with 2022_R2 Kuiper
 
 ## Support and Documentation
 
-All support questions should be posted in our [EngineerZone](https://ez.analog.com/sw-interface-tools) forums. Documentation is included within the toolbox but additional documentation is avaible on the [ADI Wiki](https://wiki.analog.com/resources/tools-software/rf-microwave-toolbox).
+All support questions should be posted in our [EngineerZone](https://ez.analog.com/sw-interface-tools) forums. Documentation is included within the toolbox but additional documentation is available on the [ADI Wiki](https://wiki.analog.com/resources/tools-software/rf-microwave-toolbox).
 
 ## Building & Installing
 
