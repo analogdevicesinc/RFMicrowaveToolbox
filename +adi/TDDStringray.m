@@ -1,0 +1,57 @@
+classdef (ConstructOnLoad) TDDStringray < adi.internal.AXICoreTDD
+
+    properties(Hidden)
+        % axi_tdd_0/tdd_channel_0 -> axi_data_offload_tx/sync_ext 
+        % axi_tdd_0/tdd_channel_1 -> axi_data_offload_rx/sync_ext 
+        % axi_tdd_0/tdd_channel_2  -> tdd_enabled 
+        % axi_tdd_0/tdd_channel_3  -> tdd_rx_mxfe_en 
+        % axi_tdd_0/tdd_channel_4  -> tdd_tx_mxfe_en 
+        % axi_tdd_0/tdd_channel_5  -> tdd_tx_stingray_en 
+        channels = [...
+            struct('name','FPGATxOffloadSync','channel',0,'hdl_name','axi_data_offload_tx/sync_ext'),...
+            ...
+            struct('name','FPGARxOffloadSync','channel',1,'hdl_name','axi_data_offload_rx/sync_ext'),...
+            ...
+            struct('name','FPGATDDEngine','channel',2,'hdl_name','tdd_enabled'),...
+            ...
+            struct('name','RxMxFE','channel',3,'hdl_name','tdd_rx_mxfe_en'),...
+            ...
+            struct('name','TxMxFE','channel',4,'hdl_name','tdd_tx_mxfe_en'),...
+            ...
+            struct('name','TxStingray','channel',5,'hdl_name','tdd_tx_stingray_en')...
+        ];
+
+    end
+
+    properties(Nontunable, Hidden)
+        % Not use but needed by inheritance model
+        kernelBuffersCount = 0;
+        dataTypeStr = 'int16';
+        iioDriverName = 'TDDPluto';
+        devName = 'TDDPluto';
+        SamplesPerFrame = 0;
+        SkipInit = false;
+    end
+
+    properties (Hidden, Constant, Logical)
+        ComplexData = false;
+    end
+    
+    properties(Nontunable, Hidden, Constant)
+        Type = 'Rx';
+    end
+    
+    properties (Hidden, Nontunable, Access = protected)
+        isOutput = false;
+    end
+
+    methods
+        function obj = TDDStringray(varargin)
+            setProperties(obj, nargin, varargin{:});
+            obj.buildChannels();
+        end
+
+    end
+
+
+end
