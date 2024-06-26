@@ -2,7 +2,7 @@ classdef Stingray < adi.internal.ADAR100x & ...
         adi.internal.StingrayControl & ...
         adi.internal.XUD1aControl & ...
         adi.internal.ADF4371 & ...
-        adi.internal.AXICoreTDD & ...
+        adi.StingrayTDD & ...
         adi.internal.LTC2314
     % adi.Stingray Analog Devices Inc. Stingray beamformer development platform
     %   The adi.Stingray system object is an API to control the
@@ -46,6 +46,16 @@ classdef Stingray < adi.internal.ADAR100x & ...
     end
 
     methods (Hidden, Access = protected)
+        
+        function [data,valid] = stepImpl(~)
+            data = 0;
+            valid = false;
+        end
+
+        function setupImpl(obj)
+            setupImpl@adi.internal.ADAR100x(obj);
+        end
+
         function setupInit(obj)
             setupInit@adi.internal.ADAR100x(obj);
             % Stingray Control
@@ -55,7 +65,7 @@ classdef Stingray < adi.internal.ADAR100x & ...
             % PLL
             setupInit@adi.internal.ADF4371(obj);
             % AXI-Core-TDD
-            setupInit@adi.internal.AXICoreTDD(obj);
+            setupInit@adi.StingrayTDD(obj);
             % LTC2314
             setupInit@adi.internal.LTC2314(obj);            
         end

@@ -1,6 +1,4 @@
-classdef (Abstract) ADAR100x < adi.common.Attribute & ...
-        adi.common.DebugAttribute & adi.common.Rx & ...
-        matlabshared.libiio.base
+classdef (Abstract) ADAR100x < adi.internal.ControlBase
     properties (Constant, Hidden)
         BIAS_CODE_TO_VOLTAGE_SCALE = -0.018824
     end
@@ -12,12 +10,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
     end
     
     properties(Nontunable, Hidden)
-        kernelBuffersCount = 0;
-        dataTypeStr = 'int16';
         iioDriverName = 'adar1000';
-        devName = 'adar1000';
-        SamplesPerFrame = 0;
-        SkipInit = false;
     end
     
     properties (Hidden)
@@ -30,19 +23,6 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         %   read back to verify the write was successful. This can improve
         %   performance but may result in unexpected behavior.
         EnableReadCheckOnWrite = true;
-    end
-
-
-    properties (Hidden, Constant, Logical)
-        ComplexData = false;
-    end
-    
-    properties(Nontunable, Hidden, Constant)
-        Type = 'Rx';
-    end
-    
-    properties (Hidden, Nontunable, Access = protected)
-        isOutput = false;
     end
     
     properties
@@ -347,7 +327,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
         % Constructor
         function obj = ADAR100x(varargin)
             coder.allowpcode('plain');
-            obj = obj@matlabshared.libiio.base(varargin{:});
+            obj = obj@adi.internal.ControlBase(varargin{:});
             obj.updateDefaultProps();
         end
         
@@ -1171,7 +1151,7 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
     end
     
     methods (Hidden, Access = protected)
-        function setupInit(obj)
+        function setupDevices(obj)
             numDevs = obj.iio_context_get_devices_count(obj.iioCtx);
             obj.iioDevices = cell(1,length(obj.deviceNames));
             for dn = 1:length(obj.deviceNames)
@@ -1186,10 +1166,11 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
                    error('%s not found',obj.deviceNames{dn});
                 end
             end
+        end
 
-            if obj.SkipInit
-                return;
-            end
+        function setupInit(obj)
+
+            obj.setupDevices();
 
             % Write device attributes
             setAllChipsDeviceAttributeRAW(obj, 'lna_bias_out_enable', obj.LNABiasOutEnable, true);
@@ -1285,7 +1266,11 @@ classdef (Abstract) ADAR100x < adi.common.Attribute & ...
             setContextTimeout(obj);
             obj.needsTeardown = true;
             obj.ConnectedToDevice = true;
-            setupInit(obj);
+            if ~obj.SkipInit
+                setupInit(obj);
+            else
+                obj.setupDevices();
+            end
         end
         
         function [data,valid] = stepImpl(~)

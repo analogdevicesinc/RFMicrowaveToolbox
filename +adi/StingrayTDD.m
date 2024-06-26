@@ -1,4 +1,4 @@
-classdef (ConstructOnLoad) TDDStringray < adi.internal.AXICoreTDD
+classdef (ConstructOnLoad) StingrayTDD < adi.internal.AXICoreTDD
 
     properties(Hidden)
         % axi_tdd_0/tdd_channel_0 -> axi_data_offload_tx/sync_ext 
@@ -23,30 +23,18 @@ classdef (ConstructOnLoad) TDDStringray < adi.internal.AXICoreTDD
 
     end
 
-    properties(Nontunable, Hidden)
-        % Not use but needed by inheritance model
-        kernelBuffersCount = 0;
-        dataTypeStr = 'int16';
-        iioDriverName = 'TDDPluto';
-        devName = 'TDDPluto';
-        SamplesPerFrame = 0;
-        SkipInit = false;
-    end
-
-    properties (Hidden, Constant, Logical)
-        ComplexData = false;
-    end
+%     properties(Nontunable, Hidden)
+%         Not use but needed by inheritance model
+%         kernelBuffersCount = 0;
+%         dataTypeStr = 'int16';
+%         iioDriverName = 'axi-core-tdd';
+%         devName = 'axi-core-tdd';
+%         SamplesPerFrame = 0;
+%         SkipInit = false;
+%     end
     
-    properties(Nontunable, Hidden, Constant)
-        Type = 'Rx';
-    end
-    
-    properties (Hidden, Nontunable, Access = protected)
-        isOutput = false;
-    end
-
     methods
-        function obj = TDDStringray(varargin)
+        function obj = StingrayTDD(varargin)
             setProperties(obj, nargin, varargin{:});
             obj.buildChannels();
         end
