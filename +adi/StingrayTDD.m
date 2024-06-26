@@ -1,12 +1,13 @@
 classdef (ConstructOnLoad) StingrayTDD < adi.internal.AXICoreTDD
 
     properties(Hidden)
-        % axi_tdd_0/tdd_channel_0 -> axi_data_offload_tx/sync_ext 
-        % axi_tdd_0/tdd_channel_1 -> axi_data_offload_rx/sync_ext 
-        % axi_tdd_0/tdd_channel_2  -> tdd_enabled 
-        % axi_tdd_0/tdd_channel_3  -> tdd_rx_mxfe_en 
-        % axi_tdd_0/tdd_channel_4  -> tdd_tx_mxfe_en 
-        % axi_tdd_0/tdd_channel_5  -> tdd_tx_stingray_en 
+        % HDL Channel mapping
+        %   axi_tdd_0/tdd_channel_0 -> axi_data_offload_tx/sync_ext 
+        %   axi_tdd_0/tdd_channel_1 -> axi_data_offload_rx/sync_ext 
+        %   axi_tdd_0/tdd_channel_2  -> tdd_enabled 
+        %   axi_tdd_0/tdd_channel_3  -> tdd_rx_mxfe_en 
+        %   axi_tdd_0/tdd_channel_4  -> tdd_tx_mxfe_en 
+        %   axi_tdd_0/tdd_channel_5  -> tdd_tx_stingray_en 
         channels = [...
             struct('name','FPGATxOffloadSync','channel',0,'hdl_name','axi_data_offload_tx/sync_ext'),...
             ...
@@ -22,16 +23,6 @@ classdef (ConstructOnLoad) StingrayTDD < adi.internal.AXICoreTDD
         ];
 
     end
-
-%     properties(Nontunable, Hidden)
-%         Not use but needed by inheritance model
-%         kernelBuffersCount = 0;
-%         dataTypeStr = 'int16';
-%         iioDriverName = 'axi-core-tdd';
-%         devName = 'axi-core-tdd';
-%         SamplesPerFrame = 0;
-%         SkipInit = false;
-%     end
     
     methods
         function obj = StingrayTDD(varargin)
