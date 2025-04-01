@@ -6,11 +6,12 @@
 % This script requires the use of the Analog Devices, Inc. RF
 % Microwave Toolbox.
 %
-% Author: Sam Ringwood
-% Date: 2/2023
+% Date: October 2024
 
 % Gain Access to the Analog Devices, Inc. RF Microwave Toolbox at:
 % https://github.com/analogdevicesinc/RFMicrowaveToolbox
+
+clear all, close all, clc
 
 %% Array Mapping
 %verify element maps correctly to hardware!
@@ -24,24 +25,102 @@ adc_map = [4 2 1 3]; %ADC map to subarray
 adc_ref = 4; %ADC reference channel
 
 %% Config Dev Platform
-uri = 'ip:192.168.1.211';
+uri = 'ip:192.168.0.101';
 
 fs_RxIQ = 250e6; %I/Q Data Rate in MSPS
 
-%Setup AD9081 RX
+%% Setup TDD Engine
+
+tdd = adi.StingrayTDD;
+tdd.uri = uri;
+% Startup and connect
+tdd.SkipInit = true;
+tdd();
+tdd.Enable = false;
+tdd.StartupDelayMilliseconds = 0;
+
+% Configure top level engine
+samplesPerFrame = 2^12;
+frameLengthMS = samplesPerFrame/fs_RxIQ*1000;
+tdd.FrameLengthMilliseconds = frameLengthMS;
+
+% Configure component channels
+onTime = 0; offTime = frameLengthMS - 0.1;
+
+% %TDD Channel 0, TX Offload Sync
+tdd.FPGATxOffloadSyncOnStartRaw = 0;
+tdd.FPGATxOffloadSyncOffStartRaw= 0;
+tdd.FPGATxOffloadSyncOnStartMilliseconds = 0;
+tdd.FPGATxOffloadSyncOffStartMilliseconds = 0;
+tdd.FPGATxOffloadSyncPolarity = true;
+tdd.FPGATxOffloadSyncEnable = true;
+
+% %TDD Channel 1, Rx Offload Sync
+tdd.FPGARxOffloadSyncOnStartRaw = 0;
+tdd.FPGARxOffloadSyncOffStartRaw= 0;
+tdd.FPGARxOffloadSyncOnStartMilliseconds = 0;
+tdd.FPGARxOffloadSyncOffStartMilliseconds = 0;
+tdd.FPGARxOffloadSyncPolarity = true;
+tdd.FPGARxOffloadSyncEnable = true;
+
+% %TDD Channel 2, TDD Enable
+tdd.FPGATDDEngineOffStartRaw = 0;
+tdd.FPGATDDEngineOnStartRaw = 0;
+tdd.FPGATDDEngineOnStartMilliseconds = 0;
+tdd.FPGATDDEngineOffStartMilliseconds = 0;
+tdd.FPGATDDEnginePolarity = false; 
+tdd.FPGATDDEngineEnable = true;
+
+% %TDD Channel 3, 
+tdd.RxMxFEOffStartRaw = 10; 
+tdd.RxMxFEOnStartRaw = 0;
+% tdd.RxMxFEOnStartMilliseconds = 0;
+% tdd.RxMxFEOffStartMilliseconds = 0;
+tdd.RxMxFEPolarity = true;
+% tdd.RxMxFEPolarity = false;
+tdd.RxMxFEEnable = true;
+
+% %TDD Channel 4
+tdd.TxMxFEOffStartRaw = 0;
+tdd.TxMxFEOnStartRaw = 0;
+tdd.TxMxFEOnStartMilliseconds = 0;
+tdd.TxMxFEOffStartMilliseconds = 0;
+tdd.TxMxFEPolarity = true;
+tdd.TxMxFEEnable = true;
+
+% TDD Channel 5, RF Control
+tdd.TxStingrayOffStartRaw = 0;
+tdd.TxStingrayOnStartRaw = 0;
+tdd.TxStingrayOnStartMilliseconds = 0;
+tdd.TxStingrayOffStartMilliseconds = 0;
+tdd.TxStingrayPolarity = false;
+tdd.TxStingrayEnable = true;
+
+tdd.Enable = true; % fire up the TDD engine
+
+%% Setup AD9081 RX
 rx = adi.AD9081.Rx;
 rx.uri = uri;
 rx.EnabledChannels = [1 2 3 4];
-rx.MainNCOFrequencies = ones(1,4)*550e6; %NCO Frequency
+rx.MainNCOFrequencies = ones(1,4)*430e6; %NCO Frequency
 rx.SamplesPerFrame = 2^12; %Number Of Samples To Capture: 4096
 rx.kernelBuffersCount = 1; %Number Of Buffers To Subsequently Capture
 rx.EnablePFIRs = true; %MxFE pFIR Configuration; false: Don't Use pFIRs, true: Use pFIRs
 rx.PFIRFilenames = 'disabled.cfg';  %MxFE0 pFIR File
-data = rx(); %Initialize The Rx System; Grab The Rx Data Into 'data' Matrix
+
 rx.setRegister(hex2dec('FF'),'19'); %Fine DDC Page
 rx.setRegister(hex2dec('61'),'283'); %Fine DDC Control, bypass fine NCO
 
-% Setup ADAR1000EVAL1Z in RX Mode
+rx(); %Initialize The Rx System; Grab The Rx Data Into 'data' Matrix
+rx.SkipInit = true; % Skip prop retuning
+
+tdd.Enable = true;
+tdd.EnableSyncSoft = true;
+
+% Pull filled buffer
+data = rx();
+
+%% Setup ADAR1000EVAL1Z in RX Mode
 sray = adi.Stingray;
 sray.uri = uri;
 rxPhaseCalOffsets = zeros(size(sray.RxGain));
@@ -63,11 +142,26 @@ sray.PllOutputSel = 1; %1: ADF4371 RF1 (8 GHz to 16 GHz), 0: ADF4371 RF2 (16 GHz
 
 sray.RxPowerDown(:) = false; %Enable RX Channels
 
-data = rx(); %capture data from ADCs, 4096x4 matrix
+for k = 1:2
+    %first data buffer clears/discard, second data buffer is used
+    data = rx(); %capture data from ADCs, 4096x4 matrix\
+end
+
+combinedComplexData = sum(data,2); %complex addition for all 4 ADCs
 
 sray.RxPowerDown(:) = true; %Disable Rx channels
 
-combinedComplexData = sum(data,2); %complex addition for all 4 ADCs
+%% Disable TDD
+tdd.EnableSyncSoft = false;
+tdd.Enable = false;
+tdd.FPGATDDEnginePolarity = false;
+tdd.Enable = true;
+tdd.Enable = false;
+
+%% release
+release(rx);
+release(sray);
+release(tdd);
 
 %% Data Plots
 
